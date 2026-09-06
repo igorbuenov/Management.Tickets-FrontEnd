@@ -4,6 +4,9 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout';
 import { DashboardComponent } from './features/dashboard/pages/dashboard/dashboard';
 import { UserCreateComponent } from './features/users/pages/user-create/user-create';
 import { UserListComponent } from './features/users/pages/user-list/user-list';
+
+import { authGuard } from './core/guards/auth-guard';
+
 export const routes: Routes = [
 
   // ==========================================================
@@ -29,22 +32,22 @@ export const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
-
+    canActivate: [authGuard],
     children: [
 
       {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
       },
 
       {
         path: 'users',
-        component: UserListComponent
+        component: UserListComponent,
       },
 
       {
         path: 'users/create',
-        component: UserCreateComponent
+        component: UserCreateComponent,
       }
 
     ]

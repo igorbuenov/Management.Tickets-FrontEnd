@@ -4,6 +4,7 @@ import {
   RouterLinkActive,
   RouterOutlet
 } from '@angular/router';
+import {AuthService} from '../../features/auth/services/auth';
 
 @Component({
   selector: 'app-main-layout',
@@ -22,8 +23,8 @@ export class MainLayoutComponent {
   usersMenuOpen = signal(false);
   isAdmin = signal(false);
 
-  constructor() {
-    this.checkUserRole();
+  constructor(private authService: AuthService) {
+    this.isAdmin.set(this.authService.getUserRole() === 'Admin');
   }
 
   toggleTicketsMenu(): void {
@@ -34,25 +35,8 @@ export class MainLayoutComponent {
     this.usersMenuOpen.update(value => !value);
   }
 
-  private checkUserRole(): void {
-    const token = localStorage.getItem('accessToken');
-
-    if (!token) {
-      return;
-    }
-
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-
-      const role =
-        payload.role ??
-        payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-
-      this.isAdmin.set(role === 'Admin');
-
-    } catch (error) {
-      console.error('Erro ao ler token:', error);
-      this.isAdmin.set(false);
-    }
+  logout(): void {
+    this.authService.logout();
   }
+
 }

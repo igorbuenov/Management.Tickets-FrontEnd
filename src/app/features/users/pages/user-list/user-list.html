@@ -2,7 +2,10 @@
 
   <div class="mx-auto max-w-7xl">
 
-    <!-- Cabeçalho -->
+    <!-- ====================================================== -->
+    <!-- CABEÇALHO -->
+    <!-- ====================================================== -->
+
     <div class="mb-6 flex items-center justify-between">
 
       <div>
@@ -27,158 +30,343 @@
 
     </div>
 
-    <!-- Resumo -->
+
+    <!-- ====================================================== -->
+    <!-- RESUMO -->
+    <!-- ====================================================== -->
+
     <div class="mb-6 rounded-lg bg-white p-5 shadow-md">
 
       <div class="flex items-center justify-between">
 
         <div>
+
           <p class="text-sm font-medium text-gray-500">
-            Total de usuários: {{ users.length }}
+            Total de usuários: {{ totalCount() }}
           </p>
+
         </div>
+
       </div>
 
     </div>
 
-    <!-- Tabela -->
-    <div class="overflow-hidden rounded-lg bg-white shadow-md">
 
-      <div class="overflow-x-auto">
+    <!-- ====================================================== -->
+    <!-- LOADING -->
+    <!-- ====================================================== -->
 
-        <table class="min-w-full divide-y divide-gray-200">
+    @if (isLoading()) {
 
-          <!-- Cabeçalho -->
-          <thead class="bg-gray-50">
+      <div class="mb-6 rounded-lg bg-white p-10 text-center shadow-md">
 
-            <tr>
+        <p class="text-sm text-gray-500">
+          Carregando usuários...
+        </p>
 
-              <th
-                scope="col"
-                class="px-6 py-3 text-left text-xs
-                       font-medium uppercase tracking-wider
-                       text-gray-500">
-                ID
-              </th>
+      </div>
 
-              <th
-                scope="col"
-                class="px-6 py-3 text-left text-xs
-                       font-medium uppercase tracking-wider
-                       text-gray-500">
-                Nome
-              </th>
+    }
 
-              <th
-                scope="col"
-                class="px-6 py-3 text-left text-xs
-                       font-medium uppercase tracking-wider
-                       text-gray-500">
-                Email
-              </th>
 
-              <th
-                scope="col"
-                class="px-6 py-3 text-left text-xs
-                       font-medium uppercase tracking-wider
-                       text-gray-500">
-                Status
-              </th>
+    <!-- ====================================================== -->
+    <!-- TABELA -->
+    <!-- ====================================================== -->
 
-              <th
-                scope="col"
-                class="px-6 py-3 text-right text-xs
-                       font-medium uppercase tracking-wider
-                       text-gray-500">
-                Ações
-              </th>
+    @if (!isLoading()) {
 
-            </tr>
+      <div class="overflow-hidden rounded-lg bg-white shadow-md">
 
-          </thead>
+        <div class="overflow-x-auto">
 
-          <!-- Dados -->
-          <tbody class="divide-y divide-gray-200 bg-white">
+          <table class="min-w-full divide-y divide-gray-200">
 
-            @for (user of users; track user.id) {
+            <!-- CABEÇALHO DA TABELA -->
 
-              <tr class="transition hover:bg-gray-50">
-
-                <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-                  {{ user.id }}
-                </td>
-
-                <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">
-                  {{ user.name }}
-                </td>
-
-                <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-600">
-                  {{ user.email }}
-                </td>
-
-                <td class="whitespace-nowrap px-6 py-4">
-
-                  @if (user.isActive) {
-
-                    <span
-                      class="inline-flex rounded-full
-                             bg-green-100 px-2.5 py-1
-                             text-xs font-medium text-green-700">
-                      Ativo
-                    </span>
-
-                  } @else {
-
-                    <span
-                      class="inline-flex rounded-full
-                             bg-red-100 px-2.5 py-1
-                             text-xs font-medium text-red-700">
-                      Inativo
-                    </span>
-
-                  }
-
-                </td>
-
-                <td class="whitespace-nowrap px-6 py-4 text-right">
-
-                  <button
-                    type="button"
-                    class="font-medium text-blue-600
-                           transition hover:text-blue-800">
-                    Editar
-                  </button>
-
-                </td>
-
-              </tr>
-
-            }
-
-            @empty {
+            <thead class="bg-gray-50">
 
               <tr>
 
-                <td
-                  colspan="5"
-                  class="px-6 py-10 text-center
-                         text-sm text-gray-500">
-                  Nenhum usuário encontrado.
-                </td>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs
+                         font-medium uppercase tracking-wider
+                         text-gray-500">
+                  ID
+                </th>
+
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs
+                         font-medium uppercase tracking-wider
+                         text-gray-500">
+                  Nome
+                </th>
+
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs
+                         font-medium uppercase tracking-wider
+                         text-gray-500">
+                  Email
+                </th>
+
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs
+                         font-medium uppercase tracking-wider
+                         text-gray-500">
+                  Status
+                </th>
+
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-right text-xs
+                         font-medium uppercase tracking-wider
+                         text-gray-500">
+                  Ações
+                </th>
 
               </tr>
 
-            }
+            </thead>
 
-          </tbody>
 
-        </table>
+            <!-- DADOS -->
+
+            <tbody class="divide-y divide-gray-200 bg-white">
+
+              @for (user of users(); track user.id) {
+
+                <tr class="transition hover:bg-gray-50">
+
+                  <!-- ID -->
+
+                  <td
+                    class="whitespace-nowrap px-6 py-4
+                           text-sm text-gray-500">
+
+                    {{ user.id }}
+
+                  </td>
+
+
+                  <!-- NOME -->
+
+                  <td
+                    class="whitespace-nowrap px-6 py-4
+                           text-sm font-medium text-gray-900">
+
+                    {{ user.name }}
+
+                  </td>
+
+
+                  <!-- EMAIL -->
+
+                  <td
+                    class="whitespace-nowrap px-6 py-4
+                           text-sm text-gray-600">
+
+                    {{ user.email }}
+
+                  </td>
+
+
+                  <!-- STATUS -->
+
+                  <td class="whitespace-nowrap px-6 py-4">
+
+                    @if (user.isActive) {
+
+                      <span
+                        class="inline-flex rounded-full
+                               bg-green-100 px-2.5 py-1
+                               text-xs font-medium text-green-700">
+
+                        Ativo
+
+                      </span>
+
+                    } @else {
+
+                      <span
+                        class="inline-flex rounded-full
+                               bg-red-100 px-2.5 py-1
+                               text-xs font-medium text-red-700">
+
+                        Inativo
+
+                      </span>
+
+                    }
+
+                  </td>
+
+
+                  <!-- AÇÕES -->
+
+                  <td
+                    class="whitespace-nowrap px-6 py-4
+                           text-right">
+
+                    <button
+                      type="button"
+                      class="font-medium text-blue-600
+                             transition hover:text-blue-800">
+
+                      Editar
+
+                    </button>
+
+                  </td>
+
+                </tr>
+
+              } @empty {
+
+                <tr>
+
+                  <td
+                    colspan="5"
+                    class="px-6 py-10 text-center
+                           text-sm text-gray-500">
+
+                    Nenhum usuário encontrado.
+
+                  </td>
+
+                </tr>
+
+              }
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+
+        <!-- ================================================== -->
+        <!-- PAGINAÇÃO -->
+        <!-- ================================================== -->
+
+        @if (totalPages() > 1) {
+
+          <div
+            class="flex items-center justify-between
+                   border-t border-gray-200
+                   bg-white px-6 py-4">
+
+            <!-- INFORMAÇÕES -->
+
+            <div class="text-sm text-gray-600">
+
+              Exibindo
+
+              <span class="font-medium text-gray-900">
+                {{ ((currentPage() - 1) * pageSize()) + 1 }}
+              </span>
+
+              até
+
+              <span class="font-medium text-gray-900">
+                {{
+                  currentPage() * pageSize() < totalCount()
+                    ? currentPage() * pageSize()
+                    : totalCount()
+                }}
+              </span>
+
+              de
+
+              <span class="font-medium text-gray-900">
+                {{ totalCount() }}
+              </span>
+
+              usuários
+
+            </div>
+
+
+            <!-- CONTROLES -->
+
+            <div class="flex items-center gap-2">
+
+              <!-- ANTERIOR -->
+
+              <button
+                type="button"
+                (click)="previousPage()"
+                [disabled]="currentPage() === 1"
+                class="rounded-md border border-gray-300
+                       px-3 py-2 text-sm font-medium
+                       text-gray-700
+                       transition
+                       hover:bg-gray-50
+                       disabled:cursor-not-allowed
+                       disabled:opacity-50">
+
+                Anterior
+
+              </button>
+
+
+              <!-- PÁGINAS -->
+
+              @for (
+                page of [].constructor(totalPages());
+                track $index
+              ) {
+
+                <button
+                  type="button"
+                  (click)="goToPage($index + 1)"
+                  [class.bg-blue-600]="currentPage() === $index + 1"
+                  [class.text-white]="currentPage() === $index + 1"
+                  [class.border-blue-600]="currentPage() === $index + 1"
+                  class="rounded-md border
+                         border-gray-300
+                         px-3 py-2 text-sm font-medium
+                         text-gray-700
+                         transition
+                         hover:bg-gray-50">
+
+                  {{ $index + 1 }}
+
+                </button>
+
+              }
+
+
+              <!-- PRÓXIMO -->
+
+              <button
+                type="button"
+                (click)="nextPage()"
+                [disabled]="currentPage() === totalPages()"
+                class="rounded-md border border-gray-300
+                       px-3 py-2 text-sm font-medium
+                       text-gray-700
+                       transition
+                       hover:bg-gray-50
+                       disabled:cursor-not-allowed
+                       disabled:opacity-50">
+
+                Próximo
+
+              </button>
+
+            </div>
+
+          </div>
+
+        }
 
       </div>
 
-    </div>
+    }
 
   </div>
 
 </div>
-```

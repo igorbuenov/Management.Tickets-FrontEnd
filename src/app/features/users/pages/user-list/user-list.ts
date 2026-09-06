@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { UserService } from '../../services/user';
@@ -13,7 +13,14 @@ import { UserModel } from '../../models/user.model';
 })
 export class UserListComponent implements OnInit {
 
-  users: UserModel[] = [];
+  users = signal<UserModel[]>([]);
+
+  isLoading = signal(false);
+
+  currentPage = signal(1);
+  pageSize = signal(10);
+  totalCount = signal(0);
+  totalPages = signal(0);
 
   constructor(private userService: UserService) {}
 
@@ -22,15 +29,69 @@ export class UserListComponent implements OnInit {
   }
 
   private loadUsers(): void {
-    this.userService.GetUsers().subscribe({
-      next: (response) => {
-        this.users = response.items;
 
-        console.log('Usuários carregados com sucesso:', this.users);
+    this.isLoading.set(true);
+
+    this.userService.GetUsers(
+      this.currentPage(),
+      this.pageSize()
+    ).subscribe({
+
+      next: (response) => {
+
+        this.users.set(response.items);
+
+        this.currentPage.set(response.page);
+        this.pageSize.set(response.pageSize);
+        this.totalCount.set(response.totalCount);
+        this.totalPages.set(response.totalPages);
+
+        this.isLoading.set(false);
+
+        console.log(
+          'Usuários carregados com sucesso:',
+          response
+        );
       },
+
       error: (error) => {
-        console.error('Erro ao carregar usuários:', error);
+
+        console.error(
+          'Erro ao carregar usuários:',
+          error
+        );
+
+        this.isLoading.set(false);
       }
+
     });
+  }
+
+  goToPage(page: number): void {
+
+    if (
+      page < 1 ||
+      page > this.totalPages()
+    ) {
+      return;
+    }
+
+    this.currentPage.set(page);
+
+    this.loadUsers();
+  }
+
+  previousPage(): void {
+
+    if (this.currentPage() > 1) {
+      this.goToPage(this.currentPage() - 1);
+    }
+  }
+
+  nextPage(): void {
+
+    if (this.currentPage() < this.totalPages()) {
+      this.goToPage(this.currentPage() + 1);
+    }
   }
 }
