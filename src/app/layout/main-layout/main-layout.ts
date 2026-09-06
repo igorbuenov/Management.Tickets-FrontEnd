@@ -35,7 +35,7 @@ export class MainLayoutComponent {
   }
 
   private checkUserRole(): void {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('accessToken');
 
     if (!token) {
       return;
