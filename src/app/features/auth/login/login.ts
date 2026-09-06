@@ -1,14 +1,16 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { AuthService } from '../services/auth';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.css',
+  styleUrl: './login.css'
 })
-
 export class LoginComponent {
 
   email = '';
@@ -17,30 +19,36 @@ export class LoginComponent {
   message = signal('');
   isError = signal(false);
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly router: Router
+  ) {}
 
   login(): void {
 
-    this.message.set(''); 
+    this.message.set('');
     this.isError.set(false);
 
-    const request = { email: this.email, password: this.password };
+    this.authService.login({
+      email: this.email,
+      password: this.password
+    }).subscribe({
+      next: response => {
 
-    this.authService.login(request).subscribe({
-      next: (response) => {
-        console.log('Login successful:', response);
+        localStorage.setItem('accessToken', response.accessToken);
 
-        this.message.set('Login realizado com sucesso!');
+        this.router.navigate(['/dashboard']);
       },
-      error: (error) => {
-        console.error('Erro da API:', error);
-        this.isError.set(true);
 
-        if(error.status === 401) {
-          this.message.set('Credenciais inválidas. Por favor, verifique seu e-mail e senha.');
-        } else {
-          this.message.set('Ocorreu um erro ao realizar o login. Por favor, tente novamente mais tarde.');
-        }
+      error: error => {
+
+        console.error('Erro ao realizar login:', error);
+
+        this.message.set(
+          'Email ou senha inválidos.'
+        );
+
+        this.isError.set(true);
       }
     });
   }

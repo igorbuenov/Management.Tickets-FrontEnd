@@ -1,82 +1,132 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+<div class="flex min-h-screen items-center justify-center bg-gray-50 px-4">
 
-  <div class="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+  <div class="w-full max-w-md">
 
+    <!-- LOGO -->
     <div class="mb-6 text-center">
-      <h1 class="text-2xl font-bold text-gray-900">
-        Login
+      <h1 class="text-2xl font-bold tracking-wider text-gray-900">
+        Management Tickets
       </h1>
 
-      <p class="mt-2 text-sm text-gray-600">
-        Acesse sua conta
+      <p class="mt-2 text-sm text-gray-500">
+        Sistema de gerenciamento de tickets
       </p>
     </div>
 
-    <form (ngSubmit)="login()" class="space-y-5">
+    <!-- CARD -->
+    <div class="rounded-lg bg-white p-8 shadow-md">
 
-      <!-- Email -->
-      <div>
-        <label
-          for="email"
-          class="mb-2 block text-sm font-medium text-gray-700">
-          Email
-        </label>
+      <div class="mb-6">
+        <h2 class="text-xl font-semibold text-gray-900">
+          Login
+        </h2>
 
-        <input
-          id="email"
-          name="email"
-          type="email"
-          [(ngModel)]="email"
-          placeholder="seu@email.com"
-          class="w-full rounded-md border border-gray-300 px-4 py-2.5
-                 text-gray-900 outline-none
-                 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-        />
-      </div>
-
-      <!-- Senha -->
-      <div>
-        <label
-          for="password"
-          class="mb-2 block text-sm font-medium text-gray-700">
-          Senha
-        </label>
-
-        <input
-          id="password"
-          name="password"
-          type="password"
-          [(ngModel)]="password"
-          placeholder="••••••••"
-          class="w-full rounded-md border border-gray-300 px-4 py-2.5
-                 text-gray-900 outline-none
-                 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-        />
-      </div>
-
-      <!-- Botão -->
-      <button
-        type="submit"
-        class="w-full rounded-md bg-blue-600 px-4 py-2.5
-               font-medium text-white
-               transition hover:bg-blue-700
-               focus:outline-none focus:ring-2 focus:ring-blue-500
-               focus:ring-offset-2">
-        Entrar
-      </button>
-
-      @if (message()) {
-        <p
-          class="mt-4 text-center"
-          [class.text-red-600]="isError()"
-          [class.text-green-600]="!isError()"
-        >
-          {{ message() }}
+        <p class="mt-1 text-sm text-gray-500">
+          Acesse sua conta para continuar
         </p>
-      }
+      </div>
 
-    </form>
+      <form
+        (ngSubmit)="login()"
+        class="space-y-5">
+
+        <!-- EMAIL -->
+        <div>
+
+          <label
+            for="email"
+            class="mb-2 block text-sm font-medium text-gray-700">
+            Email
+          </label>
+
+          <input
+            id="email"
+            name="email"
+            type="email"
+            [(ngModel)]="email"
+            placeholder="seu@email.com"
+            class="w-full rounded-md border border-gray-300
+                   bg-white px-4 py-2.5
+                   text-gray-900
+                   outline-none
+                   transition
+                   placeholder:text-gray-400
+                   focus:border-blue-500
+                   focus:ring-2
+                   focus:ring-blue-200"
+          />
+
+        </div>
+
+        <!-- SENHA -->
+        <div>
+
+          <label
+            for="password"
+            class="mb-2 block text-sm font-medium text-gray-700">
+            Senha
+          </label>
+
+          <input
+            id="password"
+            name="password"
+            type="password"
+            [(ngModel)]="password"
+            placeholder="••••••••"
+            class="w-full rounded-md border border-gray-300
+                   bg-white px-4 py-2.5
+                   text-gray-900
+                   outline-none
+                   transition
+                   placeholder:text-gray-400
+                   focus:border-blue-500
+                   focus:ring-2
+                   focus:ring-blue-200"
+          />
+
+        </div>
+
+        <!-- BOTÃO -->
+        <button
+          type="submit"
+          class="w-full rounded-md
+                 bg-blue-600 px-4 py-2.5
+                 font-medium text-white
+                 transition
+                 hover:bg-blue-700
+                 focus:outline-none
+                 focus:ring-2
+                 focus:ring-blue-500
+                 focus:ring-offset-2">
+
+          Entrar
+
+        </button>
+
+        <!-- MENSAGEM -->
+        @if (message()) {
+
+          <p
+            class="text-center text-sm font-medium"
+            [class.text-red-600]="isError()"
+            [class.text-green-600]="!isError()">
+
+            {{ message() }}
+
+          </p>
+
+        }
+
+      </form>
+
+    </div>
+
+    <!-- FOOTER -->
+    <p class="mt-6 text-center text-xs text-gray-400">
+      TicketSys
+    </p>
 
   </div>
 
 </div>
+```

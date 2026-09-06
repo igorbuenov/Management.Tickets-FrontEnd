@@ -1,0 +1,211 @@
+<div class="flex h-screen bg-gray-50 font-sans">
+
+  <!-- SIDEBAR -->
+  <aside
+    class="fixed inset-y-0 left-0 z-10 flex w-64 flex-col
+           bg-gray-900 text-gray-100 shadow-lg">
+
+    <!-- LOGO -->
+    <div class="flex h-16 items-center border-b border-gray-800 px-6">
+      <h1 class="text-xl font-bold tracking-wider text-white">
+        Tickets
+      </h1>
+    </div>
+
+    <!-- MENU -->
+    <nav class="flex-1 overflow-y-auto py-4">
+      <!-- DASHBOARD -->
+      <div class="mb-2 px-4">
+
+        <a
+          routerLink="/dashboard"
+          routerLinkActive="bg-blue-600 text-white"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="block rounded-md px-3 py-2
+                text-sm font-medium
+                text-gray-300
+                transition
+                hover:bg-gray-700
+                hover:text-white">
+
+          Dashboard
+
+        </a>
+
+      </div>
+      <!-- TICKETS -->
+      <div class="mb-2 px-4">
+
+        <button
+          type="button"
+          (click)="toggleTicketsMenu()"
+          class="flex w-full items-center justify-between py-2
+                 text-xs font-semibold uppercase
+                 text-gray-400
+                 transition-colors
+                 hover:text-white">
+
+          <span>Tickets</span>
+
+          <svg
+            class="h-4 w-4 transition-transform duration-200"
+            [class.rotate-180]="ticketsMenuOpen()"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24">
+
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7">
+            </path>
+
+          </svg>
+        </button>
+
+        @if (ticketsMenuOpen()) {
+
+          <div class="mt-2 overflow-hidden">
+
+            <ul class="space-y-1">
+
+              <li>
+                <a
+                  routerLink="/tickets"
+                  routerLinkActive="bg-blue-600 text-white"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="block rounded px-4 py-2
+                         text-sm text-gray-400
+                         transition
+                         hover:bg-gray-800
+                         hover:text-white">
+
+                  Todos os Tickets
+
+                </a>
+              </li>
+
+              <li>
+                <a
+                  routerLink="/tickets/create"
+                  routerLinkActive="bg-blue-600 text-white"
+                  class="block rounded px-4 py-2
+                         text-sm text-gray-400
+                         transition
+                         hover:bg-gray-800
+                         hover:text-white">
+
+                  Criar Ticket
+
+                </a>
+              </li>
+
+            </ul>
+
+          </div>
+        }
+
+      </div>
+
+      <!-- USUÁRIOS -->
+      @if (isAdmin()) {
+
+        <div class="mb-2 px-4">
+
+          <button
+            type="button"
+            (click)="toggleUsersMenu()"
+            class="flex w-full items-center justify-between py-2
+                   text-xs font-semibold uppercase
+                   text-gray-400
+                   transition-colors
+                   hover:text-white">
+
+            <span>Usuários</span>
+
+            <svg
+              class="h-4 w-4 transition-transform duration-200"
+              [class.rotate-180]="usersMenuOpen()"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24">
+
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7">
+              </path>
+
+            </svg>
+
+          </button>
+
+          @if (usersMenuOpen()) {
+
+            <div class="mt-2 overflow-hidden">
+
+              <ul class="space-y-1">
+
+                <li>
+                  <a
+                    routerLink="/users"
+                    routerLinkActive="bg-blue-600 text-white"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    class="block rounded-md px-3 py-2
+                           text-sm text-gray-300
+                           transition
+                           hover:bg-gray-700
+                           hover:text-white">
+
+                    Listar Usuários
+
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    routerLink="/users/create"
+                    routerLinkActive="bg-blue-600 text-white"
+                    class="block rounded-md px-3 py-2
+                           text-sm text-gray-300
+                           transition
+                           hover:bg-gray-700
+                           hover:text-white">
+
+                    Criar Usuário
+
+                  </a>
+                </li>
+
+              </ul>
+
+            </div>
+          }
+
+        </div>
+      }
+
+    </nav>
+
+    <!-- FOOTER -->
+    <div class="border-t border-gray-800 p-4">
+
+      <p class="text-xs text-gray-500">
+        TicketSys
+      </p>
+
+    </div>
+
+  </aside>
+
+
+  <!-- CONTEÚDO -->
+  <main class="ml-64 flex-1 overflow-y-auto bg-gray-50">
+
+    <router-outlet></router-outlet>
+
+  </main>
+
+</div>

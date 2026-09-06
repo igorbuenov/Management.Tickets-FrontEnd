@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {API_ENDPOINTS } from '../../../core/constants/api.constants'
 
 
 export interface LoginRequest {
@@ -9,14 +10,15 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-  token: string;
+  accessToken: string;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly apiUrl = 'https://localhost:7253/api/Auth';
+  
+  private readonly apiUrl = API_ENDPOINTS.auth;
 
   constructor(private http: HttpClient) {}
 
