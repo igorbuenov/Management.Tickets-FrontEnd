@@ -1,39 +1,109 @@
-<div class="flex h-screen bg-gray-50 font-sans">
+<div class="flex h-screen overflow-hidden bg-gray-50 font-sans">
 
+  <!-- ====================================================== -->
   <!-- SIDEBAR -->
-  <aside
-    class="fixed inset-y-0 left-0 z-10 flex w-64 flex-col
-           bg-gray-900 text-gray-100 shadow-lg">
+  <!-- ====================================================== -->
 
-    <!-- LOGO -->
-    <div class="flex h-16 items-center border-b border-gray-800 px-6">
+  <aside
+    class="fixed inset-y-0 left-0 z-30 flex w-64 flex-col
+           bg-gray-900 text-gray-100 shadow-lg
+           -translate-x-full
+           transition-transform duration-300
+           lg:translate-x-0"
+    [class.translate-x-0]="mobileMenuOpen()">
+
+    <!-- ================================================== -->
+    <!-- HEADER / LOGO -->
+    <!-- ================================================== -->
+
+    <div
+      class="flex h-16 items-center justify-between
+             border-b border-gray-800 px-6">
+
       <h1 class="text-xl font-bold tracking-wider text-white">
         Tickets
       </h1>
+
+      <!-- Fechar menu no mobile -->
+
+      <button
+        type="button"
+        (click)="closeMobileMenu()"
+        class="rounded-md p-2 text-gray-400
+               transition hover:bg-gray-800 hover:text-white
+               lg:hidden"
+        aria-label="Fechar menu">
+
+        <svg
+          class="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24">
+
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12">
+          </path>
+
+        </svg>
+
+      </button>
+
     </div>
 
+    <!-- ================================================== -->
     <!-- MENU -->
+    <!-- ================================================== -->
+
     <nav class="flex-1 overflow-y-auto py-4">
+
+      <!-- ================================================== -->
       <!-- DASHBOARD -->
+      <!-- ================================================== -->
+
       <div class="mb-2 px-4">
 
         <a
           routerLink="/dashboard"
+          (click)="closeMobileMenu()"
           routerLinkActive="bg-blue-600 text-white"
           [routerLinkActiveOptions]="{ exact: true }"
-          class="block rounded-md px-3 py-2
-                text-sm font-medium
-                text-gray-300
-                transition
-                hover:bg-gray-700
-                hover:text-white">
+          class="flex items-center rounded-md px-3 py-2
+                 text-sm font-medium
+                 text-gray-300
+                 transition
+                 hover:bg-gray-700
+                 hover:text-white">
 
-          Dashboard
+          <svg
+            class="h-5 w-5 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24">
+
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 12l9-9 9 9M5 10v10h14V10">
+            </path>
+
+          </svg>
+
+          <span class="ml-3">
+            Dashboard
+          </span>
 
         </a>
 
       </div>
+
+      <!-- ================================================== -->
       <!-- TICKETS -->
+      <!-- ================================================== -->
+
       <div class="mb-2 px-4">
 
         <button
@@ -45,7 +115,9 @@
                  transition-colors
                  hover:text-white">
 
-          <span>Tickets</span>
+          <span>
+            Tickets
+          </span>
 
           <svg
             class="h-4 w-4 transition-transform duration-200"
@@ -62,6 +134,7 @@
             </path>
 
           </svg>
+
         </button>
 
         @if (ticketsMenuOpen()) {
@@ -71,8 +144,10 @@
             <ul class="space-y-1">
 
               <li>
+
                 <a
                   routerLink="/tickets"
+                  (click)="closeMobileMenu()"
                   routerLinkActive="bg-blue-600 text-white"
                   [routerLinkActiveOptions]="{ exact: true }"
                   class="block rounded px-4 py-2
@@ -84,11 +159,14 @@
                   Todos os Tickets
 
                 </a>
+
               </li>
 
               <li>
+
                 <a
                   routerLink="/tickets/create"
+                  (click)="closeMobileMenu()"
                   routerLinkActive="bg-blue-600 text-white"
                   class="block rounded px-4 py-2
                          text-sm text-gray-400
@@ -99,16 +177,21 @@
                   Criar Ticket
 
                 </a>
+
               </li>
 
             </ul>
 
           </div>
+
         }
 
       </div>
 
+      <!-- ================================================== -->
       <!-- USUÁRIOS -->
+      <!-- ================================================== -->
+
       @if (isAdmin()) {
 
         <div class="mb-2 px-4">
@@ -122,7 +205,9 @@
                    transition-colors
                    hover:text-white">
 
-            <span>Usuários</span>
+            <span>
+              Usuários
+            </span>
 
             <svg
               class="h-4 w-4 transition-transform duration-200"
@@ -149,8 +234,10 @@
               <ul class="space-y-1">
 
                 <li>
+
                   <a
                     routerLink="/users"
+                    (click)="closeMobileMenu()"
                     routerLinkActive="bg-blue-600 text-white"
                     [routerLinkActiveOptions]="{ exact: true }"
                     class="block rounded-md px-3 py-2
@@ -162,11 +249,14 @@
                     Listar Usuários
 
                   </a>
+
                 </li>
 
                 <li>
+
                   <a
                     routerLink="/users/create"
+                    (click)="closeMobileMenu()"
                     routerLinkActive="bg-blue-600 text-white"
                     class="block rounded-md px-3 py-2
                            text-sm text-gray-300
@@ -177,29 +267,35 @@
                     Criar Usuário
 
                   </a>
+
                 </li>
 
               </ul>
 
             </div>
+
           }
 
         </div>
+
       }
 
     </nav>
 
+    <!-- ================================================== -->
     <!-- FOOTER -->
+    <!-- ================================================== -->
+
     <div class="border-t border-gray-800 p-4">
 
       <button
         type="button"
         (click)="logout()"
         class="flex w-full items-center gap-3 rounded-md px-3 py-2
-              text-sm font-medium text-gray-300
-              transition
-              hover:bg-gray-800
-              hover:text-white">
+               text-sm font-medium text-gray-300
+               transition
+               hover:bg-gray-800
+               hover:text-white">
 
         <svg
           class="h-5 w-5"
@@ -216,7 +312,9 @@
 
         </svg>
 
-        <span>Sair</span>
+        <span>
+          Sair
+        </span>
 
       </button>
 
@@ -229,8 +327,65 @@
   </aside>
 
 
+  <!-- ====================================================== -->
+  <!-- BOTÃO MOBILE -->
+  <!-- ====================================================== -->
+
+  @if (!mobileMenuOpen()) {
+
+    <button
+      type="button"
+      (click)="toggleMobileMenu()"
+      class="fixed left-4 top-4 z-40
+             rounded-md bg-gray-900 p-2
+             text-white shadow-md
+             lg:hidden"
+      aria-label="Abrir menu">
+
+      <svg
+        class="h-6 w-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24">
+
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16">
+        </path>
+
+      </svg>
+
+    </button>
+
+  }
+
+
+  <!-- ====================================================== -->
+  <!-- OVERLAY MOBILE -->
+  <!-- ====================================================== -->
+
+  @if (mobileMenuOpen()) {
+
+    <div
+      class="fixed inset-0 z-20 bg-black/50 lg:hidden"
+      (click)="closeMobileMenu()">
+    </div>
+
+  }
+
+
+  <!-- ====================================================== -->
   <!-- CONTEÚDO -->
-  <main class="ml-64 flex-1 overflow-y-auto bg-gray-50">
+  <!-- ====================================================== -->
+
+  <main
+    class="ml-0 flex-1 overflow-y-auto bg-gray-50
+           pt-16
+           transition-all duration-300
+           lg:ml-64
+           lg:pt-0">
 
     <router-outlet></router-outlet>
 

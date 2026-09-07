@@ -23,8 +23,18 @@ export class MainLayoutComponent {
   usersMenuOpen = signal(false);
   isAdmin = signal(false);
 
+  mobileMenuOpen = signal(false);
+
   constructor(private authService: AuthService) {
     this.isAdmin.set(this.authService.getUserRole() === 'Admin');
+  }
+
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen.update(value => !value);
+  }
+
+  closeMobileMenu(): void {
+    this.mobileMenuOpen.set(false);
   }
 
   toggleTicketsMenu(): void {
