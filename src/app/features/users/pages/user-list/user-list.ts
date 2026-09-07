@@ -32,7 +32,7 @@ export class UserListComponent implements OnInit {
 
     this.isLoading.set(true);
 
-    this.userService.GetUsers(
+    this.userService.getUsers(
       this.currentPage(),
       this.pageSize()
     ).subscribe({
@@ -94,4 +94,31 @@ export class UserListComponent implements OnInit {
       this.goToPage(this.currentPage() + 1);
     }
   }
+
+  deleteUser(id: number): void {
+    const confirmed = window.confirm(
+      'Tem certeza que deseja desativar este usuário?'
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    this.isLoading.set(true);
+
+    this.userService.deleteUser(id).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+
+        this.loadUsers();
+      },
+
+      error: (error) => {
+        console.error('Erro ao desativar usuário:', error);
+
+        this.isLoading.set(false);
+      }
+    });
+  }
+
 }

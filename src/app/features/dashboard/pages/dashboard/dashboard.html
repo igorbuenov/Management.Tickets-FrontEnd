@@ -284,81 +284,79 @@
 
                   @if (ticket.priority === 'Low') {
                     <span
-                      class="inline-flex items-center rounded-full
-                            bg-blue-100 px-3 py-1
-                            text-xs font-semibold text-blue-700">
+                      class="inline-flex items-center gap-1.5 rounded-full
+                            bg-green-100 px-2.5 py-1
+                            text-xs font-medium text-green-700"
+                    >
+                      <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
                       Baixa
                     </span>
                   }
 
                   @if (ticket.priority === 'Medium') {
                     <span
-                      class="inline-flex items-center rounded-full
-                            bg-yellow-100 px-3 py-1
-                            text-xs font-semibold text-yellow-800">
+                      class="inline-flex items-center gap-1.5 rounded-full
+                            bg-yellow-100 px-2.5 py-1
+                            text-xs font-medium text-yellow-700"
+                    >
+                      <span class="h-1.5 w-1.5 rounded-full bg-yellow-500"></span>
                       Média
                     </span>
                   }
 
                   @if (ticket.priority === 'High') {
                     <span
-                      class="inline-flex items-center rounded-full
-                            bg-orange-100 px-3 py-1
-                            text-xs font-semibold text-orange-700">
+                      class="inline-flex items-center gap-1.5 rounded-full
+                            bg-orange-100 px-2.5 py-1
+                            text-xs font-medium text-orange-700"
+                    >
+                      <span class="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
                       Alta
                     </span>
                   }
 
-                  @if (ticket.priority === 'Critical') {
+                  @if (ticket.priority === 'Urgent') {
                     <span
-                      class="inline-flex items-center rounded-full
-                            bg-red-100 px-3 py-1
-                            text-xs font-semibold text-red-700">
-                      Crítica
+                      class="inline-flex items-center gap-1.5 rounded-full
+                            bg-red-100 px-2.5 py-1
+                            text-xs font-medium text-red-700"
+                    >
+                      <span class="h-1.5 w-1.5 rounded-full bg-red-500"></span>
+                      Urgente
                     </span>
                   }
 
                 </td>
-
+                
                 <!-- STATUS -->
                 <td class="whitespace-nowrap px-6 py-4">
-
                   @if (ticket.status === 'Open') {
-                    <span
-                      class="inline-flex items-center rounded-full
-                            bg-blue-100 px-3 py-1
-                            text-xs font-semibold text-blue-700">
+                    <span class="inline-flex items-center gap-1.5 rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
+                      <span class="h-1.5 w-1.5 rounded-full bg-blue-500"></span>
                       Aberto
                     </span>
                   }
 
                   @if (ticket.status === 'InProgress') {
-                    <span
-                      class="inline-flex items-center rounded-full
-                            bg-yellow-100 px-3 py-1
-                            text-xs font-semibold text-yellow-800">
+                    <span class="inline-flex items-center gap-1.5 rounded-full bg-yellow-100 px-3 py-1 text-xs font-semibold text-yellow-800">
+                      <span class="h-1.5 w-1.5 rounded-full bg-yellow-500"></span>
                       Em andamento
                     </span>
                   }
 
                   @if (ticket.status === 'Resolved') {
-                    <span
-                      class="inline-flex items-center rounded-full
-                            bg-green-100 px-3 py-1
-                            text-xs font-semibold text-green-700">
+                    <span class="inline-flex items-center gap-1.5 rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+                      <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
                       Resolvido
                     </span>
                   }
 
                   @if (ticket.status === 'Closed') {
-                    <span
-                      class="inline-flex items-center rounded-full
-                            bg-gray-100 px-3 py-1
-                            text-xs font-semibold text-gray-700">
+                    <span class="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-700">
+                      <span class="h-1.5 w-1.5 rounded-full bg-gray-500"></span>
                       Fechado
                     </span>
                   }
-
                 </td>
 
                 <!-- DATA -->

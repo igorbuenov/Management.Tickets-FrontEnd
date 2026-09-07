@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
 
   private loadDashboard(): void {
 
-    this.userService.GetUsers(1, 1).subscribe({
+    this.userService.getUsers(1, 1).subscribe({
       next: response => {
         this.totalUsers.set(response.totalCount);
       },

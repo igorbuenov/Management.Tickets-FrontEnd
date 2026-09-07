@@ -202,25 +202,84 @@
                     }
 
                   </td>
-
-
+ 
                   <!-- AÇÕES -->
-
                   <td
-                    class="whitespace-nowrap px-6 py-4
-                           text-right">
+                    class="whitespace-nowrap px-6 py-4 text-right"
+                  >
+                    <div class="flex items-center justify-end gap-2">
 
-                    <button
-                      type="button"
-                      class="font-medium text-blue-600
-                             transition hover:text-blue-800">
+                      <!-- EDITAR -->
+                      <a
+                        [routerLink]="['/users', user.id, 'edit']"
+                        title="Editar usuário"
+                        aria-label="Editar usuário"
+                        class="rounded-md p-2 text-blue-600
+                              transition hover:bg-blue-50
+                              hover:text-blue-700
+                              focus:outline-none focus:ring-2
+                              focus:ring-blue-500 focus:ring-offset-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="h-5 w-5"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Z"
+                          />
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M19.5 7.5 16.5 4.5"
+                          />
+                        </svg>
+                      </a>
 
-                      Editar
+                      <!-- DESATIVAR -->
+                      <button
+                        type="button"
+                        (click)="deleteUser(user.id)"
+                        [disabled]="isLoading()"
+                        title="Desativar usuário"
+                        aria-label="Desativar usuário"
+                        class="rounded-md p-2 text-red-600
+                              transition hover:bg-red-50
+                              hover:text-red-700
+                              focus:outline-none focus:ring-2
+                              focus:ring-red-500 focus:ring-offset-1
+                              disabled:cursor-not-allowed
+                              disabled:text-gray-400
+                              disabled:hover:bg-transparent"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="h-5 w-5"
+                        >
+                          <circle
+                            cx="12"
+                            cy="12"
+                            r="9"
+                          />
 
-                    </button>
+                          <path
+                            stroke-linecap="round"
+                            d="M8 12h8"
+                          />
+                        </svg>
+                      </button>
 
+                    </div>
                   </td>
-
                 </tr>
 
               } @empty {

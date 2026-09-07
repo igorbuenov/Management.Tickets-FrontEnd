@@ -6,8 +6,9 @@ import { UserCreateComponent } from './features/users/pages/user-create/user-cre
 import { UserListComponent } from './features/users/pages/user-list/user-list';
 import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password';
 import { ResetPasswordComponent } from './features/auth/reset-password/reset-password';
-
+import { UserEditComponent } from './features/users/pages/user-edit/user-edit';
 import { authGuard } from './core/guards/auth-guard';
+
 
 export const routes: Routes = [
 
@@ -56,10 +57,13 @@ export const routes: Routes = [
         path: 'users',
         component: UserListComponent,
       },
-
       {
         path: 'users/create',
         component: UserCreateComponent,
+      },
+      {
+        path: 'users/:id/edit',
+        component: UserEditComponent
       }
 
     ]
