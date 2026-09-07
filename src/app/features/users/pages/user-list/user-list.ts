@@ -22,6 +22,9 @@ export class UserListComponent implements OnInit {
   totalCount = signal(0);
   totalPages = signal(0);
 
+  showDeactivateModal = signal(false);
+  selectedUserId = signal<number | null>(null);
+
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
@@ -96,29 +99,35 @@ export class UserListComponent implements OnInit {
   }
 
   deleteUser(id: number): void {
-    const confirmed = window.confirm(
-      'Tem certeza que deseja desativar este usuário?'
-    );
+    this.selectedUserId.set(id);
+    this.showDeactivateModal.set(true);
+  }
 
-    if (!confirmed) {
+  confirmDeactivate(): void {
+    const id = this.selectedUserId();
+
+    if (id === null) {
       return;
     }
 
+    this.showDeactivateModal.set(false);
     this.isLoading.set(true);
 
     this.userService.deleteUser(id).subscribe({
       next: () => {
         this.isLoading.set(false);
-
         this.loadUsers();
       },
-
       error: (error) => {
         console.error('Erro ao desativar usuário:', error);
-
         this.isLoading.set(false);
       }
     });
+  }
+
+  cancelDeactivate(): void {
+    this.showDeactivateModal.set(false);
+    this.selectedUserId.set(null);
   }
 
 }

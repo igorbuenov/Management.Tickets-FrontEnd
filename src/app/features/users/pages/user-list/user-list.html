@@ -429,3 +429,71 @@
   </div>
 
 </div>
+
+@if (showDeactivateModal()) {
+
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 px-4 backdrop-blur-sm"
+  >
+    <div
+      class="w-full max-w-md rounded-xl bg-white p-6 shadow-2xl"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="deactivate-title"
+    >
+      <!-- ÍCONE -->
+      <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="h-6 w-6 text-red-600"
+        >
+          <circle cx="12" cy="12" r="9" />
+          <path stroke-linecap="round" d="M8 12h8" />
+        </svg>
+      </div>
+
+      <!-- TÍTULO -->
+      <h2
+        id="deactivate-title"
+        class="text-lg font-semibold text-gray-900"
+      >
+        Desativar usuário
+      </h2>
+
+      <!-- MENSAGEM -->
+      <p class="mt-2 text-sm text-gray-600">
+        Tem certeza que deseja desativar este usuário?
+        Ele não poderá mais acessar o sistema.
+      </p>
+
+      <!-- AÇÕES -->
+      <div class="mt-6 flex justify-end gap-3">
+        <button
+          type="button"
+          (click)="cancelDeactivate()"
+          class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
+        >
+          Cancelar
+        </button>
+
+        <button
+          type="button"
+          (click)="confirmDeactivate()"
+          [disabled]="isLoading()"
+          class="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:bg-red-300"
+        >
+          @if (isLoading()) {
+            Desativando...
+          } @else {
+            Desativar
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+
+}
