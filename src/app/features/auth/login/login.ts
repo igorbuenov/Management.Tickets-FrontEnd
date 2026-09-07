@@ -1,13 +1,16 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { AuthService } from '../services/auth';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [
+    FormsModule,
+    RouterLink
+  ],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
@@ -15,7 +18,6 @@ export class LoginComponent {
 
   email = '';
   password = '';
-
   message = signal('');
   isError = signal(false);
 
@@ -34,15 +36,20 @@ export class LoginComponent {
       password: this.password
     }).subscribe({
       next: response => {
-
-        localStorage.setItem('accessToken', response.accessToken);
+        localStorage.setItem(
+          'accessToken',
+          response.accessToken
+        );
 
         this.router.navigate(['/dashboard']);
       },
 
       error: error => {
 
-        console.error('Erro ao realizar login:', error);
+        console.error(
+          'Erro ao realizar login:',
+          error
+        );
 
         this.message.set(
           'Email ou senha inválidos.'
@@ -50,6 +57,7 @@ export class LoginComponent {
 
         this.isError.set(true);
       }
+
     });
   }
 }

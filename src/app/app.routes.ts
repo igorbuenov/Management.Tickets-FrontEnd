@@ -4,6 +4,8 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout';
 import { DashboardComponent } from './features/dashboard/pages/dashboard/dashboard';
 import { UserCreateComponent } from './features/users/pages/user-create/user-create';
 import { UserListComponent } from './features/users/pages/user-list/user-list';
+import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password';
+import { ResetPasswordComponent } from './features/auth/reset-password/reset-password';
 
 import { authGuard } from './core/guards/auth-guard';
 
@@ -24,7 +26,17 @@ export const routes: Routes = [
     component: LoginComponent
   },
 
-
+  // ==========================================================
+  // FORGOT AND RESET PASSWORD
+  // ==========================================================
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent
+  },
   // ==========================================================
   // ÁREA AUTENTICADA
   // ==========================================================
