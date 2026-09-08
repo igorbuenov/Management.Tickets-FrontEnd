@@ -42,7 +42,7 @@ export class DashboardComponent implements OnInit {
       }
     });
 
-    this.ticketService.GetTickets(1, 1).subscribe({
+    this.ticketService.getTickets(1, 1).subscribe({
       next: response => {
         this.totalTickets.set(response.totalCount);
       },
@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
       }
     });
 
-    this.ticketService.GetTickets(1, 5).subscribe({
+    this.ticketService.getTickets(1, 5).subscribe({
       next: response => {
         this.recentTickets.set(response.items);
       },

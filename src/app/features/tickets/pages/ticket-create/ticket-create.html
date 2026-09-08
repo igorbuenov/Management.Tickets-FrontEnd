@@ -1,0 +1,83 @@
+<div class="mx-auto max-w-3xl p-6">
+
+  <!-- CABEÇALHO -->
+  <div class="mb-6">
+    <h1 class="text-2xl font-semibold text-gray-900">
+      Criar ticket
+    </h1>
+
+    <p class="mt-1 text-sm text-gray-500">
+      Preencha os dados para abrir um novo ticket.
+    </p>
+  </div>
+
+  <!-- MENSAGEM -->
+  @if (message()) {
+  <div class="mb-6 rounded-lg border px-4 py-3 text-sm font-medium" [class.border-green-200]="!isError()"
+    [class.bg-green-50]="!isError()" [class.text-green-700]="!isError()" [class.border-red-200]="isError()"
+    [class.bg-red-50]="isError()" [class.text-red-700]="isError()">
+    {{ message() }}
+  </div>
+  }
+
+  <!-- FORMULÁRIO -->
+  <form [formGroup]="ticketForm" (ngSubmit)="submit()" class="space-y-6">
+
+    <!-- TÍTULO -->
+    <div>
+      <label for="title" class="mb-2 block text-sm font-medium text-gray-700">
+        Título
+      </label>
+
+      <input id="title" type="text" formControlName="title"
+        class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+        placeholder="Digite o título do ticket">
+    </div>
+
+    <!-- DESCRIÇÃO -->
+    <div>
+      <label for="description" class="mb-2 block text-sm font-medium text-gray-700">
+        Descrição
+      </label>
+
+      <textarea id="description" rows="6" formControlName="description"
+        class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+        placeholder="Descreva o problema ou solicitação"></textarea>
+    </div>
+
+    <!-- PRIORIDADE -->
+    <div>
+      <label for="priority" class="mb-2 block text-sm font-medium text-gray-700">
+        Prioridade
+      </label>
+
+      <select id="priority" formControlName="priority"
+        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+        <option [ngValue]="1">Baixa</option>
+        <option [ngValue]="2">Média</option>
+        <option [ngValue]="3">Alta</option>
+        <option [ngValue]="4">Urgente</option>
+      </select>
+    </div>
+
+    <!-- AÇÕES -->
+    <div class="flex justify-end gap-3">
+
+      <button
+        type="button"
+        (click)="cancel()"
+        class="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+      >
+        Cancelar
+      </button>
+
+      <button type="submit" [disabled]="isLoading()"
+        class="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">
+        {{ isLoading() ? 'Criando...' : 'Criar ticket' }}
+      </button>
+
+    </div>
+
+  </form>
+
+</div>

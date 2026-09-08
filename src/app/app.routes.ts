@@ -8,6 +8,9 @@ import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-
 import { ResetPasswordComponent } from './features/auth/reset-password/reset-password';
 import { UserEditComponent } from './features/users/pages/user-edit/user-edit';
 import { authGuard } from './core/guards/auth-guard';
+import { TicketListComponent } from './features/tickets/pages/ticket-list/ticket-list';
+import { TicketDetailsComponent } from './features/tickets/pages/ticket-details/ticket-details';
+import { TicketCreateComponent } from './features/tickets/pages/ticket-create/ticket-create';
 
 
 export const routes: Routes = [
@@ -64,6 +67,18 @@ export const routes: Routes = [
       {
         path: 'users/:id/edit',
         component: UserEditComponent
+      },
+      {
+        path: 'tickets',
+        component: TicketListComponent
+      },
+      {
+        path: 'tickets/create',
+        component: TicketCreateComponent
+      },
+      {
+        path: 'tickets/:id',
+        component: TicketDetailsComponent
       }
 
     ]

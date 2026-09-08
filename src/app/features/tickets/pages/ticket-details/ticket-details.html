@@ -1,0 +1,179 @@
+<div class="p-6">
+
+    <!-- HEADER -->
+    <div class="mb-6 flex items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-900">
+                Detalhes do Ticket
+            </h1>
+
+            <p class="mt-1 text-sm text-gray-500">
+                Visualização das informações do ticket.
+            </p>
+        </div>
+
+        <a routerLink="/tickets" class="rounded-lg border border-gray-300 px-4 py-2 text-sm
+             font-medium text-gray-700 transition hover:bg-gray-50">
+            Voltar
+        </a>
+    </div>
+
+    <!-- LOADING -->
+    @if (isLoading()) {
+    <div class="flex justify-center py-12">
+        <span class="text-sm text-gray-500">
+            Carregando ticket...
+        </span>
+    </div>
+    }
+    @if (hasError()) {
+    <div class="fixed inset-0 z-50 flex items-center justify-center
+            bg-black/50 px-4">
+        <div class="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+            <!-- HEADER -->
+            <div class="flex items-start justify-between">
+                <div class="flex items-start gap-3">
+
+                    <!-- WARNING ICON -->
+                    <div class="flex h-10 w-10 shrink-0 items-center justify-center
+                    rounded-full bg-red-100 text-red-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="h-6 w-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 9v3.75m0 3.75h.007v.008H12v-.008ZM10.34 3.94 2.78 17.06A2 2 0 0 0 4.51 20h14.98a2 2 0 0 0 1.73-2.94L13.66 3.94a2 2 0 0 0-3.32 0Z" />
+                        </svg>
+                    </div>
+
+                    <div>
+                        <h2 class="text-lg font-semibold text-gray-900">
+                            Ticket não encontrado
+                        </h2>
+
+                        <p class="mt-2 text-sm text-gray-600">
+                            Não foi possível carregar as informações deste ticket.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- CLOSE -->
+                <button type="button" (click)="hasError.set(false)" aria-label="Fechar" class="rounded-lg p-1 text-gray-400
+                hover:bg-gray-100 hover:text-gray-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" class="h-5 w-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- ACTION -->
+            <div class="mt-6 flex justify-end">
+                <a routerLink="/tickets" class="rounded-lg bg-blue-600 px-4 py-2 text-sm
+                    font-medium text-white transition hover:bg-blue-700">
+                    Voltar para tickets
+                </a>
+            </div>
+
+        </div>
+    </div>
+    }
+
+    <!-- CONTENT -->
+    @if (ticket(); as ticket) {
+    <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
+
+        <!-- TITLE -->
+        <div class="border-b border-gray-200 px-6 py-5">
+            <h2 class="text-xl font-semibold text-gray-900">
+                Título: {{ ticket.title }}
+            </h2>
+        </div>
+
+        <!-- DETAILS -->
+        <div class="grid grid-cols-1 gap-6 p-6 md:grid-cols-2">
+
+            <div>
+                <p class="text-sm font-medium text-gray-500">
+                    Prioridade:
+                </p>
+
+                <span class="mt-1 inline-flex rounded-full px-3 py-1 text-xs font-semibold"
+                    [class]="getPriorityClass(ticket.priority)">
+                    {{ ticket.priority }}
+                </span>
+            </div>
+
+            <div>
+                <p class="text-sm font-medium text-gray-500">
+                    Status:
+                </p>
+
+                <span class="mt-1 inline-flex rounded-full px-3 py-1 text-xs font-semibold"
+                    [class]="getStatusClass(ticket.status)">
+                    {{ ticket.status }}
+                </span>
+            </div>
+
+            <div>
+                <p class="text-sm font-medium text-gray-500">
+                    Criado em:
+                </p>
+
+                <p class="mt-1 text-sm text-gray-900">
+                    {{ ticket.createdAt | date:'dd/MM/yyyy HH:mm' }}
+                </p>
+            </div>
+
+            <div>
+                <p class="text-sm font-medium text-gray-500">
+                    Atualizado em:
+                </p>
+
+                <p class="mt-1 text-sm text-gray-900">
+                    {{ ticket.updatedAt
+                    ? (ticket.updatedAt | date:'dd/MM/yyyy HH:mm')
+                    : 'Nunca atualizado'
+                    }}
+                </p>
+            </div>
+
+
+            <div>
+                <p class="text-sm font-medium text-gray-500">
+                    Criado por:
+                </p>
+
+                <p class="mt-1 text-sm text-gray-900">
+                    {{ ticket.createdBy.name }}
+                </p>
+            </div>
+
+            <div>
+                <p class="text-sm font-medium text-gray-500">
+                    Responsável:
+                </p>
+
+                <p class="mt-1 text-sm text-gray-900">
+                    {{ ticket.assignedTo?.name ?? 'Não atribuído' }}
+                </p>
+            </div>
+
+
+
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="border-t border-gray-200 px-6 py-5">
+            <p class="text-sm font-medium text-gray-500">
+                Descrição:
+            </p>
+
+            <p class="mt-2 whitespace-pre-line text-sm leading-6 text-gray-700">
+                {{ ticket.description }}
+            </p>
+        </div>
+
+    </div>
+    }
+
+</div>
