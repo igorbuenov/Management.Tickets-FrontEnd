@@ -11,7 +11,7 @@ import { UserListResponseModel } from '../models/user-list-response.model';
 import { UpdateUserModel } from '../models/update-user.model';
 import { UserDetailsModel } from '../models/user-details.model';
 
-import { API_ENDPOINTS } from '../../../core/constants/api.constants';
+import { API_ENDPOINTS, API_LOCAL_ENDPOINTS } from '../../../core/constants/api.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -36,13 +36,21 @@ export class UserService {
     );
   }
 
-  getUsers(page: number = 1, pageSize: number = 10) {
+  getUsers(page: number = 1, pageSize: number = 10, search?: string, isActive?: boolean) {
 
     const token = this.authService.getToken();
 
-    const params = new HttpParams()
+    let params = new HttpParams()
       .set('page', page)
       .set('pageSize', pageSize);
+
+    if (search?.trim()) {
+      params = params.set('search', search.trim());
+    }
+
+    if (isActive !== undefined) {
+      params = params.set('isActive', isActive);
+    }
 
     return this.http.get<UserListResponseModel>(
       this.apiUrl,
@@ -87,6 +95,20 @@ export class UserService {
 
     return this.http.delete<void>(
       `${this.apiUrl}/${id}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+  }
+
+  activateUser(id: number){
+    const token = this.authService.getToken();
+
+    return this.http.put<void>(
+      `${this.apiUrl}/${id}`,
+      {},
       {
         headers: {
           'Authorization': `Bearer ${token}`

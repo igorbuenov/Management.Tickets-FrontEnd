@@ -1,499 +1,823 @@
-<div class="min-h-screen bg-gray-50 px-4 py-8">
+<div class="p-6">
 
-  <div class="mx-auto max-w-7xl">
+  <!-- HEADER -->
 
-    <!-- ====================================================== -->
-    <!-- CABEÇALHO -->
-    <!-- ====================================================== -->
-
-    <div class="mb-6 flex items-center justify-between">
-
-      <div>
-        <h1 class="text-2xl font-bold text-gray-900">
-          Usuários
-        </h1>
-
-        <p class="mt-1 text-sm text-gray-600">
-          Lista de usuários cadastrados na plataforma
-        </p>
-      </div>
-
-      <a
-        routerLink="/users/create"
-        class="rounded-md bg-blue-600 px-4 py-2.5
-               font-medium text-white
-               transition hover:bg-blue-700
-               focus:outline-none focus:ring-2
-               focus:ring-blue-500 focus:ring-offset-2">
-        Criar Usuário
-      </a>
-
+  <div class="mb-6 flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">Usuários</h1>
+      <p class="mt-1 text-sm text-gray-500">
+        Gerencie os usuários do sistema.
+      </p>
     </div>
 
 
-    <!-- ====================================================== -->
-    <!-- RESUMO -->
-    <!-- ====================================================== -->
-
-    <div class="mb-6 rounded-lg bg-white p-5 shadow-md">
-
-      <div class="flex items-center justify-between">
-
-        <div>
-
-          <p class="text-sm font-medium text-gray-500">
-            Total de usuários: {{ totalCount() }}
-          </p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- ====================================================== -->
-    <!-- LOADING -->
-    <!-- ====================================================== -->
-
-    @if (isLoading()) {
-
-      <div class="mb-6 rounded-lg bg-white p-10 text-center shadow-md">
-
-        <p class="text-sm text-gray-500">
-          Carregando usuários...
-        </p>
-
-      </div>
-
-    }
-
-
-    <!-- ====================================================== -->
-    <!-- TABELA -->
-    <!-- ====================================================== -->
-
-    @if (!isLoading()) {
-
-      <div class="overflow-hidden rounded-lg bg-white shadow-md">
-
-        <div class="overflow-x-auto">
-
-          <table class="min-w-full divide-y divide-gray-200">
-
-            <!-- CABEÇALHO DA TABELA -->
-
-            <thead class="bg-gray-50">
-
-              <tr>
-
-                <th
-                  scope="col"
-                  class="px-6 py-3 text-left text-xs
-                         font-medium uppercase tracking-wider
-                         text-gray-500">
-                  ID
-                </th>
-
-                <th
-                  scope="col"
-                  class="px-6 py-3 text-left text-xs
-                         font-medium uppercase tracking-wider
-                         text-gray-500">
-                  Nome
-                </th>
-
-                <th
-                  scope="col"
-                  class="px-6 py-3 text-left text-xs
-                         font-medium uppercase tracking-wider
-                         text-gray-500">
-                  Email
-                </th>
-
-                <th
-                  scope="col"
-                  class="px-6 py-3 text-left text-xs
-                         font-medium uppercase tracking-wider
-                         text-gray-500">
-                  Status
-                </th>
-
-                <th
-                  scope="col"
-                  class="px-6 py-3 text-right text-xs
-                         font-medium uppercase tracking-wider
-                         text-gray-500">
-                  Ações
-                </th>
-
-              </tr>
-
-            </thead>
-
-
-            <!-- DADOS -->
-
-            <tbody class="divide-y divide-gray-200 bg-white">
-
-              @for (user of users(); track user.id) {
-
-                <tr class="transition hover:bg-gray-50">
-
-                  <!-- ID -->
-
-                  <td
-                    class="whitespace-nowrap px-6 py-4
-                           text-sm text-gray-500">
-
-                    {{ user.id }}
-
-                  </td>
-
-
-                  <!-- NOME -->
-
-                  <td
-                    class="whitespace-nowrap px-6 py-4
-                           text-sm font-medium text-gray-900">
-
-                    {{ user.name }}
-
-                  </td>
-
-
-                  <!-- EMAIL -->
-
-                  <td
-                    class="whitespace-nowrap px-6 py-4
-                           text-sm text-gray-600">
-
-                    {{ user.email }}
-
-                  </td>
-
-
-                  <!-- STATUS -->
-
-                  <td class="whitespace-nowrap px-6 py-4">
-
-                    @if (user.isActive) {
-
-                      <span
-                        class="inline-flex rounded-full
-                               bg-green-100 px-2.5 py-1
-                               text-xs font-medium text-green-700">
-
-                        Ativo
-
-                      </span>
-
-                    } @else {
-
-                      <span
-                        class="inline-flex rounded-full
-                               bg-red-100 px-2.5 py-1
-                               text-xs font-medium text-red-700">
-
-                        Inativo
-
-                      </span>
-
-                    }
-
-                  </td>
- 
-                  <!-- AÇÕES -->
-                  <td
-                    class="whitespace-nowrap px-6 py-4 text-right"
-                  >
-                    <div class="flex items-center justify-end gap-2">
-
-                      <!-- EDITAR -->
-                      <a
-                        [routerLink]="['/users', user.id, 'edit']"
-                        title="Editar usuário"
-                        aria-label="Editar usuário"
-                        class="rounded-md p-2 text-blue-600
-                              transition hover:bg-blue-50
-                              hover:text-blue-700
-                              focus:outline-none focus:ring-2
-                              focus:ring-blue-500 focus:ring-offset-1"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke-width="1.5"
-                          stroke="currentColor"
-                          class="h-5 w-5"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Z"
-                          />
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M19.5 7.5 16.5 4.5"
-                          />
-                        </svg>
-                      </a>
-
-                      <!-- DESATIVAR -->
-                      <button
-                        type="button"
-                        (click)="deleteUser(user.id)"
-                        [disabled]="isLoading()"
-                        title="Desativar usuário"
-                        aria-label="Desativar usuário"
-                        class="rounded-md p-2 text-red-600
-                              transition hover:bg-red-50
-                              hover:text-red-700
-                              focus:outline-none focus:ring-2
-                              focus:ring-red-500 focus:ring-offset-1
-                              disabled:cursor-not-allowed
-                              disabled:text-gray-400
-                              disabled:hover:bg-transparent"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke-width="1.5"
-                          stroke="currentColor"
-                          class="h-5 w-5"
-                        >
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="9"
-                          />
-
-                          <path
-                            stroke-linecap="round"
-                            d="M8 12h8"
-                          />
-                        </svg>
-                      </button>
-
-                    </div>
-                  </td>
-                </tr>
-
-              } @empty {
-
-                <tr>
-
-                  <td
-                    colspan="5"
-                    class="px-6 py-10 text-center
-                           text-sm text-gray-500">
-
-                    Nenhum usuário encontrado.
-
-                  </td>
-
-                </tr>
-
-              }
-
-            </tbody>
-
-          </table>
-
-        </div>
-
-
-        <!-- ================================================== -->
-        <!-- PAGINAÇÃO -->
-        <!-- ================================================== -->
-
-        @if (totalPages() > 1) {
-
-          <div
-            class="flex items-center justify-between
-                   border-t border-gray-200
-                   bg-white px-6 py-4">
-
-            <!-- INFORMAÇÕES -->
-
-            <div class="text-sm text-gray-600">
-
-              Exibindo
-
-              <span class="font-medium text-gray-900">
-                {{ ((currentPage() - 1) * pageSize()) + 1 }}
-              </span>
-
-              até
-
-              <span class="font-medium text-gray-900">
-                {{
-                  currentPage() * pageSize() < totalCount()
-                    ? currentPage() * pageSize()
-                    : totalCount()
-                }}
-              </span>
-
-              de
-
-              <span class="font-medium text-gray-900">
-                {{ totalCount() }}
-              </span>
-
-              usuários
-
-            </div>
-
-
-            <!-- CONTROLES -->
-
-            <div class="flex items-center gap-2">
-
-              <!-- ANTERIOR -->
-
-              <button
-                type="button"
-                (click)="previousPage()"
-                [disabled]="currentPage() === 1"
-                class="rounded-md border border-gray-300
-                       px-3 py-2 text-sm font-medium
-                       text-gray-700
-                       transition
-                       hover:bg-gray-50
-                       disabled:cursor-not-allowed
-                       disabled:opacity-50">
-
-                Anterior
-
-              </button>
-
-
-              <!-- PÁGINAS -->
-
-              @for (
-                page of [].constructor(totalPages());
-                track $index
-              ) {
-
-                <button
-                  type="button"
-                  (click)="goToPage($index + 1)"
-                  [class.bg-blue-600]="currentPage() === $index + 1"
-                  [class.text-white]="currentPage() === $index + 1"
-                  [class.border-blue-600]="currentPage() === $index + 1"
-                  class="rounded-md border
-                         border-gray-300
-                         px-3 py-2 text-sm font-medium
-                         text-gray-700
-                         transition
-                         hover:bg-gray-50">
-
-                  {{ $index + 1 }}
-
-                </button>
-
-              }
-
-
-              <!-- PRÓXIMO -->
-
-              <button
-                type="button"
-                (click)="nextPage()"
-                [disabled]="currentPage() === totalPages()"
-                class="rounded-md border border-gray-300
-                       px-3 py-2 text-sm font-medium
-                       text-gray-700
-                       transition
-                       hover:bg-gray-50
-                       disabled:cursor-not-allowed
-                       disabled:opacity-50">
-
-                Próximo
-
-              </button>
-
-            </div>
-
-          </div>
-
-        }
-
-      </div>
-
-    }
-
+<a
+  routerLink="/users/create"
+  class="rounded-md bg-blue-600 px-4 py-2.5
+         text-sm font-medium text-white
+         transition hover:bg-blue-700
+         focus:outline-none focus:ring-2
+         focus:ring-blue-500 focus:ring-offset-2"
+>
+  Criar Usuário
+</a>
+
+
+  </div>
+
+  <!-- FILTROS -->
+
+  <div class="mb-6 rounded-lg bg-white p-5 shadow-md">
+
+
+<div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+
+  <div class="md:col-span-2">
+    <label
+      for="search"
+      class="mb-1 block text-sm font-medium text-gray-700"
+    >
+      Buscar usuário
+    </label>
+
+    <input
+      id="search"
+      type="text"
+      [value]="search()"
+      (input)="search.set($any($event.target).value)"
+      placeholder="Digite o nome ou email"
+      class="w-full rounded-md border border-gray-300
+             px-3 py-2.5 text-sm text-gray-900
+             outline-none transition
+             focus:border-blue-500
+             focus:ring-2 focus:ring-blue-500/20"
+    />
+  </div>
+
+  <div>
+    <label
+      for="status"
+      class="mb-1 block text-sm font-medium text-gray-700"
+    >
+      Status
+    </label>
+
+    <select
+      id="status"
+      [value]="
+        isActive() === undefined
+          ? ''
+          : isActive()
+            ? 'true'
+            : 'false'
+      "
+      (change)="onStatusChange($any($event.target).value)"
+      class="w-full rounded-md border border-gray-300
+             bg-white px-3 py-2.5
+             text-sm text-gray-900
+             outline-none transition
+             focus:border-blue-500
+             focus:ring-2 focus:ring-blue-500/20"
+    >
+      <option value="">Todos</option>
+      <option value="true">Ativos</option>
+      <option value="false">Inativos</option>
+    </select>
   </div>
 
 </div>
 
-@if (showDeactivateModal()) {
+<div class="mt-4 flex justify-end gap-3">
 
-  <div
-    class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/50 px-4 backdrop-blur-sm"
+  <button
+    type="button"
+    (click)="clearFilters()"
+    [disabled]="isLoading()"
+    class="rounded-md border border-gray-300
+           bg-white px-4 py-2.5
+           text-sm font-medium text-gray-700
+           transition hover:bg-gray-50
+           focus:outline-none focus:ring-2
+           focus:ring-gray-400 focus:ring-offset-2
+           disabled:cursor-not-allowed
+           disabled:opacity-50"
   >
+    Limpar
+  </button>
+
+  <button
+    type="button"
+    (click)="applyFilters()"
+    [disabled]="isLoading()"
+    class="rounded-md bg-blue-600
+           px-4 py-2.5
+           text-sm font-medium text-white
+           transition hover:bg-blue-700
+           focus:outline-none focus:ring-2
+           focus:ring-blue-500 focus:ring-offset-2
+           disabled:cursor-not-allowed
+           disabled:opacity-50"
+  >
+    Buscar
+  </button>
+
+</div>
+
+
+  </div>
+
+  <!-- RESUMO -->
+
+  <div class="mb-4">
+    <p class="text-sm text-gray-600">
+      Total de usuários:
+      <span class="font-semibold text-gray-900">
+        {{ totalCount() }}
+      </span>
+    </p>
+  </div>
+
+  <!-- LOADING -->
+
+@if (isLoading()) {
+
+```
+<div
+  class="flex items-center justify-center
+         rounded-lg bg-white px-6 py-12 shadow-md"
+>
+  <div class="flex items-center gap-3">
+
     <div
-      class="w-full max-w-md rounded-xl bg-white p-6 shadow-2xl"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="deactivate-title"
+      class="h-5 w-5 animate-spin
+             rounded-full border-2
+             border-gray-300 border-t-blue-600"
+    ></div>
+
+    <span class="text-sm text-gray-600">
+      Carregando usuários...
+    </span>
+
+  </div>
+</div>
+
+
+}
+
+  <!-- TABELA -->
+
+@if (!isLoading()) {
+
+
+<div class="overflow-hidden rounded-lg bg-white shadow-md">
+
+  @if (users().length > 0) {
+
+    <div class="overflow-x-auto">
+
+      <table class="min-w-full divide-y divide-gray-200">
+
+        <thead class="bg-gray-50">
+          <tr>
+
+            <th
+              scope="col"
+              class="px-6 py-3 text-left
+                     text-xs font-semibold uppercase
+                     tracking-wider text-gray-500"
+            >
+              ID
+            </th>
+
+            <th
+              scope="col"
+              class="px-6 py-3 text-left
+                     text-xs font-semibold uppercase
+                     tracking-wider text-gray-500"
+            >
+              Nome
+            </th>
+
+            <th
+              scope="col"
+              class="px-6 py-3 text-left
+                     text-xs font-semibold uppercase
+                     tracking-wider text-gray-500"
+            >
+              Email
+            </th>
+
+            <th
+              scope="col"
+              class="px-6 py-3 text-left
+                     text-xs font-semibold uppercase
+                     tracking-wider text-gray-500"
+            >
+              Status
+            </th>
+
+            <th
+              scope="col"
+              class="px-6 py-3 text-right
+                     text-xs font-semibold uppercase
+                     tracking-wider text-gray-500"
+            >
+              Ações
+            </th>
+
+          </tr>
+        </thead>
+
+        <tbody class="divide-y divide-gray-200 bg-white">
+
+          @for (user of users(); track user.id) {
+
+            <tr class="transition hover:bg-gray-50">
+
+              <td
+                class="whitespace-nowrap px-6 py-4
+                       text-sm text-gray-500"
+              >
+                {{ user.id }}
+              </td>
+
+              <td
+                class="whitespace-nowrap px-6 py-4
+                       text-sm font-medium text-gray-900"
+              >
+                {{ user.name }}
+              </td>
+
+              <td
+                class="whitespace-nowrap px-6 py-4
+                       text-sm text-gray-600"
+              >
+                {{ user.email }}
+              </td>
+
+              <td class="whitespace-nowrap px-6 py-4">
+
+                @if (user.isActive) {
+
+                  <span
+                    class="inline-flex items-center
+                           rounded-full bg-green-100
+                           px-2.5 py-1
+                           text-xs font-medium
+                           text-green-700"
+                  >
+                    Ativo
+                  </span>
+
+                } @else {
+
+                  <span
+                    class="inline-flex items-center rounded-full
+                          bg-red-100 px-2.5 py-1
+                          text-xs font-medium text-red-700"
+                  >
+                    Inativo
+                  </span>
+
+                }
+
+              </td>
+
+              <!-- AÇÕES -->
+              <td class="whitespace-nowrap px-6 py-4 text-right">
+
+                <div class="flex items-center justify-end gap-2">
+
+                  <!-- EDITAR -->
+                  <a
+                    [routerLink]="['/users', user.id, 'edit']"
+                    title="Editar usuário"
+                    aria-label="Editar usuário"
+                    class="rounded-md p-2
+                           text-blue-600
+                           transition
+                           hover:bg-blue-50
+                           hover:text-blue-700
+                           focus:outline-none
+                           focus:ring-2
+                           focus:ring-blue-500
+                           focus:ring-offset-1"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="h-5 w-5"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M16.862 4.487
+                           a2.25 2.25 0 0 1 3.182 3.182
+                           L8.25 19.463
+                           4.5 20.5
+                           l1.037-3.75
+                           11.325-12.263Z"
+                      />
+                    </svg>
+                  </a>
+
+                  <!-- USUÁRIO ATIVO -->
+                  @if (user.isActive) {
+
+                    <!-- DESATIVAR -->
+                    <button
+                      type="button"
+                      (click)="deleteUser(user.id)"
+                      [disabled]="isLoading()"
+                      title="Desativar usuário"
+                      aria-label="Desativar usuário"
+                      class="rounded-md p-2
+                             text-red-600
+                             transition
+                             hover:bg-red-50
+                             hover:text-red-700
+                             focus:outline-none
+                             focus:ring-2
+                             focus:ring-red-500
+                             focus:ring-offset-1
+                             disabled:cursor-not-allowed
+                             disabled:text-gray-400
+                             disabled:hover:bg-transparent"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="h-5 w-5"
+                      >
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="9"
+                        />
+
+                        <path
+                          stroke-linecap="round"
+                          d="M8 12h8"
+                        />
+                      </svg>
+                    </button>
+
+                  } @else {
+
+                    <!-- REATIVAR -->
+                    <button
+                      type="button"
+                      (click)="reactivateUser(user.id)"
+                      [disabled]="isLoading()"
+                      title="Reativar usuário"
+                      aria-label="Reativar usuário"
+                      class="rounded-md p-2
+                             text-green-600
+                             transition
+                             hover:bg-green-50
+                             hover:text-green-700
+                             focus:outline-none
+                             focus:ring-2
+                             focus:ring-green-500
+                             focus:ring-offset-1
+                             disabled:cursor-not-allowed
+                             disabled:text-gray-400
+                             disabled:hover:bg-transparent"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="h-5 w-5"
+                      >
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="9"
+                        />
+
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="m8.5 12
+                             2.25 2.25
+                             4.75-4.75"
+                        />
+                      </svg>
+                    </button>
+
+                  }
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          }
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <!-- PAGINAÇÃO -->
+    @if (totalPages() > 1) {
+
+      <div
+        class="flex flex-col gap-4
+               border-t border-gray-200
+               bg-white px-6 py-4
+               md:flex-row md:items-center
+               md:justify-between"
+      >
+
+        <div class="text-sm text-gray-600">
+
+          Exibindo
+
+          <span class="font-medium text-gray-900">
+            {{ ((currentPage() - 1) * pageSize()) + 1 }}
+          </span>
+
+          até
+
+          <span class="font-medium text-gray-900">
+            {{
+              currentPage() * pageSize() < totalCount()
+                ? currentPage() * pageSize()
+                : totalCount()
+            }}
+          </span>
+
+          de
+
+          <span class="font-medium text-gray-900">
+            {{ totalCount() }}
+          </span>
+
+          usuários
+
+        </div>
+
+        <div class="flex items-center justify-end gap-2">
+
+          <button
+            type="button"
+            (click)="previousPage()"
+            [disabled]="currentPage() === 1"
+            class="rounded-md border border-gray-300
+                   px-3 py-2
+                   text-sm font-medium text-gray-700
+                   transition hover:bg-gray-50
+                   focus:outline-none
+                   focus:ring-2
+                   focus:ring-blue-500
+                   focus:ring-offset-1
+                   disabled:cursor-not-allowed
+                   disabled:opacity-50"
+          >
+            Anterior
+          </button>
+
+          @for (page of visiblePages(); track $index) {
+
+            @if (page === '...') {
+
+              <span
+                class="px-2 py-2
+                       text-sm font-medium
+                       text-gray-500"
+              >
+                ...
+              </span>
+
+            } @else {
+
+              <button
+                type="button"
+                (click)="goToPage(page)"
+                [class.bg-blue-600]="currentPage() === page"
+                [class.text-white]="currentPage() === page"
+                [class.border-blue-600]="currentPage() === page"
+                class="rounded-md border
+                       border-gray-300
+                       px-3 py-2
+                       text-sm font-medium
+                       text-gray-700
+                       transition hover:bg-gray-50
+                       focus:outline-none
+                       focus:ring-2
+                       focus:ring-blue-500
+                       focus:ring-offset-1"
+              >
+                {{ page }}
+              </button>
+
+            }
+
+          }
+
+          <button
+            type="button"
+            (click)="nextPage()"
+            [disabled]="currentPage() === totalPages()"
+            class="rounded-md border border-gray-300
+                   px-3 py-2
+                   text-sm font-medium text-gray-700
+                   transition hover:bg-gray-50
+                   focus:outline-none
+                   focus:ring-2
+                   focus:ring-blue-500
+                   focus:ring-offset-1
+                   disabled:cursor-not-allowed
+                   disabled:opacity-50"
+          >
+            Próximo
+          </button>
+
+        </div>
+
+      </div>
+
+    }
+
+  } @else {
+
+    <!-- EMPTY STATE -->
+    <div
+      class="flex flex-col items-center
+             justify-center
+             px-6 py-16
+             text-center"
     >
-      <!-- ÍCONE -->
-      <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
+
+      <div
+        class="mb-4 flex h-12 w-12
+               items-center justify-center
+               rounded-full bg-gray-100"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="h-6 w-6 text-red-600"
+          class="h-6 w-6 text-gray-500"
         >
-          <circle cx="12" cy="12" r="9" />
-          <path stroke-linecap="round" d="M8 12h8" />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15 19.128
+               a9.38 9.38 0 0 0 2.625.372
+               9.337 9.337 0 0 0 4.125-.956
+               4.125 4.125 0 0 0-7.533-2.493
+               M15 19.128v-.003
+               c0-1.113-.285-2.16-.786-3.07
+               M15 19.128v.106
+               A12.318 12.318 0 0 1 8.624 21
+               c-2.331 0-4.512-.645-6.374-1.766
+               l-.001-.109
+               a6.375 6.375 0 0 1 11.964-3.07
+               M12 6.375
+               a3.375 3.375 0 1 1-6.75 0
+               3.375 3.375 0 0 1 6.75 0Zm8.25 2.25
+               a2.625 2.625 0 1 1-5.25 0
+               2.625 2.625 0 0 1 5.25 0Z"
+          />
+        </svg>
+      </div>
+
+      <p class="text-sm font-medium text-gray-900">
+        Nenhum usuário encontrado.
+      </p>
+
+      <p class="mt-1 text-sm text-gray-500">
+        Tente ajustar os filtros ou criar um novo usuário.
+      </p>
+
+    </div>
+
+  }
+
+</div>
+
+
+}
+
+  <!-- MODAL DE DESATIVAÇÃO -->
+
+@if (showDeactivateModal()) {
+
+
+<div
+  class="fixed inset-0 z-50
+         flex items-center justify-center
+         bg-gray-900/50 px-4
+         backdrop-blur-sm"
+>
+
+  <div
+    class="w-full max-w-md
+           rounded-xl bg-white
+           p-6 shadow-2xl"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="deactivate-title"
+  >
+
+    <div
+      class="mb-4 flex h-12 w-12
+             items-center justify-center
+             rounded-full bg-red-100"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="h-6 w-6 text-red-600"
+      >
+        <circle
+          cx="12"
+          cy="12"
+          r="9"
+        />
+
+        <path
+          stroke-linecap="round"
+          d="M8 12h8"
+        />
+      </svg>
+    </div>
+
+    <h2
+      id="deactivate-title"
+      class="text-lg font-semibold text-gray-900"
+    >
+      Desativar usuário
+    </h2>
+
+    <p class="mt-2 text-sm text-gray-600">
+      Tem certeza que deseja desativar este usuário?
+      Ele não poderá mais acessar o sistema.
+    </p>
+
+    <div class="mt-6 flex justify-end gap-3">
+
+      <button
+        type="button"
+        (click)="cancelDeactivate()"
+        class="rounded-md border
+               border-gray-300
+               bg-white px-4 py-2.5
+               text-sm font-medium
+               text-gray-700
+               transition hover:bg-gray-50
+               focus:outline-none
+               focus:ring-2
+               focus:ring-gray-400
+               focus:ring-offset-2"
+      >
+        Cancelar
+      </button>
+
+      <button
+        type="button"
+        (click)="confirmDeactivate()"
+        [disabled]="isLoading()"
+        class="rounded-md bg-red-600
+               px-4 py-2.5
+               text-sm font-medium
+               text-white
+               transition hover:bg-red-700
+               focus:outline-none
+               focus:ring-2
+               focus:ring-red-500
+               focus:ring-offset-2
+               disabled:cursor-not-allowed
+               disabled:opacity-50"
+      >
+
+        @if (isLoading()) {
+          Desativando...
+        } @else {
+          Desativar
+        }
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+}
+
+@if (showReactivateModal()) {
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center
+           bg-gray-900/50 px-4 backdrop-blur-sm"
+  >
+    <div
+      class="w-full max-w-md rounded-xl bg-white p-6 shadow-2xl"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="reactivate-title"
+    >
+      <!-- ÍCONE -->
+      <div
+        class="mb-4 flex h-12 w-12 items-center justify-center
+               rounded-full bg-green-100"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="h-6 w-6 text-green-600"
+        >
+          <circle
+            cx="12"
+            cy="12"
+            r="9"
+          />
+
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m8.5 12 2.25 2.25 4.75-4.75"
+          />
         </svg>
       </div>
 
       <!-- TÍTULO -->
       <h2
-        id="deactivate-title"
+        id="reactivate-title"
         class="text-lg font-semibold text-gray-900"
       >
-        Desativar usuário
+        Reativar usuário
       </h2>
 
-      <!-- MENSAGEM -->
+      <!-- DESCRIÇÃO -->
       <p class="mt-2 text-sm text-gray-600">
-        Tem certeza que deseja desativar este usuário?
-        Ele não poderá mais acessar o sistema.
+        Tem certeza que deseja reativar este usuário?
+        Ele poderá acessar o sistema novamente.
       </p>
 
       <!-- AÇÕES -->
       <div class="mt-6 flex justify-end gap-3">
         <button
           type="button"
-          (click)="cancelDeactivate()"
-          class="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1"
+          (click)="cancelReactivate()"
+          class="rounded-lg border border-gray-300
+                 px-4 py-2 text-sm font-medium
+                 text-gray-700 transition
+                 hover:bg-gray-50
+                 focus:outline-none
+                 focus:ring-2
+                 focus:ring-gray-400
+                 focus:ring-offset-1"
         >
           Cancelar
         </button>
 
         <button
           type="button"
-          (click)="confirmDeactivate()"
+          (click)="confirmReactivate()"
           [disabled]="isLoading()"
-          class="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:bg-red-300"
+          class="rounded-lg bg-green-600
+                 px-4 py-2 text-sm font-medium
+                 text-white transition
+                 hover:bg-green-700
+                 focus:outline-none
+                 focus:ring-2
+                 focus:ring-green-500
+                 focus:ring-offset-1
+                 disabled:cursor-not-allowed
+                 disabled:bg-gray-400"
         >
           @if (isLoading()) {
-            Desativando...
+            Reativando...
           } @else {
-            Desativar
+            Reativar
           }
         </button>
       </div>
     </div>
   </div>
-
 }
+
+</div>

@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
-import { API_ENDPOINTS } from '../../../core/constants/api.constants';
+import { API_ENDPOINTS, API_LOCAL_ENDPOINTS,  } from '../../../core/constants/api.constants';
 
 @Injectable({
   providedIn: 'root'
