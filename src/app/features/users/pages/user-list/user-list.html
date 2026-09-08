@@ -11,16 +11,13 @@
     </div>
 
 
-<a
-  routerLink="/users/create"
-  class="rounded-md bg-blue-600 px-4 py-2.5
+    <a routerLink="/users/create" class="rounded-md bg-blue-600 px-4 py-2.5
          text-sm font-medium text-white
          transition hover:bg-blue-700
          focus:outline-none focus:ring-2
-         focus:ring-blue-500 focus:ring-offset-2"
->
-  Criar Usuário
-</a>
+         focus:ring-blue-500 focus:ring-offset-2">
+      Criar Usuário
+    </a>
 
 
   </div>
@@ -30,98 +27,71 @@
   <div class="mb-6 rounded-lg bg-white p-5 shadow-md">
 
 
-<div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
 
-  <div class="md:col-span-2">
-    <label
-      for="search"
-      class="mb-1 block text-sm font-medium text-gray-700"
-    >
-      Buscar usuário
-    </label>
+      <div class="md:col-span-2">
+        <label for="search" class="mb-1 block text-sm font-medium text-gray-700">
+          Buscar usuário
+        </label>
 
-    <input
-      id="search"
-      type="text"
-      [value]="search()"
-      (input)="search.set($any($event.target).value)"
-      placeholder="Digite o nome ou email"
-      class="w-full rounded-md border border-gray-300
+        <input id="search" type="text" [value]="search()" (input)="search.set($any($event.target).value)"
+          placeholder="Digite o nome ou email" class="w-full rounded-md border border-gray-300
              px-3 py-2.5 text-sm text-gray-900
              outline-none transition
              focus:border-blue-500
-             focus:ring-2 focus:ring-blue-500/20"
-    />
-  </div>
+             focus:ring-2 focus:ring-blue-500/20" />
+      </div>
 
-  <div>
-    <label
-      for="status"
-      class="mb-1 block text-sm font-medium text-gray-700"
-    >
-      Status
-    </label>
+      <div>
+        <label for="status" class="mb-1 block text-sm font-medium text-gray-700">
+          Status
+        </label>
 
-    <select
-      id="status"
-      [value]="
+        <select id="status" [value]="
         isActive() === undefined
           ? ''
           : isActive()
             ? 'true'
             : 'false'
-      "
-      (change)="onStatusChange($any($event.target).value)"
-      class="w-full rounded-md border border-gray-300
+      " (change)="onStatusChange($any($event.target).value)" class="w-full rounded-md border border-gray-300
              bg-white px-3 py-2.5
              text-sm text-gray-900
              outline-none transition
              focus:border-blue-500
-             focus:ring-2 focus:ring-blue-500/20"
-    >
-      <option value="">Todos</option>
-      <option value="true">Ativos</option>
-      <option value="false">Inativos</option>
-    </select>
-  </div>
+             focus:ring-2 focus:ring-blue-500/20">
+          <option value="">Todos</option>
+          <option value="true">Ativos</option>
+          <option value="false">Inativos</option>
+        </select>
+      </div>
 
-</div>
+    </div>
 
-<div class="mt-4 flex justify-end gap-3">
+    <div class="mt-4 flex justify-end gap-3">
 
-  <button
-    type="button"
-    (click)="clearFilters()"
-    [disabled]="isLoading()"
-    class="rounded-md border border-gray-300
+      <button type="button" (click)="clearFilters()" [disabled]="isLoading()" class="rounded-md border border-gray-300
            bg-white px-4 py-2.5
            text-sm font-medium text-gray-700
            transition hover:bg-gray-50
            focus:outline-none focus:ring-2
            focus:ring-gray-400 focus:ring-offset-2
            disabled:cursor-not-allowed
-           disabled:opacity-50"
-  >
-    Limpar
-  </button>
+           disabled:opacity-50">
+        Limpar
+      </button>
 
-  <button
-    type="button"
-    (click)="applyFilters()"
-    [disabled]="isLoading()"
-    class="rounded-md bg-blue-600
+      <button type="button" (click)="applyFilters()" [disabled]="isLoading()" class="rounded-md bg-blue-600
            px-4 py-2.5
            text-sm font-medium text-white
            transition hover:bg-blue-700
            focus:outline-none focus:ring-2
            focus:ring-blue-500 focus:ring-offset-2
            disabled:cursor-not-allowed
-           disabled:opacity-50"
-  >
-    Buscar
-  </button>
+           disabled:opacity-50">
+        Buscar
+      </button>
 
-</div>
+    </div>
 
 
   </div>
@@ -139,39 +109,33 @@
 
   <!-- LOADING -->
 
-@if (isLoading()) {
+  @if (isLoading()) {
+  <div class="flex items-center justify-center
+         rounded-lg bg-white px-6 py-12 shadow-md">
+    <div class="flex items-center gap-3">
 
-```
-<div
-  class="flex items-center justify-center
-         rounded-lg bg-white px-6 py-12 shadow-md"
->
-  <div class="flex items-center gap-3">
-
-    <div
-      class="h-5 w-5 animate-spin
+      <div class="h-5 w-5 animate-spin
              rounded-full border-2
-             border-gray-300 border-t-blue-600"
-    ></div>
+             border-gray-300 border-t-blue-600"></div>
 
-    <span class="text-sm text-gray-600">
-      Carregando usuários...
-    </span>
+      <span class="text-sm text-gray-600">
+        Carregando usuários...
+      </span>
 
+    </div>
   </div>
-</div>
 
 
-}
+  }
 
   <!-- TABELA -->
 
-@if (!isLoading()) {
+  @if (!isLoading()) {
 
 
-<div class="overflow-hidden rounded-lg bg-white shadow-md">
+  <div class="overflow-hidden rounded-lg bg-white shadow-md">
 
-  @if (users().length > 0) {
+    @if (users().length > 0) {
 
     <div class="overflow-x-auto">
 
@@ -180,48 +144,33 @@
         <thead class="bg-gray-50">
           <tr>
 
-            <th
-              scope="col"
-              class="px-6 py-3 text-left
+            <th scope="col" class="px-6 py-3 text-left
                      text-xs font-semibold uppercase
-                     tracking-wider text-gray-500"
-            >
+                     tracking-wider text-gray-500">
               ID
             </th>
 
-            <th
-              scope="col"
-              class="px-6 py-3 text-left
+            <th scope="col" class="px-6 py-3 text-left
                      text-xs font-semibold uppercase
-                     tracking-wider text-gray-500"
-            >
+                     tracking-wider text-gray-500">
               Nome
             </th>
 
-            <th
-              scope="col"
-              class="px-6 py-3 text-left
+            <th scope="col" class="px-6 py-3 text-left
                      text-xs font-semibold uppercase
-                     tracking-wider text-gray-500"
-            >
+                     tracking-wider text-gray-500">
               Email
             </th>
 
-            <th
-              scope="col"
-              class="px-6 py-3 text-left
+            <th scope="col" class="px-6 py-3 text-left
                      text-xs font-semibold uppercase
-                     tracking-wider text-gray-500"
-            >
+                     tracking-wider text-gray-500">
               Status
             </th>
 
-            <th
-              scope="col"
-              class="px-6 py-3 text-right
+            <th scope="col" class="px-6 py-3 text-right
                      text-xs font-semibold uppercase
-                     tracking-wider text-gray-500"
-            >
+                     tracking-wider text-gray-500">
               Ações
             </th>
 
@@ -232,68 +181,54 @@
 
           @for (user of users(); track user.id) {
 
-            <tr class="transition hover:bg-gray-50">
+          <tr class="transition hover:bg-gray-50">
 
-              <td
-                class="whitespace-nowrap px-6 py-4
-                       text-sm text-gray-500"
-              >
-                {{ user.id }}
-              </td>
+            <td class="whitespace-nowrap px-6 py-4
+                       text-sm text-gray-500">
+              {{ user.id }}
+            </td>
 
-              <td
-                class="whitespace-nowrap px-6 py-4
-                       text-sm font-medium text-gray-900"
-              >
-                {{ user.name }}
-              </td>
+            <td class="whitespace-nowrap px-6 py-4
+                       text-sm font-medium text-gray-900">
+              {{ user.name }}
+            </td>
 
-              <td
-                class="whitespace-nowrap px-6 py-4
-                       text-sm text-gray-600"
-              >
-                {{ user.email }}
-              </td>
+            <td class="whitespace-nowrap px-6 py-4
+                       text-sm text-gray-600">
+              {{ user.email }}
+            </td>
 
-              <td class="whitespace-nowrap px-6 py-4">
+            <td class="whitespace-nowrap px-6 py-4">
 
-                @if (user.isActive) {
+              @if (user.isActive) {
 
-                  <span
-                    class="inline-flex items-center
+              <span class="inline-flex items-center
                            rounded-full bg-green-100
                            px-2.5 py-1
                            text-xs font-medium
-                           text-green-700"
-                  >
-                    Ativo
-                  </span>
+                           text-green-700">
+                Ativo
+              </span>
 
-                } @else {
+              } @else {
 
-                  <span
-                    class="inline-flex items-center rounded-full
+              <span class="inline-flex items-center rounded-full
                           bg-red-100 px-2.5 py-1
-                          text-xs font-medium text-red-700"
-                  >
-                    Inativo
-                  </span>
+                          text-xs font-medium text-red-700">
+                Inativo
+              </span>
 
-                }
+              }
 
-              </td>
+            </td>
 
-              <!-- AÇÕES -->
-              <td class="whitespace-nowrap px-6 py-4 text-right">
+            <!-- AÇÕES -->
+            <td class="whitespace-nowrap px-6 py-4 text-right">
 
-                <div class="flex items-center justify-end gap-2">
+              <div class="flex items-center justify-end gap-2">
 
-                  <!-- EDITAR -->
-                  <a
-                    [routerLink]="['/users', user.id, 'edit']"
-                    title="Editar usuário"
-                    aria-label="Editar usuário"
-                    class="rounded-md p-2
+                <!-- EDITAR -->
+                <a [routerLink]="['/users', user.id, 'edit']" title="Editar usuário" aria-label="Editar usuário" class="rounded-md p-2
                            text-blue-600
                            transition
                            hover:bg-blue-50
@@ -301,40 +236,24 @@
                            focus:outline-none
                            focus:ring-2
                            focus:ring-blue-500
-                           focus:ring-offset-1"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="h-5 w-5"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M16.862 4.487
+                           focus:ring-offset-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="h-5 w-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487
                            a2.25 2.25 0 0 1 3.182 3.182
                            L8.25 19.463
                            4.5 20.5
                            l1.037-3.75
-                           11.325-12.263Z"
-                      />
-                    </svg>
-                  </a>
+                           11.325-12.263Z" />
+                  </svg>
+                </a>
 
-                  <!-- USUÁRIO ATIVO -->
-                  @if (user.isActive) {
+                <!-- USUÁRIO ATIVO -->
+                @if (user.isActive) {
 
-                    <!-- DESATIVAR -->
-                    <button
-                      type="button"
-                      (click)="deleteUser(user.id)"
-                      [disabled]="isLoading()"
-                      title="Desativar usuário"
-                      aria-label="Desativar usuário"
-                      class="rounded-md p-2
+                <!-- DESATIVAR -->
+                <button type="button" (click)="deleteUser(user.id)" [disabled]="isLoading()" title="Desativar usuário"
+                  aria-label="Desativar usuário" class="rounded-md p-2
                              text-red-600
                              transition
                              hover:bg-red-50
@@ -345,39 +264,20 @@
                              focus:ring-offset-1
                              disabled:cursor-not-allowed
                              disabled:text-gray-400
-                             disabled:hover:bg-transparent"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="h-5 w-5"
-                      >
-                        <circle
-                          cx="12"
-                          cy="12"
-                          r="9"
-                        />
+                             disabled:hover:bg-transparent">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="h-5 w-5">
+                    <circle cx="12" cy="12" r="9" />
 
-                        <path
-                          stroke-linecap="round"
-                          d="M8 12h8"
-                        />
-                      </svg>
-                    </button>
+                    <path stroke-linecap="round" d="M8 12h8" />
+                  </svg>
+                </button>
 
-                  } @else {
+                } @else {
 
-                    <!-- REATIVAR -->
-                    <button
-                      type="button"
-                      (click)="reactivateUser(user.id)"
-                      [disabled]="isLoading()"
-                      title="Reativar usuário"
-                      aria-label="Reativar usuário"
-                      class="rounded-md p-2
+                <!-- REATIVAR -->
+                <button type="button" (click)="reactivateUser(user.id)" [disabled]="isLoading()"
+                  title="Reativar usuário" aria-label="Reativar usuário" class="rounded-md p-2
                              text-green-600
                              transition
                              hover:bg-green-50
@@ -388,39 +288,24 @@
                              focus:ring-offset-1
                              disabled:cursor-not-allowed
                              disabled:text-gray-400
-                             disabled:hover:bg-transparent"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="h-5 w-5"
-                      >
-                        <circle
-                          cx="12"
-                          cy="12"
-                          r="9"
-                        />
+                             disabled:hover:bg-transparent">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="h-5 w-5">
+                    <circle cx="12" cy="12" r="9" />
 
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="m8.5 12
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.5 12
                              2.25 2.25
-                             4.75-4.75"
-                        />
-                      </svg>
-                    </button>
+                             4.75-4.75" />
+                  </svg>
+                </button>
 
-                  }
+                }
 
-                </div>
+              </div>
 
-              </td>
+            </td>
 
-            </tr>
+          </tr>
 
           }
 
@@ -433,49 +318,39 @@
     <!-- PAGINAÇÃO -->
     @if (totalPages() > 1) {
 
-      <div
-        class="flex flex-col gap-4
+    <div class="flex flex-col gap-4
                border-t border-gray-200
                bg-white px-6 py-4
                md:flex-row md:items-center
-               md:justify-between"
-      >
+               md:justify-between">
 
-        <div class="text-sm text-gray-600">
+      <div class="text-sm text-gray-600">
 
-          Exibindo
+        Exibindo
 
-          <span class="font-medium text-gray-900">
-            {{ ((currentPage() - 1) * pageSize()) + 1 }}
-          </span>
+        <span class="font-medium text-gray-900">
+          {{ ((currentPage() - 1) * pageSize()) + 1 }}
+        </span>
 
-          até
+        até
 
-          <span class="font-medium text-gray-900">
-            {{
-              currentPage() * pageSize() < totalCount()
-                ? currentPage() * pageSize()
-                : totalCount()
-            }}
-          </span>
+        <span class="font-medium text-gray-900">
+          {{
+          currentPage() * pageSize() < totalCount() ? currentPage() * pageSize() : totalCount() }} </span>
 
-          de
+            de
 
-          <span class="font-medium text-gray-900">
-            {{ totalCount() }}
-          </span>
+            <span class="font-medium text-gray-900">
+              {{ totalCount() }}
+            </span>
 
-          usuários
+            usuários
 
-        </div>
+      </div>
 
-        <div class="flex items-center justify-end gap-2">
+      <div class="flex items-center justify-end gap-2">
 
-          <button
-            type="button"
-            (click)="previousPage()"
-            [disabled]="currentPage() === 1"
-            class="rounded-md border border-gray-300
+        <button type="button" (click)="previousPage()" [disabled]="currentPage() === 1" class="rounded-md border border-gray-300
                    px-3 py-2
                    text-sm font-medium text-gray-700
                    transition hover:bg-gray-50
@@ -484,32 +359,24 @@
                    focus:ring-blue-500
                    focus:ring-offset-1
                    disabled:cursor-not-allowed
-                   disabled:opacity-50"
-          >
-            Anterior
-          </button>
+                   disabled:opacity-50">
+          Anterior
+        </button>
 
-          @for (page of visiblePages(); track $index) {
+        @for (page of visiblePages(); track $index) {
 
-            @if (page === '...') {
+        @if (page === '...') {
 
-              <span
-                class="px-2 py-2
+        <span class="px-2 py-2
                        text-sm font-medium
-                       text-gray-500"
-              >
-                ...
-              </span>
+                       text-gray-500">
+          ...
+        </span>
 
-            } @else {
+        } @else {
 
-              <button
-                type="button"
-                (click)="goToPage(page)"
-                [class.bg-blue-600]="currentPage() === page"
-                [class.text-white]="currentPage() === page"
-                [class.border-blue-600]="currentPage() === page"
-                class="rounded-md border
+        <button type="button" (click)="goToPage(page)" [class.bg-blue-600]="currentPage() === page"
+          [class.text-white]="currentPage() === page" [class.border-blue-600]="currentPage() === page" class="rounded-md border
                        border-gray-300
                        px-3 py-2
                        text-sm font-medium
@@ -518,20 +385,15 @@
                        focus:outline-none
                        focus:ring-2
                        focus:ring-blue-500
-                       focus:ring-offset-1"
-              >
-                {{ page }}
-              </button>
+                       focus:ring-offset-1">
+          {{ page }}
+        </button>
 
-            }
+        }
 
-          }
+        }
 
-          <button
-            type="button"
-            (click)="nextPage()"
-            [disabled]="currentPage() === totalPages()"
-            class="rounded-md border border-gray-300
+        <button type="button" (click)="nextPage()" [disabled]="currentPage() === totalPages()" class="rounded-md border border-gray-300
                    px-3 py-2
                    text-sm font-medium text-gray-700
                    transition hover:bg-gray-50
@@ -540,44 +402,30 @@
                    focus:ring-blue-500
                    focus:ring-offset-1
                    disabled:cursor-not-allowed
-                   disabled:opacity-50"
-          >
-            Próximo
-          </button>
-
-        </div>
+                   disabled:opacity-50">
+          Próximo
+        </button>
 
       </div>
 
+    </div>
+
     }
 
-  } @else {
+    } @else {
 
     <!-- EMPTY STATE -->
-    <div
-      class="flex flex-col items-center
+    <div class="flex flex-col items-center
              justify-center
              px-6 py-16
-             text-center"
-    >
+             text-center">
 
-      <div
-        class="mb-4 flex h-12 w-12
+      <div class="mb-4 flex h-12 w-12
                items-center justify-center
-               rounded-full bg-gray-100"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="h-6 w-6 text-gray-500"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M15 19.128
+               rounded-full bg-gray-100">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="h-6 w-6 text-gray-500">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128
                a9.38 9.38 0 0 0 2.625.372
                9.337 9.337 0 0 0 4.125-.956
                4.125 4.125 0 0 0-7.533-2.493
@@ -592,8 +440,7 @@
                a3.375 3.375 0 1 1-6.75 0
                3.375 3.375 0 0 1 6.75 0Zm8.25 2.25
                a2.625 2.625 0 1 1-5.25 0
-               2.625 2.625 0 0 1 5.25 0Z"
-          />
+               2.625 2.625 0 0 1 5.25 0Z" />
         </svg>
       </div>
 
@@ -607,78 +454,50 @@
 
     </div>
 
+    }
+
+  </div>
+
+
   }
-
-</div>
-
-
-}
 
   <!-- MODAL DE DESATIVAÇÃO -->
 
-@if (showDeactivateModal()) {
+  @if (showDeactivateModal()) {
 
 
-<div
-  class="fixed inset-0 z-50
+  <div class="fixed inset-0 z-50
          flex items-center justify-center
          bg-gray-900/50 px-4
-         backdrop-blur-sm"
->
+         backdrop-blur-sm">
 
-  <div
-    class="w-full max-w-md
+    <div class="w-full max-w-md
            rounded-xl bg-white
-           p-6 shadow-2xl"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="deactivate-title"
-  >
+           p-6 shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="deactivate-title">
 
-    <div
-      class="mb-4 flex h-12 w-12
+      <div class="mb-4 flex h-12 w-12
              items-center justify-center
-             rounded-full bg-red-100"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="h-6 w-6 text-red-600"
-      >
-        <circle
-          cx="12"
-          cy="12"
-          r="9"
-        />
+             rounded-full bg-red-100">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="h-6 w-6 text-red-600">
+          <circle cx="12" cy="12" r="9" />
 
-        <path
-          stroke-linecap="round"
-          d="M8 12h8"
-        />
-      </svg>
-    </div>
+          <path stroke-linecap="round" d="M8 12h8" />
+        </svg>
+      </div>
 
-    <h2
-      id="deactivate-title"
-      class="text-lg font-semibold text-gray-900"
-    >
-      Desativar usuário
-    </h2>
+      <h2 id="deactivate-title" class="text-lg font-semibold text-gray-900">
+        Desativar usuário
+      </h2>
 
-    <p class="mt-2 text-sm text-gray-600">
-      Tem certeza que deseja desativar este usuário?
-      Ele não poderá mais acessar o sistema.
-    </p>
+      <p class="mt-2 text-sm text-gray-600">
+        Tem certeza que deseja desativar este usuário?
+        Ele não poderá mais acessar o sistema.
+      </p>
 
-    <div class="mt-6 flex justify-end gap-3">
+      <div class="mt-6 flex justify-end gap-3">
 
-      <button
-        type="button"
-        (click)="cancelDeactivate()"
-        class="rounded-md border
+        <button type="button" (click)="cancelDeactivate()" class="rounded-md border
                border-gray-300
                bg-white px-4 py-2.5
                text-sm font-medium
@@ -687,16 +506,11 @@
                focus:outline-none
                focus:ring-2
                focus:ring-gray-400
-               focus:ring-offset-2"
-      >
-        Cancelar
-      </button>
+               focus:ring-offset-2">
+          Cancelar
+        </button>
 
-      <button
-        type="button"
-        (click)="confirmDeactivate()"
-        [disabled]="isLoading()"
-        class="rounded-md bg-red-600
+        <button type="button" (click)="confirmDeactivate()" [disabled]="isLoading()" class="rounded-md bg-red-600
                px-4 py-2.5
                text-sm font-medium
                text-white
@@ -706,68 +520,42 @@
                focus:ring-red-500
                focus:ring-offset-2
                disabled:cursor-not-allowed
-               disabled:opacity-50"
-      >
+               disabled:opacity-50">
 
-        @if (isLoading()) {
+          @if (isLoading()) {
           Desativando...
-        } @else {
+          } @else {
           Desativar
-        }
+          }
 
-      </button>
+        </button>
+
+      </div>
 
     </div>
 
   </div>
 
-</div>
+  }
 
-}
-
-@if (showReactivateModal()) {
-  <div
-    class="fixed inset-0 z-50 flex items-center justify-center
-           bg-gray-900/50 px-4 backdrop-blur-sm"
-  >
-    <div
-      class="w-full max-w-md rounded-xl bg-white p-6 shadow-2xl"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="reactivate-title"
-    >
+  @if (showReactivateModal()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center
+           bg-gray-900/50 px-4 backdrop-blur-sm">
+    <div class="w-full max-w-md rounded-xl bg-white p-6 shadow-2xl" role="dialog" aria-modal="true"
+      aria-labelledby="reactivate-title">
       <!-- ÍCONE -->
-      <div
-        class="mb-4 flex h-12 w-12 items-center justify-center
-               rounded-full bg-green-100"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="h-6 w-6 text-green-600"
-        >
-          <circle
-            cx="12"
-            cy="12"
-            r="9"
-          />
+      <div class="mb-4 flex h-12 w-12 items-center justify-center
+               rounded-full bg-green-100">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="h-6 w-6 text-green-600">
+          <circle cx="12" cy="12" r="9" />
 
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="m8.5 12 2.25 2.25 4.75-4.75"
-          />
+          <path stroke-linecap="round" stroke-linejoin="round" d="m8.5 12 2.25 2.25 4.75-4.75" />
         </svg>
       </div>
 
       <!-- TÍTULO -->
-      <h2
-        id="reactivate-title"
-        class="text-lg font-semibold text-gray-900"
-      >
+      <h2 id="reactivate-title" class="text-lg font-semibold text-gray-900">
         Reativar usuário
       </h2>
 
@@ -779,26 +567,18 @@
 
       <!-- AÇÕES -->
       <div class="mt-6 flex justify-end gap-3">
-        <button
-          type="button"
-          (click)="cancelReactivate()"
-          class="rounded-lg border border-gray-300
+        <button type="button" (click)="cancelReactivate()" class="rounded-lg border border-gray-300
                  px-4 py-2 text-sm font-medium
                  text-gray-700 transition
                  hover:bg-gray-50
                  focus:outline-none
                  focus:ring-2
                  focus:ring-gray-400
-                 focus:ring-offset-1"
-        >
+                 focus:ring-offset-1">
           Cancelar
         </button>
 
-        <button
-          type="button"
-          (click)="confirmReactivate()"
-          [disabled]="isLoading()"
-          class="rounded-lg bg-green-600
+        <button type="button" (click)="confirmReactivate()" [disabled]="isLoading()" class="rounded-lg bg-green-600
                  px-4 py-2 text-sm font-medium
                  text-white transition
                  hover:bg-green-700
@@ -807,17 +587,16 @@
                  focus:ring-green-500
                  focus:ring-offset-1
                  disabled:cursor-not-allowed
-                 disabled:bg-gray-400"
-        >
+                 disabled:bg-gray-400">
           @if (isLoading()) {
-            Reativando...
+          Reativando...
           } @else {
-            Reativar
+          Reativar
           }
         </button>
       </div>
     </div>
   </div>
-}
+  }
 
 </div>

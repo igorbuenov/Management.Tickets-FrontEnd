@@ -13,9 +13,7 @@
         </p>
       </div>
 
-      <a
-        routerLink="/users"
-        class="rounded-md border border-gray-300 bg-white px-4 py-2.5
+      <a routerLink="/users" class="rounded-md border border-gray-300 bg-white px-4 py-2.5
                font-medium text-gray-700
                transition hover:bg-gray-50
                focus:outline-none focus:ring-2
@@ -27,68 +25,41 @@
     <!-- Formulário -->
     <div class="rounded-lg bg-white p-6 shadow-md">
 
-      <form
-        (ngSubmit)="createUser()"
-        class="space-y-6">
+      <form (ngSubmit)="createUser()" class="space-y-6">
 
         <!-- Nome -->
         <div>
-          <label
-            for="name"
-            class="mb-2 block text-sm font-medium text-gray-700">
+          <label for="name" class="mb-2 block text-sm font-medium text-gray-700">
             Nome
           </label>
 
-          <input
-            id="name"
-            name="name"
-            type="text"
-            [(ngModel)]="name"
-            placeholder="Digite o nome"
-            class="w-full rounded-md border border-gray-300 px-4 py-2.5
+          <input id="name" name="name" type="text" [(ngModel)]="name" placeholder="Digite o nome" class="w-full rounded-md border border-gray-300 px-4 py-2.5
                    text-gray-900 placeholder-gray-400
                    outline-none transition
-                   focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-          />
+                   focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
         </div>
 
         <!-- Email -->
         <div>
-          <label
-            for="email"
-            class="mb-2 block text-sm font-medium text-gray-700">
+          <label for="email" class="mb-2 block text-sm font-medium text-gray-700">
             Email
           </label>
 
-          <input
-            id="email"
-            name="email"
-            type="email"
-            [(ngModel)]="email"
-            placeholder="seu@email.com"
-            class="w-full rounded-md border border-gray-300 px-4 py-2.5
+          <input id="email" name="email" type="email" [(ngModel)]="email" placeholder="seu@email.com" class="w-full rounded-md border border-gray-300 px-4 py-2.5
                    text-gray-900 placeholder-gray-400
                    outline-none transition
-                   focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-          />
+                   focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
         </div>
 
         <!-- Perfil -->
         <div>
-          <label
-            for="roleId"
-            class="mb-2 block text-sm font-medium text-gray-700">
+          <label for="roleId" class="mb-2 block text-sm font-medium text-gray-700">
             Perfil
           </label>
 
-          <select
-            id="roleId"
-            name="roleId"
-            [(ngModel)]="roleId"
-            class="w-full rounded-md border border-gray-300 bg-white px-4 py-2.5
+          <select id="roleId" name="roleId" [(ngModel)]="roleId" class="w-full rounded-md border border-gray-300 bg-white px-4 py-2.5
                   text-gray-900 outline-none transition
-                  focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-          >
+                  focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
             <option [ngValue]="null" disabled>
               Selecione o perfil
             </option>
@@ -111,20 +82,16 @@
         <div class="border-t border-gray-200 pt-6">
 
           <!-- Botão -->
-          <button
-            type="submit"
-            [disabled]="isLoading()"
-            class="w-full rounded-md bg-blue-600 px-4 py-2.5
+          <button type="submit" [disabled]="isLoading()" class="w-full rounded-md bg-blue-600 px-4 py-2.5
                   font-medium text-white
                   transition hover:bg-blue-700
                   focus:outline-none focus:ring-2
                   focus:ring-blue-500 focus:ring-offset-2
-                  disabled:cursor-not-allowed disabled:bg-gray-400"
-          >
+                  disabled:cursor-not-allowed disabled:bg-gray-400">
             @if (isLoading()) {
-              Criando...
+            Criando...
             } @else {
-              Criar usuário
+            Criar usuário
             }
           </button>
 
@@ -132,16 +99,12 @@
 
         <!-- Mensagem -->
         @if (message()) {
-          <div
-            class="rounded-md px-4 py-3 text-center text-sm"
-            [class.bg-red-50]="isError()"
-            [class.text-red-600]="isError()"
-            [class.bg-green-50]="!isError()"
-            [class.text-green-600]="!isError()">
+        <div class="rounded-md px-4 py-3 text-center text-sm" [class.bg-red-50]="isError()"
+          [class.text-red-600]="isError()" [class.bg-green-50]="!isError()" [class.text-green-600]="!isError()">
 
-            {{ message() }}
+          {{ message() }}
 
-          </div>
+        </div>
         }
 
       </form>
