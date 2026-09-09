@@ -11,6 +11,7 @@ import { LoginResponseModel } from '../models/login-response.model';
 export class AuthService {
 
   private readonly tokenKey = 'accessToken';
+  private readonly userKey = 'currentUser';
   private readonly apiUrl = API_ENDPOINTS.auth;
 
   constructor(
@@ -135,5 +136,19 @@ export class AuthService {
         console.error('Erro ao ler ID do usuário:', error); 
         return null; 
       } 
+  }
+
+  getCurrentUser(): LoginResponseModel['user'] | null {
+    const user = localStorage.getItem(this.userKey);
+
+    if (!user) {
+      return null;
     }
+
+    try {
+      return JSON.parse(user);
+    } catch {
+      return null;
+    }
+  }
 }

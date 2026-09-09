@@ -21,6 +21,8 @@ export class MainLayoutComponent {
 
   ticketsMenuOpen = signal(true);
   usersMenuOpen = signal(false);
+  sectorsMenuOpen = signal(false);
+  categoriesMenuOpen = signal(false);
   isAdmin = signal(false);
 
   mobileMenuOpen = signal(false);
@@ -43,6 +45,14 @@ export class MainLayoutComponent {
 
   toggleUsersMenu(): void {
     this.usersMenuOpen.update(value => !value);
+  }
+  
+  toggleSectorsMenu(): void {
+    this.sectorsMenuOpen.update(value => !value);
+  }
+
+  toggleCategoriesMenu(): void {
+    this.categoriesMenuOpen.update(value => !value);
   }
 
   logout(): void {

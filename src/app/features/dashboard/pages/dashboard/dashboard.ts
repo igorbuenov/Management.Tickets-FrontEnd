@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 import { UserService } from '../../../users/services/user';
 import { TicketService } from '../../../tickets/services/ticket';
 import { TicketModel } from '../../../tickets/models/ticket';
+import { AuthService } from '../../../auth/services/auth';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,13 +21,17 @@ export class DashboardComponent implements OnInit {
   totalOpenTickets = signal(0);
   totalResolvedTickets = signal(0);
   recentTickets = signal<TicketModel[]>([]);
+  userName = signal('');
 
   constructor(
     private readonly userService: UserService,
-    private readonly ticketService: TicketService
+    private readonly ticketService: TicketService,
+    private readonly authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    const user = this.authService.getCurrentUser();
+    this.userName.set(user?.name ?? '');
     this.loadDashboard();
   }
 

@@ -4,20 +4,17 @@
   <!-- SIDEBAR -->
   <!-- ====================================================== -->
 
-  <aside
-    class="fixed inset-y-0 left-0 z-30 flex w-64 flex-col
+  <aside class="fixed inset-y-0 left-0 z-30 flex w-64 flex-col
            bg-gray-900 text-gray-100 shadow-lg
            -translate-x-full
            transition-transform duration-300
-           lg:translate-x-0"
-    [class.translate-x-0]="mobileMenuOpen()">
+           lg:translate-x-0" [class.translate-x-0]="mobileMenuOpen()">
 
     <!-- ================================================== -->
     <!-- HEADER / LOGO -->
     <!-- ================================================== -->
 
-    <div
-      class="flex h-16 items-center justify-between
+    <div class="flex h-16 items-center justify-between
              border-b border-gray-800 px-6">
 
       <h1 class="text-xl font-bold tracking-wider text-white">
@@ -26,25 +23,13 @@
 
       <!-- Fechar menu no mobile -->
 
-      <button
-        type="button"
-        (click)="closeMobileMenu()"
-        class="rounded-md p-2 text-gray-400
+      <button type="button" (click)="closeMobileMenu()" class="rounded-md p-2 text-gray-400
                transition hover:bg-gray-800 hover:text-white
-               lg:hidden"
-        aria-label="Fechar menu">
+               lg:hidden" aria-label="Fechar menu">
 
-        <svg
-          class="h-5 w-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M6 18L18 6M6 6l12 12">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
           </path>
 
         </svg>
@@ -65,29 +50,17 @@
 
       <div class="mb-2 px-4">
 
-        <a
-          routerLink="/dashboard"
-          (click)="closeMobileMenu()"
-          routerLinkActive="bg-blue-600 text-white"
-          [routerLinkActiveOptions]="{ exact: true }"
-          class="flex items-center rounded-md px-3 py-2
+        <a routerLink="/dashboard" (click)="closeMobileMenu()" routerLinkActive="bg-blue-600 text-white"
+          [routerLinkActiveOptions]="{ exact: true }" class="flex items-center rounded-md px-3 py-2
                  text-sm font-medium
                  text-gray-300
                  transition
                  hover:bg-gray-700
                  hover:text-white">
 
-          <svg
-            class="h-5 w-5 shrink-0"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24">
+          <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M3 12l9-9 9 9M5 10v10h14V10">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10h14V10">
             </path>
 
           </svg>
@@ -106,10 +79,7 @@
 
       <div class="mb-2 px-4">
 
-        <button
-          type="button"
-          (click)="toggleTicketsMenu()"
-          class="flex w-full items-center justify-between py-2
+        <button type="button" (click)="toggleTicketsMenu()" class="flex w-full items-center justify-between py-2
                  text-xs font-semibold uppercase
                  text-gray-400
                  transition-colors
@@ -119,18 +89,10 @@
             Tickets
           </span>
 
-          <svg
-            class="h-4 w-4 transition-transform duration-200"
-            [class.rotate-180]="ticketsMenuOpen()"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24">
+          <svg class="h-4 w-4 transition-transform duration-200" [class.rotate-180]="ticketsMenuOpen()" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
 
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M19 9l-7 7-7-7">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
             </path>
 
           </svg>
@@ -139,50 +101,43 @@
 
         @if (ticketsMenuOpen()) {
 
-          <div class="mt-2 overflow-hidden">
+        <div class="mt-2 overflow-hidden">
 
-            <ul class="space-y-1">
+          <ul class="space-y-1">
 
-              <li>
+            <li>
 
-                <a
-                  routerLink="/tickets"
-                  (click)="closeMobileMenu()"
-                  routerLinkActive="bg-blue-600 text-white"
-                  [routerLinkActiveOptions]="{ exact: true }"
-                  class="block rounded px-4 py-2
+              <a routerLink="/tickets" (click)="closeMobileMenu()" routerLinkActive="bg-blue-600 text-white"
+                [routerLinkActiveOptions]="{ exact: true }" class="block rounded px-4 py-2
                          text-sm text-gray-400
                          transition
                          hover:bg-gray-800
                          hover:text-white">
 
-                  Todos os Tickets
+                Listar Tickets
 
-                </a>
+              </a>
 
-              </li>
+            </li>
 
-              <li>
+            <li>
 
-                <a
-                  routerLink="/tickets/create"
-                  (click)="closeMobileMenu()"
-                  routerLinkActive="bg-blue-600 text-white"
-                  class="block rounded px-4 py-2
+              <a routerLink="/tickets/create" (click)="closeMobileMenu()" routerLinkActive="bg-blue-600 text-white"
+                class="block rounded px-4 py-2
                          text-sm text-gray-400
                          transition
                          hover:bg-gray-800
                          hover:text-white">
 
-                  Criar Ticket
+                Criar Ticket
 
-                </a>
+              </a>
 
-              </li>
+            </li>
 
-            </ul>
+          </ul>
 
-          </div>
+        </div>
 
         }
 
@@ -194,89 +149,198 @@
 
       @if (isAdmin()) {
 
-        <div class="mb-2 px-4">
+      <div class="mb-2 px-4">
 
-          <button
-            type="button"
-            (click)="toggleUsersMenu()"
-            class="flex w-full items-center justify-between py-2
+        <button type="button" (click)="toggleUsersMenu()" class="flex w-full items-center justify-between py-2
                    text-xs font-semibold uppercase
                    text-gray-400
                    transition-colors
                    hover:text-white">
 
-            <span>
-              Usuários
-            </span>
+          <span>
+            Usuários
+          </span>
 
-            <svg
-              class="h-4 w-4 transition-transform duration-200"
-              [class.rotate-180]="usersMenuOpen()"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24">
+          <svg class="h-4 w-4 transition-transform duration-200" [class.rotate-180]="usersMenuOpen()" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
 
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19 9l-7 7-7-7">
-              </path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+            </path>
 
-            </svg>
+          </svg>
 
-          </button>
+        </button>
 
-          @if (usersMenuOpen()) {
+        @if (usersMenuOpen()) {
 
-            <div class="mt-2 overflow-hidden">
+        <div class="mt-2 overflow-hidden">
 
-              <ul class="space-y-1">
+          <ul class="space-y-1">
 
-                <li>
+            <li>
 
-                  <a
-                    routerLink="/users"
-                    (click)="closeMobileMenu()"
-                    routerLinkActive="bg-blue-600 text-white"
-                    [routerLinkActiveOptions]="{ exact: true }"
-                    class="block rounded-md px-3 py-2
+              <a routerLink="/users" (click)="closeMobileMenu()" routerLinkActive="bg-blue-600 text-white"
+                [routerLinkActiveOptions]="{ exact: true }" class="block rounded-md px-3 py-2
                            text-sm text-gray-300
                            transition
                            hover:bg-gray-700
                            hover:text-white">
 
-                    Listar Usuários
+                Listar Usuários
 
-                  </a>
+              </a>
 
-                </li>
+            </li>
 
-                <li>
+            <li>
 
-                  <a
-                    routerLink="/users/create"
-                    (click)="closeMobileMenu()"
-                    routerLinkActive="bg-blue-600 text-white"
-                    class="block rounded-md px-3 py-2
+              <a routerLink="/users/create" (click)="closeMobileMenu()" routerLinkActive="bg-blue-600 text-white" class="block rounded-md px-3 py-2
                            text-sm text-gray-300
                            transition
                            hover:bg-gray-700
                            hover:text-white">
 
-                    Criar Usuário
+                Criar Usuário
 
-                  </a>
+              </a>
 
-                </li>
+            </li>
 
-              </ul>
-
-            </div>
-
-          }
+          </ul>
 
         </div>
+
+        }
+
+      </div>
+      <!-- ================================================== -->
+      <!-- SETORES -->
+      <!-- ================================================== -->
+      <div class="mb-2 px-4">
+
+        <button type="button" (click)="toggleSectorsMenu()" class="flex w-full items-center justify-between py-2
+                  text-xs font-semibold uppercase
+                  text-gray-400
+                  transition-colors
+                  hover:text-white">
+
+          <span>
+            Setores
+          </span>
+
+          <svg class="h-4 w-4 transition-transform duration-200" [class.rotate-180]="sectorsMenuOpen()" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
+
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+            </path>
+
+          </svg>
+
+        </button>
+
+        @if (sectorsMenuOpen()) {
+
+        <div class="mt-2 overflow-hidden">
+
+          <ul class="space-y-1">
+
+            <li>
+              <a href="#" (click)="$event.preventDefault()" class="block rounded-md px-3 py-2
+                          text-sm text-gray-300
+                          transition
+                          hover:bg-gray-700
+                          hover:text-white">
+
+                Listar Setores
+
+              </a>
+            </li>
+
+            <li>
+              <a href="#" (click)="$event.preventDefault()" class="block rounded-md px-3 py-2
+                          text-sm text-gray-300
+                          transition
+                          hover:bg-gray-700
+                          hover:text-white">
+
+                Criar Setor
+
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        }
+
+      </div>
+
+
+      <!-- ================================================== -->
+      <!-- CATEGORIAS -->
+      <!-- ================================================== -->
+      <div class="mb-2 px-4">
+
+        <button type="button" (click)="toggleCategoriesMenu()" class="flex w-full items-center justify-between py-2
+                  text-xs font-semibold uppercase
+                  text-gray-400
+                  transition-colors
+                  hover:text-white">
+
+          <span>
+            Categorias
+          </span>
+
+          <svg class="h-4 w-4 transition-transform duration-200" [class.rotate-180]="categoriesMenuOpen()" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
+
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+            </path>
+
+          </svg>
+
+        </button>
+
+        @if (categoriesMenuOpen()) {
+
+        <div class="mt-2 overflow-hidden">
+
+          <ul class="space-y-1">
+
+            <li>
+              <a href="#" (click)="$event.preventDefault()" class="block rounded-md px-3 py-2
+                          text-sm text-gray-300
+                          transition
+                          hover:bg-gray-700
+                          hover:text-white">
+
+                Listar Categorias
+
+              </a>
+            </li>
+
+            <li>
+              <a href="#" (click)="$event.preventDefault()" class="block rounded-md px-3 py-2
+                          text-sm text-gray-300
+                          transition
+                          hover:bg-gray-700
+                          hover:text-white">
+
+                Criar Categoria
+
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        }
+
+      </div>
+
+
 
       }
 
@@ -288,25 +352,15 @@
 
     <div class="border-t border-gray-800 p-4">
 
-      <button
-        type="button"
-        (click)="logout()"
-        class="flex w-full items-center gap-3 rounded-md px-3 py-2
+      <button type="button" (click)="logout()" class="flex w-full items-center gap-3 rounded-md px-3 py-2
                text-sm font-medium text-gray-300
                transition
                hover:bg-gray-800
                hover:text-white">
 
-        <svg
-          class="h-5 w-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
           </path>
 
@@ -333,31 +387,19 @@
 
   @if (!mobileMenuOpen()) {
 
-    <button
-      type="button"
-      (click)="toggleMobileMenu()"
-      class="fixed left-4 top-4 z-40
+  <button type="button" (click)="toggleMobileMenu()" class="fixed left-4 top-4 z-40
              rounded-md bg-gray-900 p-2
              text-white shadow-md
-             lg:hidden"
-      aria-label="Abrir menu">
+             lg:hidden" aria-label="Abrir menu">
 
-      <svg
-        class="h-6 w-6"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24">
+    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16">
-        </path>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+      </path>
 
-      </svg>
+    </svg>
 
-    </button>
+  </button>
 
   }
 
@@ -368,10 +410,8 @@
 
   @if (mobileMenuOpen()) {
 
-    <div
-      class="fixed inset-0 z-20 bg-black/50 lg:hidden"
-      (click)="closeMobileMenu()">
-    </div>
+  <div class="fixed inset-0 z-20 bg-black/50 lg:hidden" (click)="closeMobileMenu()">
+  </div>
 
   }
 
@@ -380,8 +420,7 @@
   <!-- CONTEÚDO -->
   <!-- ====================================================== -->
 
-  <main
-    class="ml-0 flex-1 overflow-y-auto bg-gray-50
+  <main class="ml-0 flex-1 overflow-y-auto bg-gray-50
            pt-16
            transition-all duration-300
            lg:ml-64

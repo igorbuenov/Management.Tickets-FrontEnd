@@ -47,6 +47,11 @@ export class LoginComponent {
           response.accessToken
         );
 
+        localStorage.setItem(
+          'currentUser',
+          JSON.stringify(response.user)
+        );
+
         this.isLoading.set(false);
 
         if (response.mustChangePassword === true) {
