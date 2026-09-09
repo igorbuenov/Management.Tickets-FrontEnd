@@ -11,6 +11,7 @@ import { authGuard } from './core/guards/auth-guard';
 import { TicketListComponent } from './features/tickets/pages/ticket-list/ticket-list';
 import { TicketDetailsComponent } from './features/tickets/pages/ticket-details/ticket-details';
 import { TicketCreateComponent } from './features/tickets/pages/ticket-create/ticket-create';
+import { ChangePasswordComponent } from './features/users/pages/change-password/change-password';
 
 
 export const routes: Routes = [
@@ -40,6 +41,10 @@ export const routes: Routes = [
   {
     path: 'reset-password',
     component: ResetPasswordComponent
+  },
+  {
+    path: 'change-password',
+    component: ChangePasswordComponent
   },
   // ==========================================================
   // ÁREA AUTENTICADA
@@ -79,8 +84,7 @@ export const routes: Routes = [
       {
         path: 'tickets/:id',
         component: TicketDetailsComponent
-      }
-
+      },
     ]
   }
 

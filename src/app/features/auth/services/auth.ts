@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
-
 import { HttpClient } from '@angular/common/http';
-
 import { Router } from '@angular/router';
-
 import { Observable } from 'rxjs';
-
 import { API_ENDPOINTS, API_LOCAL_ENDPOINTS,  } from '../../../core/constants/api.constants';
+import { LoginResponseModel } from '../models/login-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +11,7 @@ import { API_ENDPOINTS, API_LOCAL_ENDPOINTS,  } from '../../../core/constants/ap
 export class AuthService {
 
   private readonly tokenKey = 'accessToken';
+  private readonly apiUrl = API_ENDPOINTS.auth;
 
   constructor(
     private readonly http: HttpClient,
@@ -23,17 +21,17 @@ export class AuthService {
   login(credentials: {
     email: string;
     password: string;
-  }): Observable<{ accessToken: string }> {
+  }): Observable<LoginResponseModel> {
 
-    return this.http.post<{ accessToken: string }>(
-      `${API_ENDPOINTS.auth}/login`,
-      credentials
+    return this.http.post<LoginResponseModel>( 
+      `${this.apiUrl}/login`, 
+      credentials 
     );
   }
 
   forgotPassword(email: string): Observable<string> {
   return this.http.post(
-    `${API_ENDPOINTS.auth}/forgot-password`,
+    `${this.apiUrl}/forgot-password`,
     { email },
     {
       responseType: 'text'
@@ -47,10 +45,31 @@ export class AuthService {
   ): Observable<void> {
 
     return this.http.post<void>(
-      `${API_ENDPOINTS.auth}/reset-password`,
+      `${this.apiUrl}/reset-password`,
       {
         token,
         newPassword
+      }
+    );
+  }
+
+  changeTemporaryPassword(
+    userId: number,
+    newPassword: string,
+    confirmPassword: string
+  ): Observable<void> {
+    const token = this.getToken();
+
+    return this.http.put<void>(
+      `${API_ENDPOINTS.users}/${userId}/change-temporary-password`,
+      {
+        newPassword,
+        confirmPassword
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       }
     );
   }
@@ -98,4 +117,23 @@ export class AuthService {
 
     this.router.navigate(['/login']);
   }
+
+  getUserId(): number | null { 
+    const token = this.getToken(); 
+    if (!token) {
+       return null; 
+      } 
+      try {
+         const payload = JSON.parse( atob(token.split('.')[1])); 
+         const userId = 
+            payload.sub ?? 
+            payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
+
+         return userId ? Number(userId) : null; 
+
+      } catch (error) { 
+        console.error('Erro ao ler ID do usuário:', error); 
+        return null; 
+      } 
+    }
 }

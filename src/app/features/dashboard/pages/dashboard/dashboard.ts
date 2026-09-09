@@ -17,6 +17,8 @@ export class DashboardComponent implements OnInit {
 
   totalUsers = signal(0);
   totalTickets = signal(0);
+  totalOpenTickets = signal(0);
+  totalResolvedTickets = signal(0);
   recentTickets = signal<TicketModel[]>([]);
 
   constructor(
@@ -49,6 +51,30 @@ export class DashboardComponent implements OnInit {
       error: error => {
         console.error(
           'Erro ao carregar quantidade de tickets:',
+          error
+        );
+      }
+    });
+
+    this.ticketService.getTickets(1, 1, '', undefined, 1).subscribe({
+      next: response => {
+        this.totalOpenTickets.set(response.totalCount);
+      },
+      error: error => {
+        console.error(
+          'Erro ao carregar quantidade de tickets abertos:',
+          error
+        );
+      }
+    });
+
+    this.ticketService.getTickets(1, 1, '', undefined, 3).subscribe({
+      next: response => {
+        this.totalResolvedTickets.set(response.totalCount);
+      },
+      error: error => {
+        console.error(
+          'Erro ao carregar quantidade de tickets resolvidos:',
           error
         );
       }

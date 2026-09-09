@@ -2,6 +2,7 @@ import { Component, OnInit, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../../services/user';
 import { UserModel } from '../../models/user.model';
+import { ApiErrorResponse } from '../../../../models/api-error-response';
 
 @Component({
   selector: 'app-user-list',
@@ -65,7 +66,7 @@ export class UserListComponent implements OnInit {
   showReactivateModal = signal(false);
   selectedUserId = signal<number | null>(null);
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.loadUsers();
@@ -100,6 +101,15 @@ export class UserListComponent implements OnInit {
         );
 
         this.isLoading.set(false);
+
+        const apiError = error.error as ApiErrorResponse;
+
+        if (apiError?.errors?.length) {
+          console.error(
+            'Erro retornado pela API:',
+            apiError.errors
+          );
+        }
       }
     });
   }

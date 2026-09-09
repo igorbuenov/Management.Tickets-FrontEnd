@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-
+import { ApiErrorResponse } from '../../../models/api-error-response';
 import { AuthService } from '../services/auth';
 
 @Component({
@@ -20,6 +20,7 @@ export class LoginComponent {
   password = '';
   message = signal('');
   isError = signal(false);
+  isLoading = signal(false);
 
   constructor(
     private readonly authService: AuthService,
@@ -27,37 +28,56 @@ export class LoginComponent {
   ) {}
 
   login(): void {
+    if (this.isLoading()) {
+      return;
+    }
 
     this.message.set('');
     this.isError.set(false);
+    this.isLoading.set(true);
 
     this.authService.login({
       email: this.email,
       password: this.password
     }).subscribe({
       next: response => {
+
         localStorage.setItem(
           'accessToken',
           response.accessToken
         );
 
+        this.isLoading.set(false);
+
+        if (response.mustChangePassword === true) {
+           this.router.navigate(['/change-password']); 
+           return; 
+        }
+
         this.router.navigate(['/dashboard']);
       },
 
       error: error => {
-
         console.error(
           'Erro ao realizar login:',
           error
         );
 
-        this.message.set(
-          'Email ou senha inválidos.'
-        );
-
+        this.isLoading.set(false);
         this.isError.set(true);
-      }
 
+        const apiError = error.error as ApiErrorResponse;
+
+        if(apiError?.errors?.length) {
+          this.message.set(apiError.errors[0]);
+          return;
+        }
+
+        this.message.set(
+          'Ocorreu um erro ao realizar login. Tente novamente mais tarde.'
+        );
+        
+      }
     });
   }
 }
