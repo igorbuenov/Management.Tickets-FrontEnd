@@ -14,6 +14,8 @@ import { TicketCreateComponent } from './features/tickets/pages/ticket-create/ti
 import { ChangePasswordComponent } from './features/users/pages/change-password/change-password';
 import { DepartmentListComponent } from './features/departments/pages/department-list/department-list';
 import { DepartmentCreateComponent } from './features/departments/pages/department-create/department-create';
+import { CategoryCreateComponent } from './features/categories/pages/category-create/category-create';
+import { CategoryListComponent } from './features/categories/pages/category-list/category-list';
 
 
 export const routes: Routes = [
@@ -94,6 +96,14 @@ export const routes: Routes = [
       {
         path: 'departments/create',
         component: DepartmentCreateComponent
+      },
+      {
+        path: 'categories',
+        component: CategoryListComponent
+      },
+      {
+        path: 'categories/create',
+        component: CategoryCreateComponent
       }
     ]
   }

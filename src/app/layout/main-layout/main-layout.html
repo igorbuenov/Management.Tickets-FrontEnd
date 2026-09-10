@@ -225,7 +225,7 @@
                   hover:text-white">
 
           <span>
-            Setores
+            Departamentos
           </span>
 
           <svg class="h-4 w-4 transition-transform duration-200" [class.rotate-180]="sectorsMenuOpen()" fill="none"
@@ -245,33 +245,24 @@
           <ul class="space-y-1">
 
             <li>
-              <a
-                routerLink="/departments"
-                (click)="closeMobileMenu()"
-                routerLinkActive="bg-blue-600 text-white"
-                [routerLinkActiveOptions]="{ exact: true }"
-                class="block rounded-md px-3 py-2
+              <a routerLink="/departments" (click)="closeMobileMenu()" routerLinkActive="bg-blue-600 text-white"
+                [routerLinkActiveOptions]="{ exact: true }" class="block rounded-md px-3 py-2
                       text-sm text-gray-300
                       transition
                       hover:bg-gray-700
-                      hover:text-white"
-              >
-                Listar Setores
+                      hover:text-white">
+                Listar Departamentos
               </a>
             </li>
 
             <li>
-              <a
-                routerLink="/departments/create"
-                (click)="closeMobileMenu()"
-                routerLinkActive="bg-blue-600 text-white"
+              <a routerLink="/departments/create" (click)="closeMobileMenu()" routerLinkActive="bg-blue-600 text-white"
                 class="block rounded-md px-3 py-2
                       text-sm text-gray-300
                       transition
                       hover:bg-gray-700
-                      hover:text-white"
-              >
-                Criar Setor
+                      hover:text-white">
+                Criar Departamento
               </a>
             </li>
 
@@ -287,24 +278,22 @@
       <!-- ================================================== -->
       <!-- CATEGORIAS -->
       <!-- ================================================== -->
+
       <div class="mb-2 px-4">
 
         <button type="button" (click)="toggleCategoriesMenu()" class="flex w-full items-center justify-between py-2
-                  text-xs font-semibold uppercase
-                  text-gray-400
-                  transition-colors
-                  hover:text-white">
-
+                text-xs font-semibold uppercase
+                text-gray-400
+                transition-colors
+                hover:text-white">
           <span>
             Categorias
           </span>
 
           <svg class="h-4 w-4 transition-transform duration-200" [class.rotate-180]="categoriesMenuOpen()" fill="none"
             stroke="currentColor" viewBox="0 0 24 24">
-
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
             </path>
-
           </svg>
 
         </button>
@@ -316,27 +305,29 @@
           <ul class="space-y-1">
 
             <li>
-              <a href="#" (click)="$event.preventDefault()" class="block rounded-md px-3 py-2
-                          text-sm text-gray-300
-                          transition
-                          hover:bg-gray-700
-                          hover:text-white">
 
+              <a routerLink="/categories" (click)="closeMobileMenu()" routerLinkActive="bg-blue-600 text-white"
+                [routerLinkActiveOptions]="{ exact: true }" class="block rounded-md px-3 py-2
+                      text-sm text-gray-300
+                      transition
+                      hover:bg-gray-700
+                      hover:text-white">
                 Listar Categorias
-
               </a>
+
             </li>
 
             <li>
-              <a href="#" (click)="$event.preventDefault()" class="block rounded-md px-3 py-2
-                          text-sm text-gray-300
-                          transition
-                          hover:bg-gray-700
-                          hover:text-white">
 
+              <a routerLink="/categories/create" (click)="closeMobileMenu()" routerLinkActive="bg-blue-600 text-white"
+                class="block rounded-md px-3 py-2
+                      text-sm text-gray-300
+                      transition
+                      hover:bg-gray-700
+                      hover:text-white">
                 Criar Categoria
-
               </a>
+
             </li>
 
           </ul>
@@ -380,7 +371,7 @@
       </button>
 
       <p class="mt-3 text-xs text-gray-500">
-        TicketSys
+        Copyright © - {{ currentYear }}
       </p>
 
     </div>

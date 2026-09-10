@@ -19,6 +19,8 @@ import {AuthService} from '../../features/auth/services/auth';
 })
 export class MainLayoutComponent {
 
+  currentYear = new Date().getFullYear();
+
   ticketsMenuOpen = signal(true);
   usersMenuOpen = signal(false);
   sectorsMenuOpen = signal(false);

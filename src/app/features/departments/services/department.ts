@@ -19,7 +19,7 @@ import {
 })
 export class DepartmentService {
 
-  private readonly apiUrl = API_LOCAL_ENDPOINTS.departments;
+  private readonly apiUrl = API_ENDPOINTS.departments;
 
   constructor(
     private http: HttpClient,

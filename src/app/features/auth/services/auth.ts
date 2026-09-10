@@ -12,7 +12,7 @@ export class AuthService {
 
   private readonly tokenKey = 'accessToken';
   private readonly userKey = 'currentUser';
-  private readonly apiUrl = API_LOCAL_ENDPOINTS.auth;
+  private readonly apiUrl = API_ENDPOINTS.auth;
 
   constructor(
     private readonly http: HttpClient,

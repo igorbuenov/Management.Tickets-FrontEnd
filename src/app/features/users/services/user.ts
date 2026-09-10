@@ -18,7 +18,7 @@ import { API_ENDPOINTS, API_LOCAL_ENDPOINTS } from '../../../core/constants/api.
 })
 export class UserService {
 
-  private readonly apiUrl = API_LOCAL_ENDPOINTS.users;
+  private readonly apiUrl = API_ENDPOINTS.users;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
