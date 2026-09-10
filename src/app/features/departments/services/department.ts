@@ -4,7 +4,8 @@ import { AuthService } from '../../auth/services/auth';
 
 import {
   CreateDepartmentModel,
-  CreateDepartmentResponseModel
+  CreateDepartmentResponseModel,
+  DepartmentModel
 } from '../models/create-department.model';
 
 import { DepartmentListResponseModel } from '../models/department-list-response.model';
@@ -67,4 +68,17 @@ export class DepartmentService {
       }
     );
   }
+
+  getMyDepartments() {
+  const token = this.authService.getToken();
+
+  return this.http.get<DepartmentModel[]>(
+    `${this.apiUrl}/my-departments`,
+    {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }
+  );
+}
 }

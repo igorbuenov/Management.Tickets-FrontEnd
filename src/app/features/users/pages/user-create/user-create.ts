@@ -85,5 +85,8 @@ export class UserCreateComponent {
     });
   }
 
+  cancel(): void {
+    this.router.navigate(['/users']);
+  }
 
 }

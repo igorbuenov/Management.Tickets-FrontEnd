@@ -1,115 +1,183 @@
-<div class="min-h-screen bg-gray-50 px-4 py-8">
-  <div class="mx-auto max-w-3xl">
+```html
+<div class="mx-auto max-w-3xl p-6">
 
-    <!-- Cabeçalho -->
-    <div class="mb-6 flex items-center justify-between">
-      <div>
-        <h1 class="text-2xl font-bold text-gray-900">
-          Criar usuário
-        </h1>
+  <!-- CABEÇALHO -->
 
-        <p class="mt-1 text-sm text-gray-600">
-          Cadastre um novo usuário na plataforma
-        </p>
-      </div>
+  <div class="mb-6 flex items-center justify-between">
 
-      <a routerLink="/users" class="rounded-md border border-gray-300 bg-white px-4 py-2.5
-               font-medium text-gray-700
-               transition hover:bg-gray-50
-               focus:outline-none focus:ring-2
-               focus:ring-blue-500 focus:ring-offset-2">
-        Voltar
-      </a>
-    </div>
+    <div>
 
-    <!-- Formulário -->
-    <div class="rounded-lg bg-white p-6 shadow-md">
+      <h1 class="text-2xl font-semibold text-gray-900">
 
-      <form (ngSubmit)="createUser()" class="space-y-6">
+        Criar usuário
 
-        <!-- Nome -->
-        <div>
-          <label for="name" class="mb-2 block text-sm font-medium text-gray-700">
-            Nome
-          </label>
+      </h1>
 
-          <input id="name" name="name" type="text" [(ngModel)]="name" placeholder="Digite o nome" class="w-full rounded-md border border-gray-300 px-4 py-2.5
-                   text-gray-900 placeholder-gray-400
-                   outline-none transition
-                   focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
-        </div>
+      <p class="mt-1 text-sm text-gray-500">
 
-        <!-- Email -->
-        <div>
-          <label for="email" class="mb-2 block text-sm font-medium text-gray-700">
-            Email
-          </label>
+        Cadastre um novo usuário na plataforma.
 
-          <input id="email" name="email" type="email" [(ngModel)]="email" placeholder="seu@email.com" class="w-full rounded-md border border-gray-300 px-4 py-2.5
-                   text-gray-900 placeholder-gray-400
-                   outline-none transition
-                   focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
-        </div>
-
-        <!-- Perfil -->
-        <div>
-          <label for="roleId" class="mb-2 block text-sm font-medium text-gray-700">
-            Perfil
-          </label>
-
-          <select id="roleId" name="roleId" [(ngModel)]="roleId" class="w-full rounded-md border border-gray-300 bg-white px-4 py-2.5
-                  text-gray-900 outline-none transition
-                  focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
-            <option [ngValue]="null" disabled>
-              Selecione o perfil
-            </option>
-
-            <option [ngValue]="1">
-              Admin
-            </option>
-
-            <option [ngValue]="2">
-              Technician
-            </option>
-
-            <option [ngValue]="3">
-              User
-            </option>
-          </select>
-        </div>
-
-        <!-- Separador -->
-        <div class="border-t border-gray-200 pt-6">
-
-          <!-- Botão -->
-          <button type="submit" [disabled]="isLoading()" class="w-full rounded-md bg-blue-600 px-4 py-2.5
-                  font-medium text-white
-                  transition hover:bg-blue-700
-                  focus:outline-none focus:ring-2
-                  focus:ring-blue-500 focus:ring-offset-2
-                  disabled:cursor-not-allowed disabled:bg-gray-400">
-            @if (isLoading()) {
-            Criando...
-            } @else {
-            Criar usuário
-            }
-          </button>
-
-        </div>
-
-        <!-- Mensagem -->
-        @if (message()) {
-        <div class="rounded-md px-4 py-3 text-center text-sm" [class.bg-red-50]="isError()"
-          [class.text-red-600]="isError()" [class.bg-green-50]="!isError()" [class.text-green-600]="!isError()">
-
-          {{ message() }}
-
-        </div>
-        }
-
-      </form>
+      </p>
 
     </div>
+
+    <a
+      routerLink="/users"
+      class="rounded-lg border border-gray-300 px-4 py-2 text-sm
+             font-medium text-gray-700 transition hover:bg-gray-50">
+
+      Voltar
+
+    </a>
 
   </div>
+
+  <!-- MENSAGEM -->
+
+  @if (message()) {
+
+  <div
+    class="mb-6 rounded-lg border px-4 py-3 text-sm font-medium"
+    [class.border-green-200]="!isError()"
+    [class.bg-green-50]="!isError()"
+    [class.text-green-700]="!isError()"
+    [class.border-red-200]="isError()"
+    [class.bg-red-50]="isError()"
+    [class.text-red-700]="isError()">
+
+    {{ message() }}
+
+  </div>
+
+  }
+
+  <!-- FORMULÁRIO -->
+
+  <form (ngSubmit)="createUser()" class="space-y-6">
+
+    <!-- NOME -->
+
+    <div>
+
+      <label
+        for="name"
+        class="mb-2 block text-sm font-medium text-gray-700">
+
+        Nome
+
+      </label>
+
+      <input
+        id="name"
+        name="name"
+        type="text"
+        [(ngModel)]="name"
+        placeholder="Digite o nome"
+        class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm
+               focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+
+    </div>
+
+    <!-- EMAIL -->
+
+    <div>
+
+      <label
+        for="email"
+        class="mb-2 block text-sm font-medium text-gray-700">
+
+        Email
+
+      </label>
+
+      <input
+        id="email"
+        name="email"
+        type="email"
+        [(ngModel)]="email"
+        placeholder="seu@email.com"
+        class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm
+               focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+
+    </div>
+
+    <!-- PERFIL -->
+
+    <div>
+
+      <label
+        for="roleId"
+        class="mb-2 block text-sm font-medium text-gray-700">
+
+        Perfil
+
+      </label>
+
+      <select
+        id="roleId"
+        name="roleId"
+        [(ngModel)]="roleId"
+        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm
+               focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+
+        <option
+          [ngValue]="null"
+          disabled>
+
+          Selecione o perfil
+
+        </option>
+
+        <option [ngValue]="1">
+
+          Admin
+
+        </option>
+
+        <option [ngValue]="2">
+
+          Technician
+
+        </option>
+
+        <option [ngValue]="3">
+
+          User
+
+        </option>
+
+      </select>
+
+    </div>
+
+    <!-- AÇÕES -->
+
+    <div class="flex justify-end gap-3">
+
+      <button
+        type="button"
+        (click)="cancel()"
+        class="rounded-lg border border-gray-300 px-5 py-2.5 text-sm
+               font-medium text-gray-700 hover:bg-gray-50">
+
+        Cancelar
+
+      </button>
+
+      <button
+        type="submit"
+        [disabled]="isLoading()"
+        class="rounded-lg bg-blue-600 px-5 py-2.5 text-sm
+               font-medium text-white hover:bg-blue-700
+               disabled:cursor-not-allowed disabled:opacity-60">
+
+        {{ isLoading() ? 'Criando...' : 'Criar usuário' }}
+
+      </button>
+
+    </div>
+
+  </form>
+
 </div>
+

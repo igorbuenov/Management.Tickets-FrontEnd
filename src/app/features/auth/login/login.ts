@@ -16,6 +16,8 @@ import { AuthService } from '../services/auth';
 })
 export class LoginComponent {
 
+  currentYear = new Date().getFullYear();
+
   email = '';
   password = '';
   message = signal('');

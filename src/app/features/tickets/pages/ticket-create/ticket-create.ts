@@ -8,6 +8,10 @@ import { Router } from '@angular/router';
 
 import { TicketService } from '../../services/ticket';
 import { CreateTicket } from '../../models/create-ticket.model';
+import { DepartmentModel } from '../../../departments/models/create-department.model';
+import { DepartmentService } from '../../../departments/services/department';
+import { CategoryModel } from '../../../categories/models/create-category.model';
+import { CategoryService } from '../../../categories/services/category';
 
 @Component({
   selector: 'app-ticket-create',
@@ -20,19 +24,30 @@ export class TicketCreateComponent {
   isLoading = signal(false);
   isError = signal(false);
   message = signal('');
+  departments = signal<DepartmentModel[]>([]);
+  categories = signal<CategoryModel[]>([]);
 
   ticketForm;
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly ticketService: TicketService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly departmentService: DepartmentService ,
+    private readonly categoryService: CategoryService
   ) {
     this.ticketForm = this.formBuilder.group({
       title: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      priority: [2, [Validators.required]]
+      priority: [2, [Validators.required]],
+      departmentId: [null, Validators.required],
+      categoryId: [null, Validators.required]
     });
+  }
+
+  ngOnInit(): void {
+    this.loadDepartments();
+    this.loadCategories();
   }
 
   submit(): void {
@@ -54,7 +69,9 @@ export class TicketCreateComponent {
     const request: CreateTicket = {
       title: this.ticketForm.value.title ?? '',
       description: this.ticketForm.value.description ?? '',
-      priority: this.ticketForm.value.priority ?? 2
+      priority: this.ticketForm.value.priority ?? 2,
+      departmentId: this.ticketForm.value.departmentId!,
+      categoryId: this.ticketForm.value.categoryId!
     };
 
     this.isLoading.set(true);
@@ -98,4 +115,27 @@ export class TicketCreateComponent {
   cancel(): void {
     this.router.navigate(['/tickets']);
   }
+
+  loadDepartments(): void {
+    this.departmentService.getMyDepartments().subscribe({
+      next: (response) => {
+        this.departments.set(response);
+      },
+      error: (error) => {
+        console.error('Erro ao carregar departamentos:', error);
+      }
+    });
+  }
+
+  loadCategories(): void {
+    this.categoryService.getCategories(1, 50).subscribe({
+      next: (response) => {
+        this.categories.set(response.items);
+      },
+      error: (error) => {
+        console.error('Erro ao carregar categorias:', error);
+      }
+    });
+  }
+
 }

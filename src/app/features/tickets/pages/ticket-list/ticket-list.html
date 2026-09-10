@@ -6,7 +6,6 @@
       <h1 class="text-2xl font-semibold text-gray-900">
         Tickets
       </h1>
-
       <p class="mt-1 text-sm text-gray-500">
         Gerencie os tickets do sistema.
       </p>
@@ -20,7 +19,6 @@
 
   <!-- FILTROS -->
   <div class="mb-6 rounded-lg bg-white p-5 shadow-md">
-
     <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
 
       <!-- TÍTULO -->
@@ -42,6 +40,7 @@
 
         <select id="priority" [value]="priority() ?? ''" (change)="onPriorityChange($any($event.target).value)"
           class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+
           <option value="">Todas</option>
           <option value="1">Baixa</option>
           <option value="2">Média</option>
@@ -58,6 +57,7 @@
 
         <select id="status" [value]="status() ?? ''" (change)="onStatusChange($any($event.target).value)"
           class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+
           <option value="">Todos</option>
           <option value="1">Aberto</option>
           <option value="2">Em andamento</option>
@@ -65,12 +65,10 @@
           <option value="4">Fechado</option>
         </select>
       </div>
-
     </div>
 
     <!-- BOTÕES -->
     <div class="mt-4 flex justify-end gap-3">
-
       <button type="button" (click)="clearFilters()"
         class="rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50">
         Limpar
@@ -80,20 +78,21 @@
         class="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-700">
         Buscar
       </button>
-
     </div>
   </div>
 
   <!-- RESUMO -->
   <div class="mb-4 text-sm text-gray-600">
-    Total de tickets: <span class="font-semibold">{{ totalCount() }}</span>
+    Total de tickets:
+    <span class="font-semibold">{{ totalCount() }}</span>
   </div>
 
   <!-- LOADING -->
   @if (isLoading()) {
   <div class="rounded-lg bg-white p-8 text-center shadow-md">
     <div class="flex items-center justify-center gap-3 text-sm text-gray-500">
-      <div class="h-5 w-5 animate-spin rounded-full border-2 border-gray-300 border-t-blue-600"></div>
+      <div class="h-5 w-5 animate-spin rounded-full border-2 border-gray-300 border-t-blue-600">
+      </div>
 
       Carregando tickets...
     </div>
@@ -102,44 +101,63 @@
 
   <!-- TABELA -->
   @if (!isLoading()) {
+
   @if (tickets().length > 0) {
 
   <div class="overflow-hidden rounded-lg bg-white shadow-md">
-
     <div class="overflow-x-auto">
+
       <table class="min-w-full divide-y divide-gray-200">
 
         <thead class="bg-gray-50">
           <tr>
 
+            <!-- ID -->
             <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
               ID
             </th>
 
+            <!-- TÍTULO -->
             <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
               Título
             </th>
 
+            <!-- DEPARTAMENTO -->
+            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+              Departamento
+            </th>
+
+            <!-- CATEGORIA -->
+            <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
+              Categoria
+            </th>
+
+            <!-- PRIORIDADE -->
             <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
               Prioridade
             </th>
 
+            <!-- STATUS -->
             <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
               Status
             </th>
 
+            <!-- CRIADO POR -->
             <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
               Criado por
             </th>
 
+            <!-- RESPONSÁVEL -->
             <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
               Responsável
             </th>
 
+            <!-- CRIADO EM -->
             <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
               Criado em
             </th>
 
+            <!-- AÇÕES -->
             <th class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-500">
               Ações
             </th>
@@ -150,19 +168,34 @@
         <tbody class="divide-y divide-gray-200 bg-white">
 
           @for (ticket of tickets(); track ticket.id) {
+
           <tr class="hover:bg-gray-50">
 
+            <!-- ID -->
             <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">
               #{{ ticket.id }}
             </td>
 
+            <!-- TÍTULO -->
             <td class="max-w-xs truncate px-6 py-4 text-sm text-gray-900">
               {{ ticket.title }}
             </td>
 
+            <!-- DEPARTAMENTO -->
+            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-700">
+              {{ ticket.department.name }}
+            </td>
+
+            <!-- CATEGORIA -->
+            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-700">
+              {{ ticket.category.name }}
+            </td>
+
+            <!-- PRIORIDADE -->
             <td class="whitespace-nowrap px-6 py-4 text-sm">
 
               @switch (ticket.priority) {
+
               @case ('Urgent') {
               <span class="rounded-full bg-red-100 px-2.5 py-1 text-xs font-medium text-red-700">
                 Urgente
@@ -186,13 +219,16 @@
                 Baixa
               </span>
               }
+
               }
 
             </td>
 
+            <!-- STATUS -->
             <td class="whitespace-nowrap px-6 py-4 text-sm">
 
               @switch (ticket.status) {
+
               @case ('Open') {
               <span class="rounded-full bg-blue-100 px-2.5 py-1 text-xs font-medium text-blue-700">
                 Aberto
@@ -216,44 +252,58 @@
                 Fechado
               </span>
               }
+
               }
 
             </td>
 
+            <!-- CRIADO POR -->
             <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-700">
               {{ ticket.createdBy.name }}
             </td>
 
+            <!-- RESPONSÁVEL -->
             <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-700">
               {{ ticket.assignedTo?.name ?? 'Não atribuído' }}
             </td>
 
+            <!-- CRIADO EM -->
             <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-700">
               {{ ticket.createdAt | date:'dd/MM/yyyy HH:mm' }}
             </td>
 
+            <!-- AÇÕES -->
             <td class="whitespace-nowrap px-6 py-4 text-right text-sm">
+
               <a [routerLink]="['/tickets', ticket.id]" title="Visualizar ticket"
                 class="inline-flex items-center justify-center rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-blue-600">
+
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"
                   stroke="currentColor" class="h-5 w-5">
+
                   <path stroke-linecap="round" stroke-linejoin="round"
                     d="M2.036 12.322a1.012 1.012 0 0 1 0-.644C3.423 7.51 7.36 4.5 12 4.5c4.64 0 8.577 3.01 9.964 7.178.07.21.07.438 0 .644C20.577 16.49 16.64 19.5 12 19.5c-4.64 0-8.577-3.01-9.964-7.178Z" />
+
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+
                 </svg>
+
               </a>
+
             </td>
 
           </tr>
           }
 
         </tbody>
+
       </table>
     </div>
   </div>
 
   <!-- PAGINAÇÃO -->
   @if (totalPages() > 1) {
+
   <div class="mt-6 flex items-center justify-center gap-2">
 
     <button type="button" (click)="previousPage()" [disabled]="currentPage() === 1"
@@ -304,8 +354,8 @@
     </p>
 
   </div>
-
   }
+
   }
 
 </div>

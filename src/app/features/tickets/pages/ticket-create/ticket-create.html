@@ -34,16 +34,56 @@
         placeholder="Digite o título do ticket">
     </div>
 
-    <!-- DESCRIÇÃO -->
+    <!-- Departamento -->
     <div>
-      <label for="description" class="mb-2 block text-sm font-medium text-gray-700">
-        Descrição
+      <label
+        for="departmentId"
+        class="mb-1 block text-sm font-medium text-gray-700">
+        Departamento
       </label>
 
-      <textarea id="description" rows="6" formControlName="description"
-        class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
-        placeholder="Descreva o problema ou solicitação"></textarea>
+      <select
+        id="departmentId"
+        formControlName="departmentId"
+        class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+
+        <option [ngValue]="null">
+          Selecione um departamento
+        </option>
+
+        @for (department of departments(); track department.id) {
+          <option [ngValue]="department.id">
+            {{ department.name }}
+          </option>
+        }
+      </select>
     </div>
+
+    <!-- CATEGORIA -->
+    <div>
+      <label
+        for="categoryId"
+        class="mb-2 block text-sm font-medium text-gray-700">
+        Categoria
+      </label>
+
+      <select
+        id="categoryId"
+        formControlName="categoryId"
+        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+
+        <option [ngValue]="null">
+          Selecione uma categoria
+        </option>
+
+        @for (category of categories(); track category.id) {
+          <option [ngValue]="category.id">
+            {{ category.name }}
+          </option>
+        }
+      </select>
+    </div>
+
 
     <!-- PRIORIDADE -->
     <div>
@@ -59,6 +99,20 @@
         <option [ngValue]="4">Urgente</option>
       </select>
     </div>
+
+
+    <!-- DESCRIÇÃO -->
+    <div>
+      <label for="description" class="mb-2 block text-sm font-medium text-gray-700">
+        Descrição
+      </label>
+
+      <textarea id="description" rows="6" formControlName="description"
+        class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+        placeholder="Descreva o problema ou solicitação"></textarea>
+    </div>
+
+    
 
     <!-- AÇÕES -->
     <div class="flex justify-end gap-3">
