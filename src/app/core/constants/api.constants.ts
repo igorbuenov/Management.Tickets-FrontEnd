@@ -9,8 +9,7 @@ export const API_ENDPOINTS = {
 };
 
 export const API_LOCAL_URL = 'https://localhost:7253';
-
-export const API_LOCAL_ENDPOINTS = {
+export const API__LOCALENDPOINTS = {
   users: `${API_LOCAL_URL}/api/Users`,
   auth: `${API_LOCAL_URL}/api/Auth`,
   tickets: `${API_LOCAL_URL}/api/Tickets`,

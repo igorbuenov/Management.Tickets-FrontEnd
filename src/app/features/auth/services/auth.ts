@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { API_ENDPOINTS, API_LOCAL_ENDPOINTS,  } from '../../../core/constants/api.constants';
+import { API_ENDPOINTS  } from '../../../core/constants/api.constants';
 import { LoginResponseModel } from '../models/login-response.model';
 
 @Injectable({

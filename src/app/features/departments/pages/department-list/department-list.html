@@ -13,8 +13,7 @@
       </p>
     </div>
 
-    <a routerLink="/departments/create"
-      class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover">
+    <a routerLink="/departments/create" class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover">
       Novo departamento
     </a>
 
@@ -22,22 +21,46 @@
 
 
   <!-- SEARCH -->
-  <div class="mb-6 rounded-lg bg-white p-4 shadow">
+  <div class="mb-6 rounded-lg bg-white p-5 shadow-md">
 
-    <div class="flex gap-3">
+    <div class="grid grid-cols-1 gap-4">
 
-      <input type="text" [ngModel]="search()" (ngModelChange)="search.set($event)" (keyup.enter)="searchDepartments()"
-        placeholder="Buscar departamento..."
-        class="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-gray-500" />
+      <div>
+        <label for="search" class="mb-1 block text-sm font-medium text-gray-700">
+          Buscar departamento
+        </label>
 
-      <button type="button" (click)="searchDepartments()"
-        class="rounded-lg bg-blue-600 px-5 py-2 text-sm font-medium text-white hover:bg-blue-700">
-        Buscar
+        <input id="search" type="text" [ngModel]="search()" (ngModelChange)="search.set($event)"
+          (keyup.enter)="searchDepartments()" placeholder="Digite o nome do departamento" class="w-full rounded-md border border-gray-300
+                  px-3 py-2.5 text-sm text-gray-900
+                  outline-none transition
+                  focus:border-blue-500
+                  focus:ring-2 focus:ring-blue-500/20" />
+
+      </div>
+
+    </div>
+
+    <div class="mt-4 flex justify-end gap-3">
+
+      <button type="button" (click)="clearSearch()" class="rounded-md border border-gray-300
+                bg-white px-4 py-2.5
+                text-sm font-medium text-gray-700
+                transition hover:bg-gray-50
+                focus:outline-none
+                focus:ring-2 focus:ring-gray-400
+                focus:ring-offset-2">
+        Limpar
       </button>
 
-      <button type="button" (click)="clearSearch()"
-        class="rounded-lg border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-        Limpar
+      <button type="button" (click)="searchDepartments()" class="rounded-md bg-blue-600
+                px-4 py-2.5
+                text-sm font-medium text-white
+                transition hover:bg-blue-700
+                focus:outline-none
+                focus:ring-2 focus:ring-blue-500
+                focus:ring-offset-2">
+        Buscar
       </button>
 
     </div>
@@ -45,6 +68,15 @@
   </div>
 
 
+  <!-- RESUMO -->
+  <div class="mb-4">
+    <p class="text-sm text-gray-600">
+      Total de departamentos:
+      <span class="font-semibold text-gray-900">
+        {{ totalCount() }}
+      </span>
+    </p>
+  </div>
   <!-- TABLE -->
   <div class="overflow-hidden rounded-lg bg-white shadow">
 
@@ -71,7 +103,9 @@
       </thead>
 
 
+
       <tbody class="divide-y divide-gray-200">
+
 
         @if (isLoading()) {
 
@@ -124,59 +158,77 @@
   </div>
 
 
-  <!-- PAGINATION -->
-  <div class="mt-4 flex items-center justify-between">
+  <!-- PAGINAÇÃO -->
 
-    <div class="text-sm text-gray-500">
-      Total: {{ totalCount() }}
-    </div>
+  @if (totalPages() > 1) {
 
+  <div class="flex flex-col gap-4
+         border-t border-gray-200
+         bg-white px-6 py-4
+         md:flex-row md:items-center
+         md:justify-between">
 
-    <div class="flex items-center gap-4">
+    <div class="text-sm text-gray-600">
 
-      <select [ngModel]="pageSize()" (ngModelChange)="pageSize.set($event); changePageSize()"
-        class="rounded-lg border border-gray-300 px-3 py-2 text-sm">
+      Exibindo
 
-        <option [ngValue]="10">
-          10
-        </option>
-
-        <option [ngValue]="20">
-          20
-        </option>
-
-        <option [ngValue]="30">
-          30
-        </option>
-
-        <option [ngValue]="50">
-          50
-        </option>
-
-      </select>
-
-
-      <span class="text-sm text-gray-600">
-        Página {{ page() }} de {{ totalPages() }}
+      <span class="font-medium text-gray-900">
+        {{ ((page() - 1) * pageSize()) + 1 }}
       </span>
 
+      até
 
-      <div class="flex gap-2">
+      <span class="font-medium text-gray-900">
+        {{
+        page() * pageSize() < totalCount() ? page() * pageSize() : totalCount() }} </span>
 
-        <button type="button" (click)="previousPage()" [disabled]="page() <= 1"
-          class="rounded-lg border border-gray-300 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50">
-          Anterior
-        </button>
+          de
 
-        <button type="button" (click)="nextPage()" [disabled]="page() >= totalPages()"
-          class="rounded-lg border border-gray-300 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50">
-          Próxima
-        </button>
+          <span class="font-medium text-gray-900">
+            {{ totalCount() }}
+          </span>
 
-      </div>
+          departamentos
+
+    </div>
+
+    <div class="flex items-center justify-end gap-2">
+
+      <button type="button" (click)="previousPage()" [disabled]="page() === 1" class="rounded-md border border-gray-300
+             px-3 py-2
+             text-sm font-medium text-gray-700
+             transition hover:bg-gray-50
+             focus:outline-none
+             focus:ring-2
+             focus:ring-blue-500
+             focus:ring-offset-1
+             disabled:cursor-not-allowed
+             disabled:opacity-50">
+        Anterior
+      </button>
+
+      <span class="px-2 py-2
+             text-sm font-medium
+             text-gray-700">
+        {{ page() }} / {{ totalPages() }}
+      </span>
+
+      <button type="button" (click)="nextPage()" [disabled]="page() === totalPages()" class="rounded-md border border-gray-300
+             px-3 py-2
+             text-sm font-medium text-gray-700
+             transition hover:bg-gray-50
+             focus:outline-none
+             focus:ring-2
+             focus:ring-blue-500
+             focus:ring-offset-1
+             disabled:cursor-not-allowed
+             disabled:opacity-50">
+        Próxima
+      </button>
 
     </div>
 
   </div>
 
+  }
 </div>
