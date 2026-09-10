@@ -1,0 +1,182 @@
+<div class="p-6">
+
+  <!-- HEADER -->
+  <div class="mb-6 flex items-center justify-between">
+
+    <div>
+      <h1 class="text-2xl font-semibold text-gray-900">
+        Departamentos
+      </h1>
+
+      <p class="mt-1 text-sm text-gray-500">
+        Gerencie os departamentos disponíveis no sistema.
+      </p>
+    </div>
+
+    <a routerLink="/departments/create"
+      class="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800">
+      Novo departamento
+    </a>
+
+  </div>
+
+
+  <!-- SEARCH -->
+  <div class="mb-6 rounded-lg bg-white p-4 shadow">
+
+    <div class="flex gap-3">
+
+      <input type="text" [ngModel]="search()" (ngModelChange)="search.set($event)" (keyup.enter)="searchDepartments()"
+        placeholder="Buscar departamento..."
+        class="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-sm outline-none focus:border-gray-500" />
+
+      <button type="button" (click)="searchDepartments()"
+        class="rounded-lg bg-gray-900 px-5 py-2 text-sm font-medium text-white hover:bg-gray-800">
+        Buscar
+      </button>
+
+      <button type="button" (click)="clearSearch()"
+        class="rounded-lg border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+        Limpar
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- TABLE -->
+  <div class="overflow-hidden rounded-lg bg-white shadow">
+
+    <table class="min-w-full">
+
+      <thead class="border-b border-gray-200 bg-gray-50">
+
+        <tr>
+
+          <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
+            ID
+          </th>
+
+          <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
+            Nome
+          </th>
+
+          <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
+            Criado em
+          </th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody class="divide-y divide-gray-200">
+
+        @if (isLoading()) {
+
+        <tr>
+
+          <td colspan="3" class="px-6 py-8 text-center text-sm text-gray-500">
+            Carregando...
+          </td>
+
+        </tr>
+
+        } @else if (departments().length === 0) {
+
+        <tr>
+
+          <td colspan="3" class="px-6 py-8 text-center text-sm text-gray-500">
+            Nenhum departamento encontrado.
+          </td>
+
+        </tr>
+
+        } @else {
+
+        @for (department of departments(); track department.id) {
+
+        <tr class="hover:bg-gray-50">
+
+          <td class="px-6 py-4 text-sm text-gray-700">
+            {{ department.id }}
+          </td>
+
+          <td class="px-6 py-4 text-sm font-medium text-gray-900">
+            {{ department.name }}
+          </td>
+
+          <td class="px-6 py-4 text-sm text-gray-500">
+            {{ department.createdAt | date:'dd/MM/yyyy HH:mm' }}
+          </td>
+
+        </tr>
+
+        }
+
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+
+  <!-- PAGINATION -->
+  <div class="mt-4 flex items-center justify-between">
+
+    <div class="text-sm text-gray-500">
+      Total: {{ totalCount() }}
+    </div>
+
+
+    <div class="flex items-center gap-4">
+
+      <select [ngModel]="pageSize()" (ngModelChange)="pageSize.set($event); changePageSize()"
+        class="rounded-lg border border-gray-300 px-3 py-2 text-sm">
+
+        <option [ngValue]="10">
+          10
+        </option>
+
+        <option [ngValue]="20">
+          20
+        </option>
+
+        <option [ngValue]="30">
+          30
+        </option>
+
+        <option [ngValue]="50">
+          50
+        </option>
+
+      </select>
+
+
+      <span class="text-sm text-gray-600">
+        Página {{ page() }} de {{ totalPages() }}
+      </span>
+
+
+      <div class="flex gap-2">
+
+        <button type="button" (click)="previousPage()" [disabled]="page() <= 1"
+          class="rounded-lg border border-gray-300 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50">
+          Anterior
+        </button>
+
+        <button type="button" (click)="nextPage()" [disabled]="page() >= totalPages()"
+          class="rounded-lg border border-gray-300 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50">
+          Próxima
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -12,6 +12,8 @@ import { TicketListComponent } from './features/tickets/pages/ticket-list/ticket
 import { TicketDetailsComponent } from './features/tickets/pages/ticket-details/ticket-details';
 import { TicketCreateComponent } from './features/tickets/pages/ticket-create/ticket-create';
 import { ChangePasswordComponent } from './features/users/pages/change-password/change-password';
+import { DepartmentListComponent } from './features/departments/pages/department-list/department-list';
+import { DepartmentCreateComponent } from './features/departments/pages/department-create/department-create';
 
 
 export const routes: Routes = [
@@ -85,6 +87,14 @@ export const routes: Routes = [
         path: 'tickets/:id',
         component: TicketDetailsComponent
       },
+      {
+        path: 'departments',
+        component: DepartmentListComponent
+      },
+      {
+        path: 'departments/create',
+        component: DepartmentCreateComponent
+      }
     ]
   }
 

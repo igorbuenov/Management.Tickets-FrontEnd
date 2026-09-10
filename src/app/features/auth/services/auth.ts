@@ -12,7 +12,7 @@ export class AuthService {
 
   private readonly tokenKey = 'accessToken';
   private readonly userKey = 'currentUser';
-  private readonly apiUrl = API_ENDPOINTS.auth;
+  private readonly apiUrl = API_LOCAL_ENDPOINTS.auth;
 
   constructor(
     private readonly http: HttpClient,
@@ -62,7 +62,7 @@ export class AuthService {
     const token = this.getToken();
 
     return this.http.put<void>(
-      `${API_ENDPOINTS.users}/${userId}/change-temporary-password`,
+      `${this.apiUrl}/${userId}/change-temporary-password`,
       {
         newPassword,
         confirmPassword

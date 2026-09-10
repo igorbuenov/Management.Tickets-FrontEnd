@@ -245,26 +245,33 @@
           <ul class="space-y-1">
 
             <li>
-              <a href="#" (click)="$event.preventDefault()" class="block rounded-md px-3 py-2
-                          text-sm text-gray-300
-                          transition
-                          hover:bg-gray-700
-                          hover:text-white">
-
+              <a
+                routerLink="/departments"
+                (click)="closeMobileMenu()"
+                routerLinkActive="bg-blue-600 text-white"
+                [routerLinkActiveOptions]="{ exact: true }"
+                class="block rounded-md px-3 py-2
+                      text-sm text-gray-300
+                      transition
+                      hover:bg-gray-700
+                      hover:text-white"
+              >
                 Listar Setores
-
               </a>
             </li>
 
             <li>
-              <a href="#" (click)="$event.preventDefault()" class="block rounded-md px-3 py-2
-                          text-sm text-gray-300
-                          transition
-                          hover:bg-gray-700
-                          hover:text-white">
-
+              <a
+                routerLink="/departments/create"
+                (click)="closeMobileMenu()"
+                routerLinkActive="bg-blue-600 text-white"
+                class="block rounded-md px-3 py-2
+                      text-sm text-gray-300
+                      transition
+                      hover:bg-gray-700
+                      hover:text-white"
+              >
                 Criar Setor
-
               </a>
             </li>
 

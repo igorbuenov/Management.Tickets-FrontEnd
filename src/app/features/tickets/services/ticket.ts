@@ -12,7 +12,7 @@ import { CreateTicket, CreateTicketResponseModel } from '../models/create-ticket
 })
 export class TicketService {
 
-  private readonly apiUrl = API_ENDPOINTS.tickets;
+  private readonly apiUrl = API_LOCAL_ENDPOINTS.tickets;
 
   constructor(
     private http: HttpClient,
