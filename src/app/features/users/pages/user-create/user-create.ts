@@ -2,6 +2,8 @@ import { Component,signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../services/user';
+import { DepartmentModel } from '../../../departments/models/create-department.model';
+import { DepartmentService } from '../../../departments/services/department';
 
 @Component({
   selector: 'app-user-create',
@@ -14,6 +16,9 @@ export class UserCreateComponent {
   name = '';
   email = ''
   roleId: number | null = null;
+  departmentId: number | null = null;
+
+  departments = signal<DepartmentModel[]>([]);
 
   isLoading = signal(false);
   isError = signal(false);
@@ -21,8 +26,26 @@ export class UserCreateComponent {
 
   constructor(
     private readonly userService: UserService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly departmentService: DepartmentService
   ) {}
+
+  ngOnInit(): void { 
+    this.loadDepartments(); 
+  }
+
+  loadDepartments(): void { 
+    this.departmentService.getDepartments(1, 50).subscribe({ 
+      next: (response) => { 
+        this.departments.set(response.items); 
+      },
+       error: (error) => { 
+        console.error('Erro ao carregar departamentos:', error); 
+        this.isError.set(true); 
+        this.message.set( error.error?.message ?? 'Não foi possível carregar os departamentos.' ); 
+      } 
+    }); 
+  }
 
   createUser(): void {
 
@@ -51,7 +74,13 @@ export class UserCreateComponent {
       return;
     }
 
-    const request = { name: this.name, email: this.email, roleID: this.roleId };
+    if (this.departmentId === null) { 
+      this.isError.set(true); 
+      this.message.set('Selecione o departamento.'); 
+      return; 
+    }
+
+    const request = { name: this.name, email: this.email, roleID: this.roleId, departmentId: this.departmentId };
 
     this.isLoading.set(true);
 

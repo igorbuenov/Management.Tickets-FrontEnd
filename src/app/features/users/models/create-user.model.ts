@@ -8,6 +8,7 @@ export interface CreateUserModel {
   name: string;
   email: string;
   roleID: number;
+  departmentId: number
 }
 
 export interface CreateUserResponseModel {

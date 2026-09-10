@@ -8,15 +8,11 @@
     <div>
 
       <h1 class="text-2xl font-semibold text-gray-900">
-
-        Criar usuário
-
+        Criar Usuário
       </h1>
 
       <p class="mt-1 text-sm text-gray-500">
-
         Cadastre um novo usuário na plataforma.
-
       </p>
 
     </div>
@@ -25,9 +21,7 @@
       routerLink="/users"
       class="rounded-lg border border-gray-300 px-4 py-2 text-sm
              font-medium text-gray-700 transition hover:bg-gray-50">
-
       Voltar
-
     </a>
 
   </div>
@@ -36,24 +30,26 @@
 
   @if (message()) {
 
-  <div
-    class="mb-6 rounded-lg border px-4 py-3 text-sm font-medium"
-    [class.border-green-200]="!isError()"
-    [class.bg-green-50]="!isError()"
-    [class.text-green-700]="!isError()"
-    [class.border-red-200]="isError()"
-    [class.bg-red-50]="isError()"
-    [class.text-red-700]="isError()">
+    <div
+      class="mb-6 rounded-lg border px-4 py-3 text-sm font-medium"
+      [class.border-green-200]="!isError()"
+      [class.bg-green-50]="!isError()"
+      [class.text-green-700]="!isError()"
+      [class.border-red-200]="isError()"
+      [class.bg-red-50]="isError()"
+      [class.text-red-700]="isError()">
 
-    {{ message() }}
+      {{ message() }}
 
-  </div>
+    </div>
 
   }
 
   <!-- FORMULÁRIO -->
 
-  <form (ngSubmit)="createUser()" class="space-y-6">
+  <form
+    (ngSubmit)="createUser()"
+    class="space-y-6">
 
     <!-- NOME -->
 
@@ -62,9 +58,7 @@
       <label
         for="name"
         class="mb-2 block text-sm font-medium text-gray-700">
-
         Nome
-
       </label>
 
       <input
@@ -85,9 +79,7 @@
       <label
         for="email"
         class="mb-2 block text-sm font-medium text-gray-700">
-
         Email
-
       </label>
 
       <input
@@ -101,6 +93,39 @@
 
     </div>
 
+    <!-- DEPARTAMENTO -->
+
+    <div>
+
+      <label
+        for="departmentId"
+        class="mb-2 block text-sm font-medium text-gray-700">
+        Departamento
+      </label>
+
+      <select
+        id="departmentId"
+        name="departmentId"
+        [(ngModel)]="departmentId"
+        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm
+               focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
+
+        <option [ngValue]="null" disabled>
+          Selecione o departamento
+        </option>
+
+        @for (department of departments(); track department.id) {
+
+          <option [ngValue]="department.id">
+            {{ department.name }}
+          </option>
+
+        }
+
+      </select>
+
+    </div>
+
     <!-- PERFIL -->
 
     <div>
@@ -108,9 +133,7 @@
       <label
         for="roleId"
         class="mb-2 block text-sm font-medium text-gray-700">
-
         Perfil
-
       </label>
 
       <select
@@ -120,30 +143,20 @@
         class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm
                focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200">
 
-        <option
-          [ngValue]="null"
-          disabled>
-
+        <option [ngValue]="null" disabled>
           Selecione o perfil
-
         </option>
 
         <option [ngValue]="1">
-
           Admin
-
         </option>
 
         <option [ngValue]="2">
-
           Technician
-
         </option>
 
         <option [ngValue]="3">
-
           User
-
         </option>
 
       </select>
