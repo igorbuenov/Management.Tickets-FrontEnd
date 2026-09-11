@@ -179,90 +179,106 @@
 
 @if (totalPages() > 1) {
 
-<div
-  class="flex flex-col gap-4
-         border-t border-gray-200
-         bg-white px-6 py-4
-         md:flex-row md:items-center
-         md:justify-between"
->
+  <div
+    class="flex flex-col gap-4
+           border-t border-gray-200
+           bg-white px-6 py-4
+           md:flex-row md:items-center
+           md:justify-between"
+  >
 
-  <div class="text-sm text-gray-600">
+    <div class="text-sm text-gray-600">
+      Exibindo
+      <span class="font-medium text-gray-900">
+        {{ ((page() - 1) * pageSize()) + 1 }}
+      </span>
+      até
+      <span class="font-medium text-gray-900">
+        {{ page() * pageSize() < totalCount() ? page() * pageSize() : totalCount() }}
+      </span>
+      de
+      <span class="font-medium text-gray-900">
+        {{ totalCount() }}
+      </span>
+      categorias
+    </div>
 
-    Exibindo
+    <div class="flex items-center justify-end gap-2">
 
-    <span class="font-medium text-gray-900">
-      {{ ((page() - 1) * pageSize()) + 1 }}
-    </span>
+      <button
+        type="button"
+        (click)="previousPage()"
+        [disabled]="page() === 1"
+        class="rounded-md border border-gray-300
+               px-3 py-2
+               text-sm font-medium text-gray-700
+               transition hover:bg-gray-50
+               focus:outline-none
+               focus:ring-2
+               focus:ring-blue-500
+               focus:ring-offset-1
+               disabled:cursor-not-allowed
+               disabled:opacity-50"
+      >
+        Anterior
+      </button>
 
-    até
+      <!-- NOVO: Laço de páginas igual ao de usuários -->
+      @for (p of visiblePages(); track $index) {
 
-    <span class="font-medium text-gray-900">
-      {{
-        page() * pageSize() < totalCount()
-          ? page() * pageSize()
-          : totalCount()
-      }}
-    </span>
+        @if (p === '...') {
+          <span
+            class="px-2 py-2
+                   text-sm font-medium
+                   text-gray-500"
+          >
+            ...
+          </span>
+        } @else {
+          <button
+            type="button"
+            (click)="goToPage(p)"
+            [class.bg-blue-600]="page() === p"
+            [class.text-white]="page() === p"
+            [class.border-blue-600]="page() === p"
+            class="rounded-md border
+                   border-gray-300
+                   px-3 py-2
+                   text-sm font-medium
+                   text-gray-700
+                   transition hover:bg-gray-50
+                   focus:outline-none
+                   focus:ring-2
+                   focus:ring-blue-500
+                   focus:ring-offset-1"
+          >
+            {{ p }}
+          </button>
+        }
 
-    de
+      }
 
-    <span class="font-medium text-gray-900">
-      {{ totalCount() }}
-    </span>
+      <button
+        type="button"
+        (click)="nextPage()"
+        [disabled]="page() === totalPages()"
+        class="rounded-md border border-gray-300
+               px-3 py-2
+               text-sm font-medium text-gray-700
+               transition hover:bg-gray-50
+               focus:outline-none
+               focus:ring-2
+               focus:ring-blue-500
+               focus:ring-offset-1
+               disabled:cursor-not-allowed
+               disabled:opacity-50"
+      >
+        Próximo
+      </button>
 
-    categorias
+    </div>
 
   </div>
-
-  <div class="flex items-center justify-end gap-2">
-
-    <button
-      type="button"
-      (click)="previousPage()"
-      [disabled]="page() === 1"
-      class="rounded-md border border-gray-300
-             px-3 py-2
-             text-sm font-medium text-gray-700
-             transition hover:bg-gray-50
-             focus:outline-none
-             focus:ring-2
-             focus:ring-blue-500
-             focus:ring-offset-1
-             disabled:cursor-not-allowed
-             disabled:opacity-50"
-    >
-      Anterior
-    </button>
-
-    <span
-      class="px-2 py-2
-             text-sm font-medium text-gray-700"
-    >
-      {{ page() }} / {{ totalPages() }}
-    </span>
-
-    <button
-      type="button"
-      (click)="nextPage()"
-      [disabled]="page() === totalPages()"
-      class="rounded-md border border-gray-300
-             px-3 py-2
-             text-sm font-medium text-gray-700
-             transition hover:bg-gray-50
-             focus:outline-none
-             focus:ring-2
-             focus:ring-blue-500
-             focus:ring-offset-1
-             disabled:cursor-not-allowed
-             disabled:opacity-50"
-    >
-      Próxima
-    </button>
-
-  </div>
-
-</div>
 
 }
 
