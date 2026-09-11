@@ -11,7 +11,7 @@ import { authGuard } from './core/guards/auth-guard';
 import { TicketListComponent } from './features/tickets/pages/ticket-list/ticket-list';
 import { TicketDetailsComponent } from './features/tickets/pages/ticket-details/ticket-details';
 import { TicketCreateComponent } from './features/tickets/pages/ticket-create/ticket-create';
-import { ChangePasswordComponent } from './features/users/pages/change-password/change-password';
+import { ChangePasswordComponent } from './features/auth/change-password/change-password';
 import { DepartmentListComponent } from './features/departments/pages/department-list/department-list';
 import { DepartmentCreateComponent } from './features/departments/pages/department-create/department-create';
 import { CategoryCreateComponent } from './features/categories/pages/category-create/category-create';

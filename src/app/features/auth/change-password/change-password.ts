@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../../../auth/services/auth';
+import { AuthService } from '../services/auth';
 
 @Component({
   selector: 'app-change-password',
