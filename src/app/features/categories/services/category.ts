@@ -10,7 +10,7 @@ import {
 
 import { CategoryListResponseModel } from '../models/category-list-response.model';
 
-import { API_LOCAL_ENDPOINTS, API_ENDPOINTS } from '../../../core/constants/api.constants';
+import { API_ENDPOINTS } from '../../../core/constants/api.constants';
 
 @Injectable({
   providedIn: 'root',

@@ -10,10 +10,7 @@ import {
 
 import { DepartmentListResponseModel } from '../models/department-list-response.model';
 
-import {
-  API_ENDPOINTS,
-  API_LOCAL_ENDPOINTS
-} from '../../../core/constants/api.constants';
+import {API_ENDPOINTS} from '../../../core/constants/api.constants';
 
 @Injectable({
   providedIn: 'root',

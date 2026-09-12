@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from '../../auth/services/auth';
 
-import { API_ENDPOINTS, API_LOCAL_ENDPOINTS } from '../../../core/constants/api.constants';
+import { API_ENDPOINTS} from '../../../core/constants/api.constants';
 import { TicketListResponseModel } from '../models/ticket-list-response';
 import { TicketModel } from '../models/ticket';
 import { CreateTicket, CreateTicketResponseModel } from '../models/create-ticket.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -82,5 +83,21 @@ export class TicketService {
        }
     )
 
+  }
+
+  assignTicketTo(ticketId: number, technicianId: number): Observable<void>{
+    const token = this.authService.getToken();
+
+    return this.http.put<void>(
+      `${this.apiUrl}/${ticketId}/assign`,
+      {
+        technicianId 
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
   }
 }

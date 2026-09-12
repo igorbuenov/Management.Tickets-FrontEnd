@@ -1,46 +1,62 @@
+
 <div class="p-6">
 
     <!-- HEADER -->
-
     <div class="mb-6 flex items-center justify-between">
 
         <div>
-
             <h1 class="text-2xl font-bold text-gray-900">
-
                 Detalhes do Ticket
-
             </h1>
 
             <p class="mt-1 text-sm text-gray-500">
-
                 Visualização das informações do ticket.
-
             </p>
-
         </div>
 
-        <a routerLink="/tickets" class="rounded-lg border border-gray-300 px-4 py-2 text-sm
-         font-medium text-gray-700 transition hover:bg-gray-50">
+        <!-- ACTIONS -->
+        <div class="flex items-center gap-3">
 
-            Voltar
+            <!-- ASSUMIR TICKET -->
+            @if (ticket()?.assignedTo === null) {
+                <button
+                    type="button"
+                    (click)="openAssignModal()"
+                    [disabled]="isLoading()"
+                    class="rounded-lg bg-blue-600 px-4 py-2 text-sm
+                        font-medium text-white transition
+                        hover:bg-blue-700
+                        focus:outline-none
+                        focus:ring-2
+                        focus:ring-blue-500
+                        focus:ring-offset-1
+                        disabled:cursor-not-allowed
+                        disabled:opacity-50">
 
-        </a>
+                    Assumir ticket
+                </button>
+            }
 
+            <!-- VOLTAR -->
+            <a
+                routerLink="/tickets"
+                class="rounded-lg border border-gray-300 px-4 py-2 text-sm
+                    font-medium text-gray-700 transition
+                    hover:bg-gray-50">
+
+                Voltar
+            </a>
+
+        </div>
     </div>
 
     <!-- LOADING -->
-
     @if (isLoading()) {
 
     <div class="flex justify-center py-12">
-
         <span class="text-sm text-gray-500">
-
             Carregando ticket...
-
         </span>
-
     </div>
 
     }
@@ -53,69 +69,79 @@
         <div class="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
 
             <!-- HEADER -->
-
             <div class="flex items-start justify-between">
 
                 <div class="flex items-start gap-3">
 
                     <!-- WARNING ICON -->
-
                     <div class="flex h-10 w-10 shrink-0 items-center justify-center
-                rounded-full bg-red-100 text-red-600">
+                        rounded-full bg-red-100 text-red-600">
 
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="h-6 w-6">
-
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 9v3.75m0 3.75h.007v.008H12v-.008ZM10.34 3.94 2.78 17.06A2 2 0 0 0 4.51 20h14.98a2 2 0 0 0 1.73-2.94L13.66 3.94a2 2 0 0 0-3.32 0Z" />
-
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="2"
+                            stroke="currentColor"
+                            class="h-6 w-6"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M12 9v3.75m0 3.75h.007v.008H12v-.008ZM10.34 3.94 2.78 17.06A2 2 0 0 0 4.51 20h14.98a2 2 0 0 0 1.73-2.94L13.66 3.94a2 2 0 0 0-3.32 0Z"
+                            />
                         </svg>
 
                     </div>
 
                     <div>
-
                         <h2 class="text-lg font-semibold text-gray-900">
-
                             Ticket não encontrado
-
                         </h2>
 
                         <p class="mt-2 text-sm text-gray-600">
-
                             Não foi possível carregar as informações deste ticket.
-
                         </p>
-
                     </div>
 
                 </div>
 
                 <!-- CLOSE -->
-
-                <button type="button" (click)="hasError.set(false)" aria-label="Fechar" class="rounded-lg p-1 text-gray-400
-            hover:bg-gray-100 hover:text-gray-600">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                        stroke="currentColor" class="h-5 w-5">
-
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-
+                <button
+                    type="button"
+                    (click)="hasError.set(false)"
+                    aria-label="Fechar"
+                    class="rounded-lg p-1 text-gray-400
+                           hover:bg-gray-100 hover:text-gray-600"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        class="h-5 w-5"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M6 18 18 6M6 6l12 12"
+                        />
                     </svg>
-
                 </button>
 
             </div>
 
             <!-- ACTION -->
-
             <div class="mt-6 flex justify-end">
 
-                <a routerLink="/tickets" class="rounded-lg bg-blue-600 px-4 py-2 text-sm
-                font-medium text-white transition hover:bg-blue-700">
-
+                <a
+                    routerLink="/tickets"
+                    class="rounded-lg bg-blue-600 px-4 py-2 text-sm
+                           font-medium text-white transition
+                           hover:bg-blue-700"
+                >
                     Voltar para tickets
-
                 </a>
 
             </div>
@@ -127,179 +153,114 @@
     }
 
     <!-- CONTENT -->
-
     @if (ticket(); as ticket) {
 
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
 
         <!-- TITLE -->
-
         <div class="border-b border-gray-200 px-6 py-5">
 
             <h2 class="text-xl font-semibold text-gray-900">
-
                 Título: {{ ticket.title }}
-
             </h2>
 
         </div>
 
         <!-- DETAILS -->
-
         <div class="grid grid-cols-1 gap-6 p-6 md:grid-cols-2">
 
             <div>
-
                 <p class="text-sm font-medium text-gray-500">
-
                     Prioridade:
-
+                    <span
+                        class="mt-1 inline-flex rounded-full px-3 py-1 text-xs font-semibold"
+                        [class]="getPriorityClass(ticket.priority)"
+                    >
+                        {{ getPriorityText(ticket.priority) }}
+                    </span>
                 </p>
-
-                <span class="mt-1 inline-flex rounded-full px-3 py-1 text-xs font-semibold"
-                    [class]="getPriorityClass(ticket.priority)">
-
-                    {{ ticket.priority }}
-
-                </span>
-
             </div>
 
             <div>
-
                 <p class="text-sm font-medium text-gray-500">
-
                     Status:
-
+                    <span
+                        class="mt-1 inline-flex rounded-full px-3 py-1 text-xs font-semibold"
+                        [class]="getStatusClass(ticket.status)"
+                    >
+                        {{  getStatusText(ticket.status) }}
+                    </span>
                 </p>
-
-                <span class="mt-1 inline-flex rounded-full px-3 py-1 text-xs font-semibold"
-                    [class]="getStatusClass(ticket.status)">
-
-                    {{ ticket.status }}
-
-                </span>
-
             </div>
 
             <div>
-
                 <p class="text-sm font-medium text-gray-500">
-
                     Departamento:
-
+                    <span class="mt-1 text-sm text-gray-900">
+                        {{ ticket.department.name }}
+                    </span>
                 </p>
-
-                <p class="mt-1 text-sm text-gray-900">
-
-                    {{ ticket.department.name }}
-
-                </p>
-
             </div>
 
             <div>
-
                 <p class="text-sm font-medium text-gray-500">
-
                     Categoria:
-
+                    <span class="mt-1 text-sm text-gray-900">
+                        {{ ticket.category.name }}
+                    </span>
                 </p>
-
-                <p class="mt-1 text-sm text-gray-900">
-
-                    {{ ticket.category.name }}
-
-                </p>
-
             </div>
 
             <div>
-
                 <p class="text-sm font-medium text-gray-500">
-
                     Criado em:
-
+                    <span class="mt-1 text-sm text-gray-900">
+                        {{ ticket.createdAt | date:'dd/MM/yyyy HH:mm' }}
+                    </span>
                 </p>
-
-                <p class="mt-1 text-sm text-gray-900">
-
-                    {{ ticket.createdAt | date:'dd/MM/yyyy HH:mm' }}
-
-                </p>
-
             </div>
 
             <div>
-
                 <p class="text-sm font-medium text-gray-500">
-
                     Atualizado em:
-
+                    <span class="mt-1 text-sm text-gray-900">
+                        {{ ticket.updatedAt
+                            ? (ticket.updatedAt | date:'dd/MM/yyyy HH:mm')
+                            : 'Nunca atualizado'
+                        }}
+                    </span>
                 </p>
-
-                <p class="mt-1 text-sm text-gray-900">
-
-                    {{ ticket.updatedAt
-
-                    ? (ticket.updatedAt | date:'dd/MM/yyyy HH:mm')
-
-                    : 'Nunca atualizado'
-
-                    }}
-
-                </p>
-
             </div>
 
             <div>
-
                 <p class="text-sm font-medium text-gray-500">
-
                     Criado por:
-
+                    <span class="mt-1 text-sm text-gray-900">
+                        {{ ticket.createdBy.name }}
+                    </span>
                 </p>
-
-                <p class="mt-1 text-sm text-gray-900">
-
-                    {{ ticket.createdBy.name }}
-
-                </p>
-
             </div>
 
             <div>
-
                 <p class="text-sm font-medium text-gray-500">
-
                     Responsável:
-
+                    <span class="mt-1 text-sm text-gray-900">
+                        {{ ticket.assignedTo?.name ?? 'Não atribuído' }}
+                    </span>
                 </p>
-
-                <p class="mt-1 text-sm text-gray-900">
-
-                    {{ ticket.assignedTo?.name ?? 'Não atribuído' }}
-
-                </p>
-
             </div>
 
         </div>
 
         <!-- DESCRIPTION -->
-
         <div class="border-t border-gray-200 px-6 py-5">
 
             <p class="text-sm font-medium text-gray-500">
-
                 Descrição:
-
             </p>
 
             <p class="mt-2 whitespace-pre-line text-sm leading-6 text-gray-700">
-
                 {{ ticket.description }}
-
             </p>
 
         </div>
@@ -308,5 +269,119 @@
 
     }
 
-
 </div>
+
+<!-- MODAL DE ASSUMIR TICKET -->
+
+@if (showAssignModal()) {
+
+    <div
+        class="fixed inset-0 z-50
+               flex items-center justify-center
+               bg-gray-900/50 px-4
+               backdrop-blur-sm">
+
+        <div
+            class="w-full max-w-md
+                   rounded-xl bg-white
+                   p-6 shadow-2xl"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="assign-title">
+
+            <!-- ÍCONE -->
+
+            <div
+                class="mb-4 flex h-12 w-12
+                       items-center justify-center
+                       rounded-full bg-blue-100">
+
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="h-6 w-6 text-blue-600">
+
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15.59 14.37a6 6 0 0 1-5.18 0
+                           M19.5 19.5a7.5 7.5 0 0 0-15 0
+                           M12 12a4 4 0 1 0 0-8
+                           4 4 0 0 0 0 8Z" />
+
+                </svg>
+
+            </div>
+
+            <!-- TÍTULO -->
+
+            <h2
+                id="assign-title"
+                class="text-lg font-semibold text-gray-900">
+
+                Assumir ticket
+            </h2>
+
+            <!-- DESCRIÇÃO -->
+
+            <p class="mt-2 text-sm text-gray-600">
+
+                Tem certeza que deseja assumir este ticket?
+
+                Você será definido como o responsável pelo atendimento.
+
+            </p>
+
+            <!-- AÇÕES -->
+
+            <div class="mt-6 flex justify-end gap-3">
+
+                <button
+                    type="button"
+                    (click)="cancelAssign()"
+                    class="rounded-lg border border-gray-300
+                           px-4 py-2 text-sm font-medium
+                           text-gray-700 transition
+                           hover:bg-gray-50
+                           focus:outline-none
+                           focus:ring-2
+                           focus:ring-gray-400
+                           focus:ring-offset-1">
+
+                    Cancelar
+
+                </button>
+
+                <button
+                    type="button"
+                    (click)="confirmAssign()"
+                    [disabled]="isLoading()"
+                    class="rounded-lg bg-blue-600
+                           px-4 py-2 text-sm font-medium
+                           text-white transition
+                           hover:bg-blue-700
+                           focus:outline-none
+                           focus:ring-2
+                           focus:ring-blue-500
+                           focus:ring-offset-1
+                           disabled:cursor-not-allowed
+                           disabled:bg-gray-400">
+
+                    @if (isLoading()) {
+                        Assumindo...
+                    } @else {
+                        Assumir
+                    }
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+}

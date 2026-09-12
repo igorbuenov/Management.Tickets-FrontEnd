@@ -11,7 +11,7 @@ import { UserListResponseModel } from '../models/user-list-response.model';
 import { UpdateUserModel } from '../models/update-user.model';
 import { UserDetailsModel } from '../models/user-details.model';
 
-import { API_ENDPOINTS, API_LOCAL_ENDPOINTS } from '../../../core/constants/api.constants';
+import { API_ENDPOINTS} from '../../../core/constants/api.constants';
 
 @Injectable({
   providedIn: 'root',

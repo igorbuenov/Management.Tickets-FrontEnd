@@ -1,3 +1,4 @@
+
 import { Component, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
@@ -5,6 +6,7 @@ import { RouterLink } from '@angular/router';
 
 import { TicketModel } from '../../models/ticket';
 import { TicketService } from '../../services/ticket';
+import { AuthService } from '../../../auth/services/auth';
 
 @Component({
   selector: 'app-ticket-details',
@@ -15,12 +17,18 @@ import { TicketService } from '../../services/ticket';
 export class TicketDetailsComponent implements OnInit {
 
   ticket = signal<TicketModel | null>(null);
+
   isLoading = signal(false);
   hasError = signal(false);
 
+  showAssignModal = signal(false);
+
+  private ticketId: number | null = null;
+
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly ticketService: TicketService
+    private readonly ticketService: TicketService,
+    private readonly authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +39,7 @@ export class TicketDetailsComponent implements OnInit {
       return;
     }
 
+    this.ticketId = id;
     this.loadTicket(id);
   }
 
@@ -50,16 +59,77 @@ export class TicketDetailsComponent implements OnInit {
     });
   }
 
+  openAssignModal(): void {
+    this.showAssignModal.set(true);
+  }
+
+  cancelAssign(): void {
+    this.showAssignModal.set(false);
+  }
+
+  confirmAssign(): void {
+    const ticketId = this.ticketId;
+
+    if (ticketId === null) {
+      return;
+    }
+
+    const technicianId = this.authService.getUserId();
+
+    if (technicianId === null) {
+      console.error('Não foi possível identificar o usuário autenticado.');
+      return;
+    }
+
+    this.showAssignModal.set(false);
+    this.isLoading.set(true);
+
+    this.ticketService.assignTicketTo(
+      ticketId,
+      technicianId
+    ).subscribe({
+      next: () => {
+        this.loadTicket(ticketId);
+      },
+      error: (error) => {
+        console.error('Erro ao assumir ticket:', error);
+        this.isLoading.set(false);
+      }
+    });
+  }
+
   getPriorityClass(priority: string): string {
     switch (priority) {
       case 'High':
         return 'bg-red-100 text-red-700';
+
       case 'Medium':
         return 'bg-yellow-100 text-yellow-700';
+
       case 'Low':
         return 'bg-green-100 text-green-700';
+
       default:
         return 'bg-gray-100 text-gray-700';
+    }
+  }
+
+  getPriorityText(priority: string): string{
+    switch (priority) {
+      case 'High':
+        return 'Alta';
+
+      case 'Medium':
+        return 'Média';
+
+      case 'Low':
+        return 'Baixa';
+
+      case 'Urgent':
+        return 'Urgente';
+
+      default:
+        return 'Prioridade inválida';
     }
   }
 
@@ -67,14 +137,39 @@ export class TicketDetailsComponent implements OnInit {
     switch (status) {
       case 'Open':
         return 'bg-blue-100 text-blue-700';
+
       case 'InProgress':
         return 'bg-yellow-100 text-yellow-700';
+
       case 'Resolved':
         return 'bg-green-100 text-green-700';
+
       case 'Closed':
         return 'bg-gray-100 text-gray-700';
+
       default:
         return 'bg-gray-100 text-gray-700';
     }
   }
+
+  getStatusText(status: string): string{
+    switch (status) {
+      case 'Open':
+        return 'Aberto';
+
+      case 'InProgress':
+        return 'Em andamento';
+
+      case 'Resolved':
+        return 'Resolvido';
+
+      case 'Closed':
+        return 'Fechado';
+
+      default:
+        return 'Status inválido';
+    }
+  }
+
 }
+
