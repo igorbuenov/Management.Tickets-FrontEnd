@@ -94,16 +94,28 @@
 
         <div class="mt-1 space-y-1 pl-11">
 
+          <a routerLink="/tickets/assigned" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
+                     text-gray-400 transition
+                     hover:bg-gray-800 hover:text-white">
+            Atendimentos
+          </a>
+
           <a routerLink="/tickets" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                      text-gray-400 transition
                      hover:bg-gray-800 hover:text-white">
-            Lista de Tickets
+            Consultar
           </a>
 
           <a routerLink="/tickets/create" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                      text-gray-400 transition
                      hover:bg-gray-800 hover:text-white">
-            Novo Ticket
+            Criar
+          </a>
+
+          <a routerLink="/tickets/get-by-userid" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
+                     text-gray-400 transition
+                     hover:bg-gray-800 hover:text-white">
+            Meus Tickets
           </a>
 
         </div>
@@ -156,13 +168,13 @@
           <a routerLink="/users" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                        text-gray-400 transition
                        hover:bg-gray-800 hover:text-white">
-            Lista de Usuários
+            Consultar
           </a>
 
           <a routerLink="/users/create" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                        text-gray-400 transition
                        hover:bg-gray-800 hover:text-white">
-            Novo Usuário
+            Criar
           </a>
 
         </div>
@@ -211,13 +223,13 @@
           <a routerLink="/departments" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                        text-gray-400 transition
                        hover:bg-gray-800 hover:text-white">
-            Lista de Departamentos
+            Consultar
           </a>
 
           <a routerLink="/departments/create" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                        text-gray-400 transition
                        hover:bg-gray-800 hover:text-white">
-            Novo Departamento
+            Criar
           </a>
 
         </div>
@@ -264,13 +276,13 @@
           <a routerLink="/categories" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                        text-gray-400 transition
                        hover:bg-gray-800 hover:text-white">
-            Lista de Categorias
+            Consultar
           </a>
 
           <a routerLink="/categories/create" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                        text-gray-400 transition
                        hover:bg-gray-800 hover:text-white">
-            Nova Categoria
+            Criar
           </a>
 
         </div>
