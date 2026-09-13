@@ -107,6 +107,21 @@
 
             <li>
 
+              <a routerLink="/tickets/assigned" (click)="closeMobileMenu()" routerLinkActive="bg-blue-600 text-white"
+                class="block rounded px-4 py-2
+                         text-sm text-gray-400
+                         transition
+                         hover:bg-gray-800
+                         hover:text-white">
+
+                Atendimentos
+
+              </a>
+
+            </li>
+
+            <li>
+
               <a routerLink="/tickets" (click)="closeMobileMenu()" routerLinkActive="bg-blue-600 text-white"
                 [routerLinkActiveOptions]="{ exact: true }" class="block rounded px-4 py-2
                          text-sm text-gray-400
@@ -135,6 +150,22 @@
 
             </li>
 
+            <li>
+
+              <a routerLink="/tickets/get-by-userid" (click)="closeMobileMenu()" routerLinkActive="bg-blue-600 text-white"
+                class="block rounded px-4 py-2
+                         text-sm text-gray-400
+                         transition
+                         hover:bg-gray-800
+                         hover:text-white">
+
+                Meus Tickets
+
+              </a>
+
+            </li>
+
+            
           </ul>
 
         </div>

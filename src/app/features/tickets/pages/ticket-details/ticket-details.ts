@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-
+import { Location } from '@angular/common';
 import { TicketModel } from '../../models/ticket';
 import { TicketService } from '../../services/ticket';
 import { AuthService } from '../../../auth/services/auth';
@@ -32,7 +32,8 @@ export class TicketDetailsComponent implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly ticketService: TicketService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly location: Location
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +46,10 @@ export class TicketDetailsComponent implements OnInit {
 
     this.ticketId = id;
     this.loadTicket(id);
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   loadTicket(id: number): void {
