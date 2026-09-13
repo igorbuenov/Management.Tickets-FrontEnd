@@ -1,4 +1,3 @@
-
 import { Component, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
@@ -20,6 +19,11 @@ export class TicketDetailsComponent implements OnInit {
 
   isLoading = signal(false);
   hasError = signal(false);
+
+  assignLoading = signal(false);
+  assignSuccess = signal(false);
+  assignMessage = signal('');
+  assignIsError = signal(false);
 
   showAssignModal = signal(false);
 
@@ -53,6 +57,7 @@ export class TicketDetailsComponent implements OnInit {
       },
       error: (error) => {
         console.error('Erro ao carregar ticket:', error);
+
         this.hasError.set(true);
         this.isLoading.set(false);
       }
@@ -60,11 +65,20 @@ export class TicketDetailsComponent implements OnInit {
   }
 
   openAssignModal(): void {
+    this.assignMessage.set('');
+    this.assignIsError.set(false);
+    this.assignLoading.set(false);
+    this.assignSuccess.set(false);
+
     this.showAssignModal.set(true);
   }
 
   cancelAssign(): void {
     this.showAssignModal.set(false);
+    this.assignLoading.set(false);
+    this.assignMessage.set('');
+    this.assignIsError.set(false);
+    this.assignSuccess.set(false);
   }
 
   confirmAssign(): void {
@@ -81,19 +95,33 @@ export class TicketDetailsComponent implements OnInit {
       return;
     }
 
-    this.showAssignModal.set(false);
-    this.isLoading.set(true);
+    this.assignLoading.set(true);
+    this.assignMessage.set('');
+    this.assignIsError.set(false);
+    this.assignSuccess.set(false);
 
     this.ticketService.assignTicketTo(
       ticketId,
       technicianId
     ).subscribe({
       next: () => {
+        this.assignLoading.set(false);
+        this.assignIsError.set(false);
+        this.assignMessage.set('Ticket assumido com sucesso!');
+        this.assignSuccess.set(true);
+
         this.loadTicket(ticketId);
       },
+
       error: (error) => {
         console.error('Erro ao assumir ticket:', error);
-        this.isLoading.set(false);
+
+        this.assignLoading.set(false);
+        this.assignIsError.set(true);
+        this.assignMessage.set(
+          error.error?.errors ??
+          'Não foi possível assumir o ticket. Tente novamente.'
+        );
       }
     });
   }
@@ -114,7 +142,7 @@ export class TicketDetailsComponent implements OnInit {
     }
   }
 
-  getPriorityText(priority: string): string{
+  getPriorityText(priority: string): string {
     switch (priority) {
       case 'High':
         return 'Alta';
@@ -152,7 +180,7 @@ export class TicketDetailsComponent implements OnInit {
     }
   }
 
-  getStatusText(status: string): string{
+  getStatusText(status: string): string {
     switch (status) {
       case 'Open':
         return 'Aberto';
@@ -170,6 +198,4 @@ export class TicketDetailsComponent implements OnInit {
         return 'Status inválido';
     }
   }
-
 }
-
