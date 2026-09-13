@@ -36,11 +36,8 @@
             }
 
             <!-- VOLTAR -->
-            <button
-                type="button"
-                (click)="goBack()"
-                class="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-700"
-            >
+            <button type="button" (click)="goBack()"
+                class="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-700">
                 Voltar
             </button>
 
@@ -321,6 +318,147 @@
                 {{ ticket.description }}
 
             </p>
+
+        </div>
+        <!-- CONVERSA -->
+        <div class="border-t border-gray-200 px-6 py-5">
+
+            <!-- HEADER -->
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-gray-900">
+                    Conversa
+                </h3>
+
+                <p class="mt-1 text-sm text-gray-500">
+                    Histórico de mensagens deste ticket.
+                </p>
+            </div>
+
+            <!-- LOADING -->
+            @if (messagesLoading()) {
+
+            <div class="flex justify-center py-8">
+                <span class="text-sm text-gray-500">
+                    Carregando mensagens...
+                </span>
+            </div>
+
+            }
+
+            <!-- ERRO -->
+            @else if (messagesError()) {
+
+            <div class="rounded-lg border border-red-200 bg-red-50 px-4 py-3">
+                <p class="text-sm font-medium text-red-700">
+                    Não foi possível carregar as mensagens deste ticket.
+                </p>
+            </div>
+
+            }
+
+            <!-- SEM MENSAGENS -->
+            @else if (messages().length === 0) {
+
+            <div class="rounded-lg border border-gray-200 bg-gray-50 px-4 py-8 text-center">
+                <p class="text-sm text-gray-500">
+                    Nenhuma mensagem foi enviada ainda.
+                </p>
+            </div>
+
+            }
+
+            <!-- MENSAGENS -->
+            @else {
+
+            <div class="space-y-4">
+
+                @for (message of messages(); track message.id) {
+
+                <div class="flex" [class.justify-end]="isCurrentUserMessage(message.userId)"
+                    [class.justify-start]="!isCurrentUserMessage(message.userId)">
+
+                    <div class="max-w-[80%] rounded-lg border p-4"
+                        [class.border-blue-200]="isCurrentUserMessage(message.userId)"
+                        [class.bg-blue-50]="isCurrentUserMessage(message.userId)"
+                        [class.border-gray-200]="!isCurrentUserMessage(message.userId)"
+                        [class.bg-gray-50]="!isCurrentUserMessage(message.userId)">
+
+                        <!-- HEADER -->
+                        <div class="flex items-center justify-between gap-4">
+
+                            <p class="text-sm font-semibold text-gray-900">
+                                @if (isCurrentUserMessage(message.userId)) {
+                                Você
+                                } @else {
+                                {{ message.userName }}
+                                }
+                            </p>
+
+                            <span class="shrink-0 text-xs text-gray-500">
+                                {{ message.createdAt | date:'dd/MM/yyyy HH:mm' }}
+                            </span>
+
+                        </div>
+
+                        <!-- MESSAGE -->
+                        <p class="mt-3 whitespace-pre-line text-sm leading-6 text-gray-700">
+                            {{ message.message }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+                }
+
+            </div>
+
+            }
+
+            <!-- FORMULÁRIO DE ENVIO -->
+            <div class="mt-6 border-t border-gray-200 pt-5">
+
+                <div class="flex flex-col gap-3">
+
+                    <textarea [value]="messageText()" (input)="messageText.set($any($event.target).value)"
+                        maxlength="2000" rows="4" placeholder="Digite sua mensagem..."
+                        class="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-700 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                        [disabled]="messageSending()">
+                    </textarea>
+
+                    @if (messageError()) {
+
+                    <div class="rounded-lg border border-red-200 bg-red-50 px-4 py-3">
+                        <p class="text-sm font-medium text-red-700">
+                            {{ messageError() }}
+                        </p>
+                    </div>
+
+                    }
+
+                    <div class="flex items-center justify-between gap-4">
+
+                        <span class="text-xs text-gray-500">
+                            {{ messageText().length }}/2000
+                        </span>
+
+                        <button type="button" (click)="sendMessage()"
+                            [disabled]="messageSending() || !messageText().trim()"
+                            class="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50">
+
+                            @if (messageSending()) {
+                            Enviando...
+                            } @else {
+                            Enviar
+                            }
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 

@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { TicketModel } from '../../models/ticket';
 import { TicketService } from '../../services/ticket';
 import { AuthService } from '../../../auth/services/auth';
+import { TicketMessage } from '../../models/ticket-message.model';
 
 @Component({
   selector: 'app-ticket-details',
@@ -16,17 +17,20 @@ import { AuthService } from '../../../auth/services/auth';
 export class TicketDetailsComponent implements OnInit {
 
   ticket = signal<TicketModel | null>(null);
-
+  messages = signal<TicketMessage[]>([]);
   isLoading = signal(false);
+  messagesLoading = signal(false);
   hasError = signal(false);
-
+  messagesError = signal(false);
   assignLoading = signal(false);
   assignSuccess = signal(false);
   assignMessage = signal('');
   assignIsError = signal(false);
-
   showAssignModal = signal(false);
-
+  messageText = signal('');
+  messageSending = signal(false);
+  messageError = signal('');
+  currentUserId = signal<number | null>(null);
   private ticketId: number | null = null;
 
   constructor(
@@ -45,7 +49,18 @@ export class TicketDetailsComponent implements OnInit {
     }
 
     this.ticketId = id;
+
+    const userId = this.authService.getUserId();
+    if (userId !== null) {
+      this.currentUserId.set(userId);
+    }
+
     this.loadTicket(id);
+    this.loadMessages(id);
+  }
+
+  isCurrentUserMessage(userId: number): boolean {
+    return this.currentUserId() === userId;
   }
 
   goBack(): void {
@@ -68,6 +83,61 @@ export class TicketDetailsComponent implements OnInit {
       }
     });
   }
+
+  loadMessages(ticketId: number): void {
+    this.messagesLoading.set(true);
+    this.messagesError.set(false);
+
+    this.ticketService.getMessages(ticketId).subscribe({
+      next: (response) => {
+        this.messages.set(response);
+        this.messagesLoading.set(false);
+      },
+      error: (error) => {
+        console.error('Erro ao carregar mensagens:', error);
+        this.messagesError.set(true);
+        this.messagesLoading.set(false);
+      }
+    });
+  }
+
+  sendMessage(): void {
+    const ticketId = this.ticketId;
+
+    if (ticketId === null) {
+      return;
+    }
+
+    const message = this.messageText().trim();
+
+    if (!message) {
+      return;
+    }
+
+    this.messageSending.set(true);
+    this.messageError.set('');
+
+    this.ticketService.createMessage(ticketId, {
+      message
+    }).subscribe({
+      next: () => {
+        this.messageText.set('');
+        this.messageSending.set(false);
+
+        this.loadMessages(ticketId);
+      },
+      error: (error) => {
+        console.error('Erro ao enviar mensagem:', error);
+
+        this.messageSending.set(false);
+        this.messageError.set(
+          error.error?.errors ??
+          'Não foi possível enviar a mensagem. Tente novamente.'
+        );
+      }
+    });
+  }
+
 
   openAssignModal(): void {
     this.assignMessage.set('');

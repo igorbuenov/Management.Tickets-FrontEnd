@@ -7,6 +7,8 @@ import { TicketListResponseModel } from '../models/ticket-list-response';
 import { TicketModel } from '../models/ticket';
 import { CreateTicket, CreateTicketResponseModel } from '../models/create-ticket.model';
 import { Observable } from 'rxjs';
+import { TicketMessage } from '../models/ticket-message.model';
+import { CreateTicketMessageRequest } from '../models/create-ticket-message-request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -165,6 +167,36 @@ export class TicketService {
       {
         technicianId 
       },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+  }
+
+  getMessages(ticketId: number): Observable<TicketMessage[]> {
+    const token = this.authService.getToken();
+
+    return this.http.get<TicketMessage[]>(
+      `${this.apiUrl}/${ticketId}/messages`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+  }
+
+  createMessage(
+    ticketId: number,
+    request: CreateTicketMessageRequest
+  ): Observable<void> {
+    const token = this.authService.getToken();
+
+    return this.http.post<void>(
+      `${this.apiUrl}/${ticketId}/messages`,
+      request,
       {
         headers: {
           'Authorization': `Bearer ${token}`
