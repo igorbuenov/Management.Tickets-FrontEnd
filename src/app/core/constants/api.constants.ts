@@ -7,4 +7,5 @@ export const API_ENDPOINTS = {
   tickets: `${API_BASE_URL}/api/Tickets`,
   departments: `${API_BASE_URL}/api/Departments`,
   categories: `${API_BASE_URL}/api/Categories`,
+  notifications: `${API_BASE_URL}/api/Notifications`,
 };
