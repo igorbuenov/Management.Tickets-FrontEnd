@@ -1,709 +1,1135 @@
-<div class="p-6">
+<div class="min-h-screen bg-gray-50 px-4 py-6 sm:px-6 lg:px-8">
 
+  <div class="mx-auto max-w-7xl">
+
+    <!-- ====================================================== -->
     <!-- HEADER -->
-    <div class="mb-6 flex items-center justify-between">
+    <!-- ====================================================== -->
 
-        <div>
-            <h1 class="text-2xl font-bold text-gray-900">
-                Detalhes do Ticket
-            </h1>
+    <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
-            <p class="mt-1 text-sm text-gray-500">
-                Visualização das informações do ticket.
-            </p>
-        </div>
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">
+          Detalhes do Ticket
+        </h1>
 
-        <!-- ACTIONS -->
-        <div class="flex items-center gap-3">
-
-            <!-- ASSUMIR TICKET -->
-            @if (ticket()?.assignedTo === null) {
-
-            <button type="button" (click)="openAssignModal()" [disabled]="isLoading()" class="rounded-lg bg-blue-600 px-4 py-2 text-sm
-                           font-medium text-white transition
-                           hover:bg-blue-700
-                           focus:outline-none
-                           focus:ring-2
-                           focus:ring-blue-500
-                           focus:ring-offset-1
-                           disabled:cursor-not-allowed
-                           disabled:opacity-50">
-
-                Assumir ticket
-
-            </button>
-
-            }
-
-            <!-- VOLTAR -->
-            <button type="button" (click)="goBack()"
-                class="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-700">
-                Voltar
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- LOADING -->
-    @if (isLoading()) {
-
-    <div class="flex justify-center py-12">
-
-        <span class="text-sm text-gray-500">
-            Carregando ticket...
-        </span>
-
-    </div>
-
-    }
-
-
-    <!-- ERRO AO CARREGAR TICKET -->
-    @if (hasError()) {
-
-    <div class="fixed inset-0 z-50 flex items-center justify-center
-                   bg-black/50 px-4">
-
-        <div class="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
-
-            <!-- HEADER -->
-            <div class="flex items-start justify-between">
-
-                <div class="flex items-start gap-3">
-
-                    <!-- WARNING ICON -->
-                    <div class="flex h-10 w-10 shrink-0 items-center justify-center
-                                   rounded-full bg-red-100 text-red-600">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="h-6 w-6">
-
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 9v3.75m0 3.75h.007v.008H12v-.008ZM10.34 3.94 2.78 17.06A2 2 0 0 0 4.51 20h14.98a2 2 0 0 0 1.73-2.94L13.66 3.94a2 2 0 0 0-3.32 0Z" />
-
-                        </svg>
-
-                    </div>
-
-                    <div>
-
-                        <h2 class="text-lg font-semibold text-gray-900">
-                            Ticket não encontrado
-                        </h2>
-
-                        <p class="mt-2 text-sm text-gray-600">
-                            Não foi possível carregar as informações deste ticket.
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <!-- CLOSE -->
-                <button type="button" (click)="hasError.set(false)" aria-label="Fechar" class="rounded-lg p-1 text-gray-400
-                               hover:bg-gray-100 hover:text-gray-600">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                        stroke="currentColor" class="h-5 w-5">
-
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-
-                    </svg>
-
-                </button>
-
-            </div>
-
-            <!-- ACTION -->
-            <div class="mt-6 flex justify-end">
-
-                <a routerLink="/tickets" class="rounded-lg bg-blue-600 px-4 py-2 text-sm
-                               font-medium text-white transition
-                               hover:bg-blue-700">
-
-                    Voltar para tickets
-
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    }
-
-
-    <!-- CONTENT -->
-    @if (ticket(); as ticket) {
-
-    <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
-
-        <!-- TITLE -->
-        <div class="border-b border-gray-200 px-6 py-5">
-
-            <h2 class="text-xl font-semibold text-gray-900">
-                Título: {{ ticket.title }}
-            </h2>
-
-        </div>
-
-
-        <!-- DETAILS -->
-        <div class="grid grid-cols-1 gap-6 p-6 md:grid-cols-2">
-
-            <!-- PRIORIDADE -->
-            <div>
-
-                <p class="text-sm font-medium text-gray-500">
-
-                    Prioridade:
-
-                    <span class="mt-1 inline-flex rounded-full px-3 py-1 text-xs font-semibold"
-                        [class]="getPriorityClass(ticket.priority)">
-
-                        {{ getPriorityText(ticket.priority) }}
-
-                    </span>
-
-                </p>
-
-            </div>
-
-
-            <!-- STATUS -->
-            <div>
-
-                <p class="text-sm font-medium text-gray-500">
-
-                    Status:
-
-                    <span class="mt-1 inline-flex rounded-full px-3 py-1 text-xs font-semibold"
-                        [class]="getStatusClass(ticket.status)">
-
-                        {{ getStatusText(ticket.status) }}
-
-                    </span>
-
-                </p>
-
-            </div>
-
-
-            <!-- DEPARTAMENTO -->
-            <div>
-
-                <p class="text-sm font-medium text-gray-500">
-
-                    Departamento:
-
-                    <span class="mt-1 text-sm text-gray-900">
-
-                        {{ ticket.department.name }}
-
-                    </span>
-
-                </p>
-
-            </div>
-
-
-            <!-- CATEGORIA -->
-            <div>
-
-                <p class="text-sm font-medium text-gray-500">
-
-                    Categoria:
-
-                    <span class="mt-1 text-sm text-gray-900">
-
-                        {{ ticket.category.name }}
-
-                    </span>
-
-                </p>
-
-            </div>
-
-
-            <!-- CRIADO EM -->
-            <div>
-
-                <p class="text-sm font-medium text-gray-500">
-
-                    Criado em:
-
-                    <span class="mt-1 text-sm text-gray-900">
-
-                        {{ ticket.createdAt | date:'dd/MM/yyyy HH:mm' }}
-
-                    </span>
-
-                </p>
-
-            </div>
-
-
-            <!-- ATUALIZADO EM -->
-            <div>
-
-                <p class="text-sm font-medium text-gray-500">
-
-                    Atualizado em:
-
-                    <span class="mt-1 text-sm text-gray-900">
-
-                        {{
-                        ticket.updatedAt
-                        ? (ticket.updatedAt | date:'dd/MM/yyyy HH:mm')
-                        : 'Nunca atualizado'
-                        }}
-
-                    </span>
-
-                </p>
-
-            </div>
-
-
-            <!-- CRIADO POR -->
-            <div>
-
-                <p class="text-sm font-medium text-gray-500">
-
-                    Criado por:
-
-                    <span class="mt-1 text-sm text-gray-900">
-
-                        {{ ticket.createdBy.name }}
-
-                    </span>
-
-                </p>
-
-            </div>
-
-
-            <!-- RESPONSÁVEL -->
-            <div>
-
-                <p class="text-sm font-medium text-gray-500">
-
-                    Responsável:
-
-                    <span class="mt-1 text-sm text-gray-900">
-
-                        {{ ticket.assignedTo?.name ?? 'Não atribuído' }}
-
-                    </span>
-
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- DESCRIPTION -->
-        <div class="border-t border-gray-200 px-6 py-5">
-
-            <p class="text-sm font-medium text-gray-500">
-                Descrição:
-            </p>
-
-            <p class="mt-2 whitespace-pre-line text-sm leading-6 text-gray-700">
-
-                {{ ticket.description }}
-
-            </p>
-
-        </div>
-        <!-- CONVERSA -->
-        <div class="border-t border-gray-200 px-6 py-5">
-
-            <!-- HEADER -->
-            <div class="mb-4">
-                <h3 class="text-lg font-semibold text-gray-900">
-                    Conversa
-                </h3>
-
-                <p class="mt-1 text-sm text-gray-500">
-                    Histórico de mensagens deste ticket.
-                </p>
-            </div>
-
-            <!-- LOADING -->
-            @if (messagesLoading()) {
-
-            <div class="flex justify-center py-8">
-                <span class="text-sm text-gray-500">
-                    Carregando mensagens...
-                </span>
-            </div>
-
-            }
-
-            <!-- ERRO -->
-            @else if (messagesError()) {
-
-            <div class="rounded-lg border border-red-200 bg-red-50 px-4 py-3">
-                <p class="text-sm font-medium text-red-700">
-                    Não foi possível carregar as mensagens deste ticket.
-                </p>
-            </div>
-
-            }
-
-            <!-- SEM MENSAGENS -->
-            @else if (messages().length === 0) {
-
-            <div class="rounded-lg border border-gray-200 bg-gray-50 px-4 py-8 text-center">
-                <p class="text-sm text-gray-500">
-                    Nenhuma mensagem foi enviada ainda.
-                </p>
-            </div>
-
-            }
-
-            <!-- MENSAGENS -->
-            @else {
-
-            <div class="space-y-4">
-
-                @for (message of messages(); track message.id) {
-
-                <div class="flex" [class.justify-end]="isCurrentUserMessage(message.userId)"
-                    [class.justify-start]="!isCurrentUserMessage(message.userId)">
-
-                    <div class="max-w-[80%] rounded-lg border p-4"
-                        [class.border-blue-200]="isCurrentUserMessage(message.userId)"
-                        [class.bg-blue-50]="isCurrentUserMessage(message.userId)"
-                        [class.border-gray-200]="!isCurrentUserMessage(message.userId)"
-                        [class.bg-gray-50]="!isCurrentUserMessage(message.userId)">
-
-                        <!-- HEADER -->
-                        <div class="flex items-center justify-between gap-4">
-
-                            <p class="text-sm font-semibold text-gray-900">
-                                @if (isCurrentUserMessage(message.userId)) {
-                                Você
-                                } @else {
-                                {{ message.userName }}
-                                }
-                            </p>
-
-                            <span class="shrink-0 text-xs text-gray-500">
-                                {{ message.createdAt | date:'dd/MM/yyyy HH:mm' }}
-                            </span>
-
-                        </div>
-
-                        <!-- MESSAGE -->
-                        <p class="mt-3 whitespace-pre-line text-sm leading-6 text-gray-700">
-                            {{ message.message }}
-                        </p>
-
-                    </div>
-
-                </div>
-
-                }
-
-            </div>
-
-            }
-
-            <!-- FORMULÁRIO DE ENVIO -->
-            <div class="mt-6 border-t border-gray-200 pt-5">
-
-                <div class="flex flex-col gap-3">
-
-                    <textarea [value]="messageText()" (input)="messageText.set($any($event.target).value)"
-                        maxlength="2000" rows="4" placeholder="Digite sua mensagem..."
-                        class="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-700 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-                        [disabled]="messageSending()">
-                    </textarea>
-
-                    @if (messageError()) {
-
-                    <div class="rounded-lg border border-red-200 bg-red-50 px-4 py-3">
-                        <p class="text-sm font-medium text-red-700">
-                            {{ messageError() }}
-                        </p>
-                    </div>
-
-                    }
-
-                    <div class="flex items-center justify-between gap-4">
-
-                        <span class="text-xs text-gray-500">
-                            {{ messageText().length }}/2000
-                        </span>
-
-                        <button type="button" (click)="sendMessage()"
-                            [disabled]="messageSending() || !messageText().trim()"
-                            class="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50">
-
-                            @if (messageSending()) {
-                            Enviando...
-                            } @else {
-                            Enviar
-                            }
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    }
-
-</div>
-
-
-
-<!-- MODAL DE ASSUMIR TICKET -->
-@if (showAssignModal()) {
-
-<div class="fixed inset-0 z-50
-               flex items-center justify-center
-               bg-gray-900/50 px-4
-               backdrop-blur-sm">
-
-    <div class="w-full max-w-md
-                   rounded-xl bg-white
-                   p-6 shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="assign-title">
-
-
-        <!-- SUCESSO -->
-        @if (assignSuccess()) {
-
-        <div class="flex flex-col items-center text-center">
-
-            <div class="mb-4 flex h-12 w-12
-                               items-center justify-center
-                               rounded-full bg-green-100">
-
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                    stroke="currentColor" class="h-6 w-6 text-green-600">
-
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-
-                </svg>
-
-            </div>
-
-
-            <h2 id="assign-title" class="text-lg font-semibold text-gray-900">
-
-                Ticket assumido com sucesso!
-
-            </h2>
-
-
-            <p class="mt-2 text-sm text-gray-600">
-
-                Você agora é o responsável pelo atendimento deste ticket.
-
-            </p>
-
-
-            <button type="button" (click)="cancelAssign()" class="mt-6 rounded-lg bg-blue-600
-                               px-4 py-2 text-sm font-medium
-                               text-white transition
-                               hover:bg-blue-700
-                               focus:outline-none
-                               focus:ring-2
-                               focus:ring-blue-500
-                               focus:ring-offset-1">
-
-                Fechar
-
-            </button>
-
-        </div>
-
-
-        <!-- ERRO -->
-        } @else if (assignIsError() && assignMessage()) {
-
-        <div>
-
-            <!-- CABEÇALHO -->
-            <div class="flex items-start gap-3">
-
-                <!-- ERROR ICON -->
-                <div class="flex h-10 w-10 shrink-0 items-center justify-center
-                                   rounded-full bg-red-100 text-red-600">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                        stroke="currentColor" class="h-6 w-6">
-
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-
-                    </svg>
-
-                </div>
-
-
-                <div class="flex-1">
-
-                    <h2 id="assign-title" class="text-lg font-semibold text-gray-900">
-
-                        Não foi possível assumir o ticket
-
-                    </h2>
-
-                </div>
-
-            </div>
-
-
-            <!-- MENSAGEM -->
-            <div class="mt-4 rounded-lg border px-4 py-3
-                               text-sm font-medium
-                               border-red-200
-                               bg-red-50
-                               text-red-700">
-
-                {{ assignMessage() }}
-
-            </div>
-
-
-            <!-- AÇÕES -->
-            <div class="mt-6 flex justify-end gap-3">
-
-                <button type="button" (click)="cancelAssign()" class="rounded-lg border border-gray-300
-                                   px-4 py-2 text-sm font-medium
-                                   text-gray-700 transition
-                                   hover:bg-gray-50">
-
-                    Fechar
-
-                </button>
-
-
-                <button type="button" (click)="confirmAssign()" [disabled]="assignLoading()" class="rounded-lg bg-blue-600
-                                   px-4 py-2 text-sm font-medium
-                                   text-white transition
-                                   hover:bg-blue-700
-                                   focus:outline-none
-                                   focus:ring-2
-                                   focus:ring-blue-500
-                                   focus:ring-offset-1
-                                   disabled:cursor-not-allowed
-                                   disabled:bg-gray-400">
-
-                    @if (assignLoading()) {
-
-                    Tentando...
-
-                    } @else {
-
-                    Tentar novamente
-
-                    }
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- CONFIRMAÇÃO -->
-        } @else {
-
-        <div class="mb-4 flex h-12 w-12
-                           items-center justify-center
-                           rounded-full bg-blue-100">
-
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="h-6 w-6 text-blue-600">
-
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 0 1-5.18 0
-                               M19.5 19.5a7.5 7.5 0 0 0-15 0
-                               M12 12a4 4 0 1 0 0-8
-                               4 4 0 0 0 0 8Z" />
-
-            </svg>
-
-        </div>
-
-
-        <h2 id="assign-title" class="text-lg font-semibold text-gray-900">
-
-            Assumir ticket
-
-        </h2>
-
-
-        <p class="mt-2 text-sm text-gray-600">
-
-            Tem certeza que deseja assumir este ticket?
-
-            Você será definido como o responsável pelo atendimento.
-
+        <p class="mt-1 text-sm text-gray-500">
+          Visualização das informações e histórico do atendimento.
         </p>
+      </div>
 
+      <!-- AÇÕES -->
 
-        <!-- AÇÕES -->
-        <div class="mt-6 flex justify-end gap-3">
+      <div class="flex items-center gap-2">
 
-            <button type="button" (click)="cancelAssign()" [disabled]="assignLoading()" class="rounded-lg border border-gray-300
-                               px-4 py-2 text-sm font-medium
-                               text-gray-700 transition
-                               hover:bg-gray-50
-                               focus:outline-none
-                               focus:ring-2
-                               focus:ring-gray-400
-                               focus:ring-offset-1
-                               disabled:cursor-not-allowed
-                               disabled:opacity-50">
+        <!-- ALTERAR STATUS -->
 
-                Cancelar
+        @if (canUpdateStatus()) {
 
-            </button>
+        <button
+          type="button"
+          (click)="openStatusModal()"
+          class="inline-flex items-center gap-2 rounded-lg
+                 border border-blue-600 bg-white px-4 py-2
+                 text-sm font-medium text-blue-600
+                 transition hover:bg-blue-50
+                 focus:outline-none focus:ring-2
+                 focus:ring-blue-500 focus:ring-offset-1">
 
+          <!-- Ícone -->
 
-            <button type="button" (click)="confirmAssign()" [disabled]="assignLoading()" class="rounded-lg bg-blue-600
-                               px-4 py-2 text-sm font-medium
-                               text-white transition
-                               hover:bg-blue-700
-                               focus:outline-none
-                               focus:ring-2
-                               focus:ring-blue-500
-                               focus:ring-offset-1
-                               disabled:cursor-not-allowed
-                               disabled:bg-gray-400">
+          <svg
+            class="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24">
 
-                @if (assignLoading()) {
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 6v12m6-6H6" />
 
-                Assumindo...
+          </svg>
 
-                } @else {
+          Alterar status
 
-                Assumir
-
-                }
-
-            </button>
-
-        </div>
+        </button>
 
         }
 
+        <!-- VOLTAR -->
+
+        <button
+          type="button"
+          (click)="goBack()"
+          class="inline-flex items-center gap-2 rounded-lg
+                 bg-gray-800 px-4 py-2 text-sm font-medium
+                 text-white transition hover:bg-gray-700
+                 focus:outline-none focus:ring-2
+                 focus:ring-gray-500 focus:ring-offset-1">
+
+          <svg
+            class="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24">
+
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7" />
+
+          </svg>
+
+          Voltar
+
+        </button>
+
+      </div>
+
     </div>
 
-</div>
+    <!-- ====================================================== -->
+    <!-- LOADING -->
+    <!-- ====================================================== -->
 
-}
+    @if (isLoading()) {
+
+    <div
+      class="flex items-center justify-center
+             rounded-lg bg-white px-6 py-16 shadow-md">
+
+      <div class="flex items-center gap-3">
+
+        <div
+          class="h-5 w-5 animate-spin rounded-full
+                 border-2 border-gray-300
+                 border-t-blue-600">
+        </div>
+
+        <span class="text-sm text-gray-600">
+          Carregando ticket...
+        </span>
+
+      </div>
+
+    </div>
+
+    }
+
+    <!-- ====================================================== -->
+    <!-- ERRO -->
+    <!-- ====================================================== -->
+
+    @else if (hasError()) {
+
+    <div
+      class="rounded-lg border border-red-200
+             bg-red-50 px-6 py-8 text-center">
+
+      <svg
+        class="mx-auto h-10 w-10 text-red-500"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24">
+
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 9v2m0 4h.01
+             M12 5a7 7 0 100 14
+             7 7 0 000-14z" />
+
+      </svg>
+
+      <h2 class="mt-3 text-sm font-semibold text-red-800">
+        Não foi possível carregar o ticket.
+      </h2>
+
+      <p class="mt-1 text-sm text-red-600">
+        Tente novamente ou volte para a listagem.
+      </p>
+
+    </div>
+
+    }
+
+    <!-- ====================================================== -->
+    <!-- CONTEÚDO -->
+    <!-- ====================================================== -->
+
+    @else if (ticket()) {
+
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+
+      <!-- ==================================================== -->
+      <!-- INFORMAÇÕES DO TICKET -->
+      <!-- ==================================================== -->
+
+      <div class="lg:col-span-2">
+
+        <div class="rounded-xl bg-white shadow-md">
+
+          <!-- HEADER DO CARD -->
+
+          <div
+            class="border-b border-gray-200 px-8 py-6">
+
+            <div
+              class="flex flex-col gap-3 sm:flex-row
+                     sm:items-start sm:justify-between">
+
+              <div>
+
+                <p
+                  class="text-xs font-semibold uppercase
+                         tracking-wide text-gray-400">
+
+                  Ticket #{{ ticket()!.id }}
+
+                </p>
+
+                <h2 class="mt-1 text-xl font-bold text-gray-900">
+                  {{ ticket()!.title }}
+                </h2>
+
+              </div>
+
+              <!-- STATUS -->
+
+              <span
+                class="inline-flex w-fit rounded-full
+                       px-3 py-1 text-xs font-semibold"
+                [class]="getStatusClass(ticket()!.status)">
+
+                {{ getStatusText(ticket()!.status) }}
+
+              </span>
+
+            </div>
+
+          </div>
+
+          <!-- INFORMAÇÕES -->
+
+          <div
+            class="grid grid-cols-1 gap-5 px-8 py-7 sm:grid-cols-2">
+
+            <!-- CRIADO POR -->
+
+            <div>
+
+              <p class="text-sm text-gray-700">
+
+                <span class="font-medium text-gray-500">
+                  Criado por:
+                </span>
+
+                <span class="font-semibold text-gray-900">
+                  {{ ticket()!.createdBy.name }}
+                </span>
+
+              </p>
+
+            </div>
+
+            <!-- ATRIBUÍDO -->
+
+            <div>
+
+              <p class="text-sm text-gray-700">
+
+                <span class="font-medium text-gray-500">
+                  Responsável:
+                </span>
+
+                @if (ticket()!.assignedTo) {
+
+                  <span class="font-semibold text-gray-900">
+                    {{ ticket()!.assignedTo!.name }}
+                  </span>
+
+                } @else {
+
+                  <span class="text-gray-400">
+                    Não atribuído
+                  </span>
+
+                }
+
+              </p>
+
+            </div>
+
+            <!-- DEPARTAMENTO -->
+
+            <div>
+
+              <p class="text-sm text-gray-700">
+
+                <span class="font-medium text-gray-500">
+                  Departamento:
+                </span>
+
+                <span class="font-semibold text-gray-900">
+                  {{ ticket()!.department.name }}
+                </span>
+
+              </p>
+
+            </div>
+
+            <!-- CATEGORIA -->
+
+            <div>
+
+              <p class="text-sm text-gray-700">
+
+                <span class="font-medium text-gray-500">
+                  Categoria:
+                </span>
+
+                <span class="font-semibold text-gray-900">
+                  {{ ticket()!.category.name }}
+                </span>
+
+              </p>
+
+            </div>
+
+            <!-- PRIORIDADE -->
+
+            <div class="flex items-center gap-2">
+
+              <p class="text-sm font-medium text-gray-500">
+                Prioridade:
+              </p>
+
+              <span
+                class="inline-flex rounded-full px-3 py-1
+                       text-xs font-semibold"
+                [class]="getPriorityClass(ticket()!.priority)">
+
+                {{ getPriorityText(ticket()!.priority) }}
+
+              </span>
+
+            </div>
+
+            <!-- DATA DE CRIAÇÃO -->
+
+            <div>
+
+              <p class="text-sm text-gray-700">
+
+                <span class="font-medium text-gray-500">
+                  Criado em:
+                </span>
+
+                <span class="text-gray-700">
+                  {{ ticket()!.createdAt | date:'dd/MM/yyyy HH:mm' }}
+                </span>
+
+              </p>
+
+            </div>
+
+            <!-- ÚLTIMA ATUALIZAÇÃO -->
+
+            <div>
+
+              <p class="text-sm text-gray-700">
+
+                <span class="font-medium text-gray-500">
+                  Atualizado em:
+                </span>
+
+                <span class="text-gray-700">
+                  {{ ticket()!.updatedAt | date:'dd/MM/yyyy HH:mm' }}
+                </span>
+
+              </p>
+
+            </div>
+
+          </div>
+
+          <!-- DESCRIÇÃO -->
+
+          <div
+            class="border-t border-gray-200 px-8 py-7">
+
+            <p class="text-sm font-medium text-gray-500">
+              Descrição:
+            </p>
+
+            <p
+              class="mt-2 whitespace-pre-wrap text-sm
+                     leading-6 text-gray-700">
+
+              {{ ticket()!.description }}
+
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- ==================================================== -->
+        <!-- MENSAGENS -->
+        <!-- ==================================================== -->
+
+        <div class="mt-6 rounded-xl bg-white shadow-md">
+
+          <div
+            class="border-b border-gray-200 px-8 py-6">
+
+            <h2 class="text-lg font-semibold text-gray-900">
+              Conversa
+            </h2>
+
+            <p class="mt-1 text-sm text-gray-500">
+              Histórico de mensagens do ticket.
+            </p>
+
+          </div>
+
+          <!-- LOADING MENSAGENS -->
+
+          @if (messagesLoading()) {
+
+          <div class="flex items-center justify-center px-8 py-10">
+
+            <div class="flex items-center gap-3">
+
+              <div
+                class="h-5 w-5 animate-spin rounded-full
+                       border-2 border-gray-300
+                       border-t-blue-600">
+              </div>
+
+              <span class="text-sm text-gray-500">
+                Carregando mensagens...
+              </span>
+
+            </div>
+
+          </div>
+
+          }
+
+          <!-- ERRO -->
+
+          @else if (messagesError()) {
+
+          <div class="px-8 py-8 text-center">
+
+            <p class="text-sm text-red-600">
+              Não foi possível carregar as mensagens.
+            </p>
+
+          </div>
+
+          }
+
+          <!-- SEM MENSAGENS -->
+
+          @else if (messages().length === 0) {
+
+          <div class="px-8 py-10 text-center">
+
+            <p class="text-sm text-gray-500">
+              Nenhuma mensagem neste ticket.
+            </p>
+
+          </div>
+
+          }
+
+          <!-- MENSAGENS -->
+
+          @else {
+
+          <div class="space-y-5 px-8 py-7">
+
+            @for (
+              message of messages();
+              track message.id
+            ) {
+
+            <div
+              class="flex"
+              [class.justify-end]="isCurrentUserMessage(message.userId)"
+              [class.justify-start]="!isCurrentUserMessage(message.userId)">
+
+              <div
+                class="max-w-[85%] rounded-lg px-5 py-4"
+                [class.bg-blue-600]="isCurrentUserMessage(message.userId)"
+                [class.text-white]="isCurrentUserMessage(message.userId)"
+                [class.bg-gray-100]="!isCurrentUserMessage(message.userId)"
+                [class.text-gray-900]="!isCurrentUserMessage(message.userId)">
+
+                <div
+                  class="flex items-center justify-between gap-4">
+
+                  <p
+                    class="text-xs font-semibold"
+                    [class.text-blue-100]="isCurrentUserMessage(message.userId)"
+                    [class.text-gray-500]="!isCurrentUserMessage(message.userId)">
+
+                    {{ message.userName }}
+
+                  </p>
+
+                  <p
+                    class="text-[10px]"
+                    [class.text-blue-200]="isCurrentUserMessage(message.userId)"
+                    [class.text-gray-400]="!isCurrentUserMessage(message.userId)">
+
+                    {{ message.createdAt | date:'dd/MM/yyyy HH:mm' }}
+
+                  </p>
+
+                </div>
+
+                <p class="mt-2 whitespace-pre-wrap text-sm leading-5">
+
+                  {{ message.message }}
+
+                </p>
+
+              </div>
+
+            </div>
+
+            }
+
+          </div>
+
+          }
+
+          <!-- ENVIAR MENSAGEM -->
+
+          <div
+            class="border-t border-gray-200 px-8 py-6">
+
+            <label
+              for="message"
+              class="block text-sm font-medium text-gray-700">
+
+              Nova mensagem
+
+            </label>
+
+            <textarea
+              id="message"
+              rows="4"
+              [value]="messageText()"
+              (input)="messageText.set($any($event.target).value)"
+              [disabled]="messageSending()"
+              placeholder="Digite sua mensagem..."
+              maxlength="2000"
+              class="mt-2 block w-full rounded-lg
+                     border border-gray-300 bg-white
+                     px-4 py-3 text-sm text-gray-900
+                     outline-none transition
+                     placeholder:text-gray-400
+                     focus:border-blue-500
+                     focus:ring-2 focus:ring-blue-100
+                     disabled:cursor-not-allowed
+                     disabled:bg-gray-100">
+            </textarea>
+
+            @if (messageError()) {
+
+            <p class="mt-2 text-sm text-red-600">
+              {{ messageError() }}
+            </p>
+
+            }
+
+            <div class="mt-3 flex justify-end">
+
+              <button
+                type="button"
+                (click)="sendMessage()"
+                [disabled]="
+                  messageSending() ||
+                  !messageText().trim()
+                "
+                class="inline-flex items-center gap-2
+                       rounded-lg bg-blue-600 px-4 py-2
+                       text-sm font-medium text-white
+                       transition hover:bg-blue-700
+                       focus:outline-none focus:ring-2
+                       focus:ring-blue-500 focus:ring-offset-1
+                       disabled:cursor-not-allowed
+                       disabled:opacity-50">
+
+                @if (messageSending()) {
+
+                <div
+                  class="h-4 w-4 animate-spin rounded-full
+                         border-2 border-blue-200
+                         border-t-white">
+                </div>
+
+                Enviando...
+
+                } @else {
+
+                Enviar mensagem
+
+                }
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- AÇÕES -->
+      <!-- ==================================================== -->
+
+      <div class="lg:col-span-1">
+
+        <div class="rounded-lg bg-white p-6 shadow-md">
+
+          <h2 class="text-lg font-semibold text-gray-900">
+            Ações
+          </h2>
+
+          <p class="mt-1 text-sm text-gray-500">
+            Ações disponíveis para este ticket.
+          </p>
+
+          <!-- ASSUMIR TICKET -->
+
+          @if (!ticket()!.assignedTo) {
+
+          <button
+            type="button"
+            (click)="openAssignModal()"
+            class="mt-5 flex w-full items-center
+                   justify-center gap-2 rounded-lg
+                   bg-blue-600 px-4 py-2.5
+                   text-sm font-medium text-white
+                   transition hover:bg-blue-700
+                   focus:outline-none focus:ring-2
+                   focus:ring-blue-500 focus:ring-offset-1">
+
+            <svg
+              class="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24">
+
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7" />
+
+            </svg>
+
+            Assumir ticket
+
+          </button>
+
+          }
+
+          <!-- TICKET ATRIBUÍDO -->
+
+          @else {
+
+          <div
+            class="mt-5 rounded-lg border
+                   border-gray-200 bg-gray-50 p-4">
+
+            <p
+              class="text-xs font-semibold uppercase
+                     tracking-wide text-gray-500">
+
+              Responsável
+
+            </p>
+
+            <p class="mt-1 text-sm font-semibold text-gray-900">
+
+              {{ ticket()!.assignedTo!.name }}
+
+            </p>
+
+          </div>
+
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+    }
+
+    <!-- ====================================================== -->
+    <!-- MODAL - ALTERAR STATUS -->
+    <!-- ====================================================== -->
+
+    @if (showStatusModal()) {
+
+    <div
+      class="fixed inset-0 z-50 flex items-center
+             justify-center bg-black/50 px-4"
+      (click)="cancelStatusUpdate()">
+
+      <div
+        class="w-full max-w-md rounded-xl bg-white shadow-xl"
+        (click)="$event.stopPropagation()">
+
+        <!-- HEADER -->
+
+        <div class="border-b border-gray-200 px-6 py-5">
+
+          <div class="flex items-start justify-between gap-4">
+
+            <div>
+
+              <h2 class="text-lg font-semibold text-gray-900">
+                Alterar status
+              </h2>
+
+              <p class="mt-1 text-sm text-gray-500">
+                Altere o status atual do ticket.
+              </p>
+
+            </div>
+
+            <button
+              type="button"
+              (click)="cancelStatusUpdate()"
+              [disabled]="isUpdatingStatus()"
+              class="rounded-md p-1 text-gray-400
+                     transition hover:bg-gray-100
+                     hover:text-gray-600
+                     disabled:cursor-not-allowed">
+
+              <svg
+                class="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24">
+
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12" />
+
+              </svg>
+
+            </button>
+
+          </div>
+
+        </div>
+
+        <!-- CONTEÚDO -->
+
+        <div class="px-6 py-6">
+
+          <!-- STATUS ATUAL -->
+
+          <div>
+
+            <p class="text-sm font-medium text-gray-500">
+              Status atual
+            </p>
+
+            <div class="mt-2">
+
+              <span
+                class="inline-flex rounded-full
+                       px-3 py-1 text-xs font-semibold"
+                [class]="getStatusClass(ticket()!.status)">
+
+                {{ getStatusText(ticket()!.status) }}
+
+              </span>
+
+            </div>
+
+          </div>
+
+          <!-- NOVO STATUS -->
+
+          <div class="mt-5">
+
+            <label
+              for="newStatus"
+              class="block text-sm font-medium text-gray-700">
+
+              Novo status
+
+            </label>
+
+            <select
+              id="newStatus"
+              [value]="selectedStatus()"
+              (change)="selectedStatus.set(+$any($event.target).value)"
+              [disabled]="isUpdatingStatus()"
+              class="mt-2 block w-full rounded-lg
+                     border border-gray-300 bg-white
+                     px-3 py-2.5 text-sm text-gray-700
+                     outline-none transition
+                     focus:border-blue-500
+                     focus:ring-2 focus:ring-blue-100
+                     disabled:cursor-not-allowed
+                     disabled:bg-gray-100">
+
+              <option [value]="1">
+                Aberto
+              </option>
+
+              <option [value]="2">
+                Em andamento
+              </option>
+
+              <option [value]="3">
+                Resolvido
+              </option>
+
+              <option [value]="4">
+                Fechado
+              </option>
+
+            </select>
+
+          </div>
+
+          <!-- CONFIRMAÇÃO -->
+
+          <div
+            class="mt-5 rounded-lg bg-gray-50 p-4">
+
+            <p class="text-sm text-gray-600">
+
+              Deseja realmente alterar o status deste ticket para
+
+              <span class="font-semibold text-gray-900">
+
+                @switch (selectedStatus()) {
+
+                  @case (1) {
+                    Aberto
+                  }
+
+                  @case (2) {
+                    Em andamento
+                  }
+
+                  @case (3) {
+                    Resolvido
+                  }
+
+                  @case (4) {
+                    Fechado
+                  }
+
+                }
+
+              </span>?
+
+            </p>
+
+          </div>
+
+          <!-- ERRO -->
+
+          @if (statusUpdateError()) {
+
+          <p class="mt-3 text-sm text-red-600">
+            {{ statusUpdateError() }}
+          </p>
+
+          }
+
+        </div>
+
+        <!-- FOOTER -->
+
+        <div
+          class="flex justify-end gap-3
+                 border-t border-gray-200
+                 px-6 py-4">
+
+          <button
+            type="button"
+            (click)="cancelStatusUpdate()"
+            [disabled]="isUpdatingStatus()"
+            class="rounded-lg border border-gray-300
+                   bg-white px-4 py-2 text-sm
+                   font-medium text-gray-700
+                   transition hover:bg-gray-50
+                   focus:outline-none focus:ring-2
+                   focus:ring-gray-300
+                   disabled:cursor-not-allowed
+                   disabled:opacity-50">
+
+            Cancelar
+
+          </button>
+
+          <button
+            type="button"
+            (click)="confirmStatusUpdate()"
+            [disabled]="
+              isUpdatingStatus() ||
+              selectedStatus() === undefined ||
+              selectedStatus() === getStatusValue(ticket()!.status)
+            "
+            class="inline-flex items-center gap-2
+                   rounded-lg bg-blue-600 px-4 py-2
+                   text-sm font-medium text-white
+                   transition hover:bg-blue-700
+                   focus:outline-none focus:ring-2
+                   focus:ring-blue-500 focus:ring-offset-1
+                   disabled:cursor-not-allowed
+                   disabled:opacity-50">
+
+            @if (isUpdatingStatus()) {
+
+            <div
+              class="h-4 w-4 animate-spin rounded-full
+                     border-2 border-blue-200
+                     border-t-white">
+            </div>
+
+            Salvando...
+
+            } @else {
+
+            Confirmar alteração
+
+            }
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    }
+
+    <!-- ====================================================== -->
+    <!-- MODAL - ASSUMIR TICKET -->
+    <!-- ====================================================== -->
+
+    @if (showAssignModal()) {
+
+    <div
+      class="fixed inset-0 z-50 flex items-center
+             justify-center bg-black/50 px-4"
+      (click)="cancelAssign()">
+
+      <div
+        class="w-full max-w-md rounded-xl bg-white shadow-xl"
+        (click)="$event.stopPropagation()">
+
+        <!-- HEADER -->
+
+        <div class="border-b border-gray-200 px-6 py-5">
+
+          <div class="flex items-start justify-between gap-4">
+
+            <div>
+
+              <h2 class="text-lg font-semibold text-gray-900">
+                Assumir ticket
+              </h2>
+
+              <p class="mt-1 text-sm text-gray-500">
+                Você será definido como responsável pelo atendimento.
+              </p>
+
+            </div>
+
+            <button
+              type="button"
+              (click)="cancelAssign()"
+              [disabled]="assignLoading()"
+              class="rounded-md p-1 text-gray-400
+                     transition hover:bg-gray-100
+                     hover:text-gray-600
+                     disabled:cursor-not-allowed">
+
+              <svg
+                class="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24">
+
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12" />
+
+              </svg>
+
+            </button>
+
+          </div>
+
+        </div>
+
+        <!-- CONTEÚDO -->
+
+        <div class="px-6 py-6">
+
+          @if (!assignSuccess()) {
+
+          <p class="text-sm text-gray-600">
+            Deseja realmente assumir este ticket?
+          </p>
+
+          <div
+            class="mt-4 rounded-lg bg-gray-50 p-4">
+
+            <p
+              class="text-xs font-semibold uppercase
+                     tracking-wide text-gray-500">
+
+              Ticket
+
+            </p>
+
+            <p class="mt-1 text-sm font-semibold text-gray-900">
+
+              #{{ ticket()!.id }} -
+              {{ ticket()!.title }}
+
+            </p>
+
+          </div>
+
+          }
+
+          @if (assignMessage()) {
+
+          <div
+            class="mt-4 rounded-lg p-4"
+            [class.bg-green-50]="assignSuccess()"
+            [class.bg-red-50]="assignIsError()">
+
+            <p
+              class="text-sm"
+              [class.text-green-700]="assignSuccess()"
+              [class.text-red-700]="assignIsError()">
+
+              {{ assignMessage() }}
+
+            </p>
+
+          </div>
+
+          }
+
+        </div>
+
+        <!-- FOOTER -->
+
+        <div
+          class="flex justify-end gap-3
+                 border-t border-gray-200
+                 px-6 py-4">
+
+          @if (!assignSuccess()) {
+
+          <button
+            type="button"
+            (click)="cancelAssign()"
+            [disabled]="assignLoading()"
+            class="rounded-lg border border-gray-300
+                   bg-white px-4 py-2 text-sm
+                   font-medium text-gray-700
+                   transition hover:bg-gray-50
+                   focus:outline-none focus:ring-2
+                   focus:ring-gray-300
+                   disabled:cursor-not-allowed
+                   disabled:opacity-50">
+
+            Cancelar
+
+          </button>
+
+          <button
+            type="button"
+            (click)="confirmAssign()"
+            [disabled]="assignLoading()"
+            class="inline-flex items-center gap-2
+                   rounded-lg bg-blue-600 px-4 py-2
+                   text-sm font-medium text-white
+                   transition hover:bg-blue-700
+                   focus:outline-none focus:ring-2
+                   focus:ring-blue-500
+                   focus:ring-offset-1
+                   disabled:cursor-not-allowed
+                   disabled:opacity-50">
+
+            @if (assignLoading()) {
+
+            <div
+              class="h-4 w-4 animate-spin rounded-full
+                     border-2 border-blue-200
+                     border-t-white">
+            </div>
+
+            Assumindo...
+
+            } @else {
+
+            Confirmar
+
+            }
+
+          </button>
+
+          } @else {
+
+          <button
+            type="button"
+            (click)="cancelAssign()"
+            class="rounded-lg bg-gray-800 px-4 py-2
+                   text-sm font-medium text-white
+                   transition hover:bg-gray-700
+                   focus:outline-none focus:ring-2
+                   focus:ring-gray-500">
+
+            Fechar
+
+          </button>
+
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+    }
+
+  </div>
+
+</div>

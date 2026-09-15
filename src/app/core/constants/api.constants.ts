@@ -1,5 +1,5 @@
-//export const API_BASE_URL = 'https://management-tickets-api.onrender.com';
-export const API_BASE_URL = 'https://localhost:7253';
+export const API_BASE_URL = 'https://management-tickets-api.onrender.com';
+//export const API_BASE_URL = 'https://localhost:7253';
 
 export const API_ENDPOINTS = {
   users: `${API_BASE_URL}/api/Users`,

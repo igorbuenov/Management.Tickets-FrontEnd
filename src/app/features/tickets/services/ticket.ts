@@ -241,5 +241,24 @@ export class TicketService {
     );
   }
 
+  updateTicketStatus(
+    ticketId: number,
+    status: number
+  ): Observable<void> {
+    const token = this.authService.getToken();
+
+    return this.http.patch<void>(
+      `${this.apiUrl}/${ticketId}/status`,
+      {
+        status
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }
+    );
+  }
+
 
 }
