@@ -11,6 +11,8 @@ import { API_ENDPOINTS } from '../../../core/constants/api.constants';
 })
 export class NotificationService {
 
+  private readonly apiUrl = API_ENDPOINTS.notifications;
+
   constructor(
     private readonly http: HttpClient,
     private readonly authService: AuthService
@@ -24,9 +26,24 @@ export class NotificationService {
     });
 
     return this.http.get<NotificationModel[]>(
-      API_ENDPOINTS.notifications,
+      this.apiUrl,
       { headers }
     );
   }
+
+  markAsRead(id: number): Observable<void> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.patch<void>(
+      `${this.apiUrl}/${id}/read`,
+      {},
+      { headers }
+    );
+  }
+
+
 }
 

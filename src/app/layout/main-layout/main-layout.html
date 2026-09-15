@@ -43,15 +43,17 @@
 
       <div class="px-4">
 
-        <a routerLink="/dashboard" routerLinkActive="bg-gray-800 text-white" [routerLinkActiveOptions]="{ exact: true }"
-          (click)="closeMobileMenu()" class="flex items-center gap-3 rounded-md px-3 py-2
+        <a routerLink="/dashboard" routerLinkActive="bg-gray-800 text-white"
+          [routerLinkActiveOptions]="{ exact: true }" (click)="closeMobileMenu()"
+          class="flex items-center gap-3 rounded-md px-3 py-2
                  text-sm font-medium text-gray-300
                  transition hover:bg-gray-800 hover:text-white">
 
           <!-- Dashboard icon -->
 
           <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10h14V10" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 12l9-9 9 9M5 10v10h14V10" />
           </svg>
 
           <span>Dashboard</span>
@@ -75,16 +77,19 @@
             <!-- Ticket icon -->
 
             <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5h6m-8 4h10M7 13h10M7 17h6" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 5h6m-8 4h10M7 13h10M7 17h6" />
             </svg>
 
             <span>Tickets</span>
 
           </span>
 
-          <svg class="h-4 w-4 transition-transform duration-200" [class.rotate-180]="ticketsMenuOpen()" fill="none"
+          <svg class="h-4 w-4 transition-transform duration-200"
+            [class.rotate-180]="ticketsMenuOpen()" fill="none"
             stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M19 9l-7 7-7-7" />
           </svg>
 
         </button>
@@ -94,25 +99,29 @@
 
         <div class="mt-1 space-y-1 pl-11">
 
-          <a routerLink="/tickets/assigned" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
+          <a routerLink="/tickets/assigned" routerLinkActive="text-white"
+            (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                      text-gray-400 transition
                      hover:bg-gray-800 hover:text-white">
             Atendimentos
           </a>
 
-          <a routerLink="/tickets" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
+          <a routerLink="/tickets" routerLinkActive="text-white"
+            (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                      text-gray-400 transition
                      hover:bg-gray-800 hover:text-white">
             Consultar
           </a>
 
-          <a routerLink="/tickets/create" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
+          <a routerLink="/tickets/create" routerLinkActive="text-white"
+            (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                      text-gray-400 transition
                      hover:bg-gray-800 hover:text-white">
             Criar
           </a>
 
-          <a routerLink="/tickets/get-by-userid" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
+          <a routerLink="/tickets/get-by-userid" routerLinkActive="text-white"
+            (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                      text-gray-400 transition
                      hover:bg-gray-800 hover:text-white">
             Meus Tickets
@@ -143,19 +152,22 @@
             <!-- Users icon -->
 
             <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2
-                     M9 11a4 4 0 100-8 4 4 0 000 8
-                     M22 21v-2a4 4 0 00-3-3.87
-                     M16 3.13a4 4 0 010 7.75" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2
+                   M9 11a4 4 0 100-8 4 4 0 000 8
+                   M22 21v-2a4 4 0 00-3-3.87
+                   M16 3.13a4 4 0 010 7.75" />
             </svg>
 
             <span>Usuários</span>
 
           </span>
 
-          <svg class="h-4 w-4 transition-transform duration-200" [class.rotate-180]="usersMenuOpen()" fill="none"
+          <svg class="h-4 w-4 transition-transform duration-200"
+            [class.rotate-180]="usersMenuOpen()" fill="none"
             stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M19 9l-7 7-7-7" />
           </svg>
 
         </button>
@@ -165,13 +177,15 @@
 
         <div class="mt-1 space-y-1 pl-11">
 
-          <a routerLink="/users" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
+          <a routerLink="/users" routerLinkActive="text-white"
+            (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                        text-gray-400 transition
                        hover:bg-gray-800 hover:text-white">
             Consultar
           </a>
 
-          <a routerLink="/users/create" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
+          <a routerLink="/users/create" routerLinkActive="text-white"
+            (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                        text-gray-400 transition
                        hover:bg-gray-800 hover:text-white">
             Criar
@@ -198,19 +212,22 @@
             <!-- Department icon -->
 
             <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18
-                     M5 21V9l7-4 7 4v12
-                     M9 21v-6h6v6
-                     M9 10h.01M12 10h.01M15 10h.01" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 21h18
+                   M5 21V9l7-4 7 4v12
+                   M9 21v-6h6v6
+                   M9 10h.01M12 10h.01M15 10h.01" />
             </svg>
 
             <span>Departamentos</span>
 
           </span>
 
-          <svg class="h-4 w-4 transition-transform duration-200" [class.rotate-180]="sectorsMenuOpen()" fill="none"
+          <svg class="h-4 w-4 transition-transform duration-200"
+            [class.rotate-180]="sectorsMenuOpen()" fill="none"
             stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M19 9l-7 7-7-7" />
           </svg>
 
         </button>
@@ -220,13 +237,15 @@
 
         <div class="mt-1 space-y-1 pl-11">
 
-          <a routerLink="/departments" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
+          <a routerLink="/departments" routerLinkActive="text-white"
+            (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                        text-gray-400 transition
                        hover:bg-gray-800 hover:text-white">
             Consultar
           </a>
 
-          <a routerLink="/departments/create" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
+          <a routerLink="/departments/create" routerLinkActive="text-white"
+            (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                        text-gray-400 transition
                        hover:bg-gray-800 hover:text-white">
             Criar
@@ -253,17 +272,20 @@
             <!-- Category icon -->
 
             <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V8a2 2 0 00-2-2h-5l-2-2H6a2 2 0 00-2 2v7
-                     M4 13h16l-2 7H6l-2-7z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M20 13V8a2 2 0 00-2-2h-5l-2-2H6a2 2 0 00-2 2v7
+                   M4 13h16l-2 7H6l-2-7z" />
             </svg>
 
             <span>Categorias</span>
 
           </span>
 
-          <svg class="h-4 w-4 transition-transform duration-200" [class.rotate-180]="categoriesMenuOpen()" fill="none"
+          <svg class="h-4 w-4 transition-transform duration-200"
+            [class.rotate-180]="categoriesMenuOpen()" fill="none"
             stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M19 9l-7 7-7-7" />
           </svg>
 
         </button>
@@ -273,13 +295,15 @@
 
         <div class="mt-1 space-y-1 pl-11">
 
-          <a routerLink="/categories" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
+          <a routerLink="/categories" routerLinkActive="text-white"
+            (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                        text-gray-400 transition
                        hover:bg-gray-800 hover:text-white">
             Consultar
           </a>
 
-          <a routerLink="/categories/create" routerLinkActive="text-white" (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
+          <a routerLink="/categories/create" routerLinkActive="text-white"
+            (click)="closeMobileMenu()" class="block rounded-md px-3 py-2 text-sm
                        text-gray-400 transition
                        hover:bg-gray-800 hover:text-white">
             Criar
@@ -310,7 +334,8 @@
             <!-- Notification bell -->
 
             <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11
                    a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341
                    A6.002 6.002 0 006 11v3.159
                    c0 .538-.214 1.055-.595 1.436L4 17h5
@@ -324,19 +349,19 @@
 
           <span class="flex items-center gap-2">
 
-            @if (notifications().length > 0) {
-
-            <span class="flex min-w-5 h-5 items-center justify-center
-                       rounded-full bg-red-500 px-1
-                       text-[10px] font-bold text-white">
-              {{ notifications().length }}
-            </span>
-
+            @if (unreadNotifications() > 0) {
+              <span class="flex min-w-5 h-5 items-center justify-center
+                          rounded-full bg-red-500 px-1
+                          text-[10px] font-bold text-white">
+                {{ unreadNotifications() }}
+              </span>
             }
 
-            <svg class="h-4 w-4 transition-transform duration-200" [class.rotate-180]="notificationsOpen()" fill="none"
+            <svg class="h-4 w-4 transition-transform duration-200"
+              [class.rotate-180]="notificationsOpen()" fill="none"
               stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 9l-7 7-7-7" />
             </svg>
 
           </span>
@@ -389,17 +414,46 @@
             track $index
             ) {
 
-            <div class="rounded-md px-3 py-2
-                           text-left transition
-                           hover:bg-gray-800">
+            <!-- NOTIFICAÇÃO -->
 
-              <p class="text-xs leading-5 text-gray-300">
-                {{ notification.message }}
-              </p>
+            <div
+              (click)="markNotificationAsRead(notification)"
+              class="cursor-pointer rounded-md px-3 py-2
+                     text-left transition hover:bg-gray-800"
+              [class.bg-gray-800]="!notification.isRead"
+              [class.bg-gray-900]="notification.isRead">
 
-              <p class="mt-1 text-[10px] text-gray-500">
-                {{ notification.createdAt }}
-              </p>
+              <!-- Conteúdo -->
+
+              <div class="flex items-start gap-2">
+
+                <!-- Indicador de não lida -->
+
+                @if (!notification.isRead) {
+
+                <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-blue-500"></span>
+
+                }
+
+                <div class="min-w-0 flex-1">
+
+                  <p
+                    class="text-xs leading-5"
+                    [class.font-semibold]="!notification.isRead"
+                    [class.text-gray-200]="!notification.isRead"
+                    [class.text-gray-400]="notification.isRead">
+
+                    {{ notification.message }}
+
+                  </p>
+
+                  <p class="mt-1 text-[10px] text-gray-500">
+                    {{ notification.createdAt }}
+                  </p>
+
+                </div>
+
+              </div>
 
             </div>
 
@@ -432,7 +486,8 @@
         <!-- Logout icon -->
 
         <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M17 16l4-4m0 0l-4-4m4 4H7
                m6 4v1a2 2 0 01-2 2H5
                a2 2 0 01-2-2V7a2 2 0 012-2h6
                a2 2 0 012 2v1" />
@@ -462,7 +517,8 @@
           lg:hidden" aria-label="Abrir menu">
 
     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M4 6h16M4 12h16M4 18h16" />
     </svg>
 
   </button>
@@ -474,7 +530,8 @@
 
   @if (mobileMenuOpen()) {
 
-  <div class="fixed inset-0 z-20 bg-black/50 lg:hidden" (click)="closeMobileMenu()"></div>
+  <div class="fixed inset-0 z-20 bg-black/50 lg:hidden"
+    (click)="closeMobileMenu()"></div>
 
   }
 

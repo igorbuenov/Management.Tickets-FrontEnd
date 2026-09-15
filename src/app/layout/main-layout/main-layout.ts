@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import {
   RouterLink,
   RouterLinkActive,
@@ -90,6 +90,33 @@ export class MainLayoutComponent implements OnInit {
         this.notificationsLoading.set(false);
       }
     });
+  }
+
+  unreadNotifications = computed(() =>
+    this.notifications().filter(
+      notification => !notification.isRead
+    ).length
+  );
+
+  markNotificationAsRead(
+    notification: NotificationModel
+  ): void {
+
+    if (notification.isRead) {
+      return;
+    }
+
+    this.notificationService
+      .markAsRead(notification.id)
+      .subscribe({
+        next: () => {
+          this.notifications.update(notifications =>
+            notifications.filter(
+              item => item.id !== notification.id
+            )
+          );
+        }
+      });
   }
 
   toggleNotifications(): void {
