@@ -1,7 +1,7 @@
 import { Component, OnInit, computed, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-
+import { AuthService } from '../../../auth/services/auth';
 import { TicketModel } from '../../models/ticket';
 import { TicketService } from '../../services/ticket';
 
@@ -64,7 +64,8 @@ export class TicketListComponent implements OnInit {
   });
 
   constructor(
-    private readonly ticketService: TicketService
+    private readonly ticketService: TicketService,
+    private readonly authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -74,13 +75,25 @@ export class TicketListComponent implements OnInit {
   loadTickets(): void {
     this.isLoading.set(true);
 
-    this.ticketService.getTickets(
-      this.currentPage(),
-      this.pageSize(),
-      this.search(),
-      this.priority(),
-      this.status()
-    ).subscribe({
+    const role = this.authService.getUserRole();
+
+    const request = role === 'Technician'
+      ? this.ticketService.getTicketsByDepartment(
+          this.currentPage(),
+          this.pageSize(),
+          this.search(),
+          this.priority(),
+          this.status()
+        )
+      : this.ticketService.getTickets(
+          this.currentPage(),
+          this.pageSize(),
+          this.search(),
+          this.priority(),
+          this.status()
+        );
+
+    request.subscribe({
       next: (response) => {
         this.tickets.set(response.items);
         this.currentPage.set(response.page);
@@ -94,7 +107,6 @@ export class TicketListComponent implements OnInit {
           response
         );
       },
-
       error: (error) => {
         console.error(
           'Erro ao carregar tickets:',

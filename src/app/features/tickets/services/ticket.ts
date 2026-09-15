@@ -204,4 +204,42 @@ export class TicketService {
       }
     );
   }
+
+  getTicketsByDepartment(
+    page: number = 1,
+    pageSize: number = 10,
+    title: string = '',
+    priority?: number,
+    status?: number
+  ) {
+    const token = this.authService.getToken();
+
+    let params = new HttpParams()
+      .set('page', page)
+      .set('pageSize', pageSize);
+
+    if (title.trim()) {
+      params = params.set('title', title.trim());
+    }
+
+    if (priority !== undefined) {
+      params = params.set('priority', priority);
+    }
+
+    if (status !== undefined) {
+      params = params.set('status', status);
+    }
+
+    return this.http.get<TicketListResponseModel>(
+      `${this.apiUrl}/by-department`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        params
+      }
+    );
+  }
+
+
 }
