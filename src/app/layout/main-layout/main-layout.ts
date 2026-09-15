@@ -30,6 +30,7 @@ export class MainLayoutComponent implements OnInit {
   sectorsMenuOpen = signal(false);
   categoriesMenuOpen = signal(false);
   isAdmin = signal(false);
+  isTechnician = signal(false);
   notifications = signal<NotificationModel[]>([]);
   notificationsLoading = signal(false);
   notificationsError = signal(false);
@@ -41,7 +42,10 @@ export class MainLayoutComponent implements OnInit {
     private authService: AuthService,
     private readonly notificationService: NotificationService
   ) {
-    this.isAdmin.set(this.authService.getUserRole() === 'Admin');
+    const role = this.authService.getUserRole();
+
+    this.isAdmin.set(role === 'Admin');
+    this.isTechnician.set(role === 'Technician');
   }
 
   ngOnInit(): void {
